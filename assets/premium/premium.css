@@ -23,6 +23,11 @@
 
     --grad-brand: linear-gradient(135deg, var(--cz-purple2) 0%, var(--cz-violet) 55%, var(--cz-lilac) 100%);
     --grad-brand-flat: linear-gradient(90deg, var(--cz-purple2) 0%, var(--cz-violet) 80%);
+    /* Richer four-stop version used on primary CTAs and active controls —
+       adds a deep plum floor and a lilac lift so the fill reads with more
+       depth than a two-stop ramp, without pushing saturation higher. */
+    --grad-brand-deep: linear-gradient(118deg, #4A1178 0%, var(--cz-purple2) 32%, var(--cz-violet) 68%, #A63BF5 100%);
+    --grad-brand-deep-hover: linear-gradient(118deg, #5A1690 0%, #7B2BBE 32%, #9412F0 68%, #B865F8 100%);
     --grad-text: linear-gradient(90deg, #fff 0%, var(--cz-lilac) 55%, var(--cz-violet2) 100%);
     --grad-soft: linear-gradient(135deg, rgba(110, 37, 164, .10), rgba(179, 91, 243, .12));
     --shadow-violet: 0 20px 45px -18px rgba(88, 10, 157, .45);
@@ -58,6 +63,12 @@
     /* Shopping bag / close — side-cart drawer */
     --icon-bag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 7.5h13l1.1 12.2a1.6 1.6 0 0 1-1.6 1.8H6a1.6 1.6 0 0 1-1.6-1.8Z'/%3E%3Cpath d='M8.8 10V6.2a3.2 3.2 0 0 1 6.4 0V10'/%3E%3C/svg%3E");
     --icon-cross: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3C/svg%3E");
+    /* Plus separator — Golden Pass tiers */
+    --icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
+    /* Gold coin — Golden Pass heading (replaces the missing animated GIF) */
+    --icon-coin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23FCEBA4'/%3E%3Cstop offset='.45' stop-color='%23E3B84A'/%3E%3Cstop offset='1' stop-color='%23B8862B'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23FFF7D6'/%3E%3Cstop offset='1' stop-color='%23D8A93C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='24' cy='24' rx='15' ry='19' fill='url(%23g)'/%3E%3Cellipse cx='24' cy='24' rx='10.5' ry='14.5' fill='none' stroke='url(%23h)' stroke-width='1.6' opacity='.85'/%3E%3Cellipse cx='19.5' cy='19' rx='3.2' ry='5' fill='%23FFF9E3' opacity='.55'/%3E%3C/svg%3E");
+    /* Sparkle field — Golden Pass gold stub */
+    --texture-sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 210'%3E%3Cg fill='%23FFFDF0'%3E%3Cpath d='M30 22 31.5 27.5 37 29 31.5 30.5 30 36 28.5 30.5 23 29 28.5 27.5Z' opacity='.9'/%3E%3Cpath d='M160 48 161.2 52.4 165.6 53.6 161.2 54.8 160 59.2 158.8 54.8 154.4 53.6 158.8 52.4Z' opacity='.75'/%3E%3Cpath d='M74 96 75 99.6 78.6 100.6 75 101.6 74 105.2 73 101.6 69.4 100.6 73 99.6Z' opacity='.8'/%3E%3Cpath d='M182 128 183.4 133 188.4 134.4 183.4 135.8 182 140.8 180.6 135.8 175.6 134.4 180.6 133Z' opacity='.65'/%3E%3Cpath d='M46 158 47.2 162.2 51.4 163.4 47.2 164.6 46 168.8 44.8 164.6 40.6 163.4 44.8 162.2Z' opacity='.85'/%3E%3Cpath d='M120 182 121 185.6 124.6 186.6 121 187.6 120 191.2 119 187.6 115.4 186.6 119 185.6Z' opacity='.7'/%3E%3Ccircle cx='96' cy='40' r='1.6' opacity='.7'/%3E%3Ccircle cx='140' cy='96' r='1.4' opacity='.6'/%3E%3Ccircle cx='58' cy='120' r='1.5' opacity='.65'/%3E%3Ccircle cx='168' cy='176' r='1.3' opacity='.55'/%3E%3C/g%3E%3C/svg%3E");
     /* Four-point diamond — Pro Packs ticker separator */
     --icon-diamond: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' stroke='none'%3E%3Cpath d='M12 0c.7 5.9 5.4 10.6 12 12-6.6 1.4-11.3 6.1-12 12-.7-5.9-5.4-10.6-12-12C6.6 10.6 11.3 5.9 12 0Z'/%3E%3C/svg%3E");
     /* Filled check badge — Discover Value Pack feature bullets */
@@ -303,8 +314,61 @@ header.site-header.cz-scrolled {
     box-shadow: 0 10px 30px -18px rgba(41, 12, 71, .35);
 }
 
+/* Logo.
+   corizo_logo.webp is a 1536x1024 canvas with the artwork occupying only
+   1013x255 at offset (261,350) — rendering it raw would give a ~107px-tall
+   header of mostly empty space. These percentages crop to the measured
+   artwork box and scale with the container, so the logo stays crisp and
+   correctly proportioned at every breakpoint. */
+.hdr-logo {
+    width: 172px;
+    aspect-ratio: 1013 / 255;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.hdr-logo a {
+    display: block;
+}
+
+.hdr-logo img {
+    display: block;
+    width: 151.63%;
+    height: auto;
+    max-width: none;
+    margin-left: -25.77%;
+    margin-top: -34.55%;
+}
+
+/* Nav: logo pinned left, everything else in one right-aligned cluster. */
+.hdr-wrapper {
+    justify-content: flex-start;
+    gap: 32px;
+    flex-wrap: nowrap;
+}
+
+.hdr-wrapper .hdr-nav {
+    margin-left: auto;
+}
+
+.hdr-wrapper .hdr-btns {
+    flex: 0 0 auto;
+    gap: 8px;
+}
+
+/* The CTAs were visually outweighing the nav links; bring them down to a
+   size that sits with the 17px link text rather than shouting over it. */
+a.login-btn,
+a.cont-btn {
+    font-size: 15px;
+    padding: 9px 20px;
+    border-radius: 8px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
 a.login-btn {
-    transition: transform .35s var(--ease-premium), box-shadow .35s var(--ease-premium);
+    transition: transform .25s ease, box-shadow .25s ease, background-position .25s ease;
 }
 
 a.login-btn:hover {
@@ -312,16 +376,219 @@ a.login-btn:hover {
     box-shadow: var(--shadow-violet-soft);
 }
 
-/* ---- Hero ---------------------------------------------------------------- */
+a.cont-btn {
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, color .25s ease;
+}
+
+a.cont-btn:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 1199px) {
+    .hdr-logo { width: 150px; }
+    .hdr-wrapper { gap: 20px; }
+    a.login-btn,
+    a.cont-btn { font-size: 14px; padding: 8px 16px; }
+}
+
+@media (max-width: 991px) {
+    .hdr-logo { width: 138px; }
+}
+
+@media (max-width: 767px) {
+    .hdr-logo { width: 126px; }
+}
+
+/* ---- Animated aurora background system -------------------------------------
+   A single reusable flowing-gradient language, shared by the hero + brand
+   strip (one continuous canvas), Explore Programs, and the footer.
+
+   How the "no visible loop" works: four gradient blobs each drift on their
+   own keyframe with deliberately co-prime-ish durations (37s / 43s / 53s /
+   61s). Because the periods never line up, the composite pattern does not
+   visually repeat for well over an hour, so there is no perceivable loop
+   point. Each blob also eases in place rather than translating linearly,
+   which reads as organic drift rather than a sliding texture. */
+
+@keyframes cz-aurora-1 {
+    0%   { transform: translate3d(-6%, -4%, 0) scale(1); }
+    33%  { transform: translate3d(5%, 6%, 0) scale(1.14); }
+    66%  { transform: translate3d(8%, -5%, 0) scale(1.05); }
+    100% { transform: translate3d(-6%, -4%, 0) scale(1); }
+}
+
+@keyframes cz-aurora-2 {
+    0%   { transform: translate3d(6%, 5%, 0) scale(1.08); }
+    40%  { transform: translate3d(-7%, -3%, 0) scale(1); }
+    70%  { transform: translate3d(-2%, 7%, 0) scale(1.16); }
+    100% { transform: translate3d(6%, 5%, 0) scale(1.08); }
+}
+
+@keyframes cz-aurora-3 {
+    0%   { transform: translate3d(-4%, 7%, 0) scale(1.1); }
+    45%  { transform: translate3d(7%, -6%, 0) scale(1); }
+    80%  { transform: translate3d(-6%, -2%, 0) scale(1.12); }
+    100% { transform: translate3d(-4%, 7%, 0) scale(1.1); }
+}
+
+/* Slow horizontal travel for the topographic wave layer */
+@keyframes cz-wave-drift {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 1200px 0, -900px 0; }
+}
+
+.cz-aurora {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.cz-aurora > .cz-aurora-layer {
+    position: absolute;
+    inset: -25%;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* soft topographic wave bands, masked so they only whisper */
+.cz-aurora > .cz-aurora-waves {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(78deg, transparent 0 38px, rgba(255, 255, 255, .05) 38px 39px, transparent 39px 92px),
+        repeating-linear-gradient(102deg, transparent 0 54px, rgba(179, 91, 243, .07) 54px 55px, transparent 55px 128px);
+    animation: cz-wave-drift 90s linear infinite;
+}
+
+.cz-aurora > *:not(.cz-aurora-layer):not(.cz-aurora-waves) {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cz-aurora > .cz-aurora-layer,
+    .cz-aurora > .cz-aurora-waves {
+        animation: none;
+    }
+}
+
+/* ---- Hero + brand strip: one continuous canvas ------------------------------
+   The hero and "Secure Placements" strip previously had two unrelated
+   backgrounds (dark gradient, then flat #f2f2fe) which read as two stacked
+   slabs. They now sit inside one .cz-canvas element sharing a single aurora,
+   with the base gradient easing from deep violet into near-black and then
+   lifting again, so the seam between them disappears. */
+.cz-canvas {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+        linear-gradient(172deg,
+            #35235F 0%,
+            #201545 18%,
+            #150E33 38%,
+            #241858 52%,
+            #4B3C86 63%,
+            #9E8FD0 72%,
+            #DCD8F4 80%,
+            #f2f2fe 88%,
+            #f2f2fe 100%);
+}
+
+/* Veil: sits above the drifting blobs but below content, fading the aurora
+   out as the canvas eases into the light brand strip. This is what makes
+   hero → "Secure Placements" read as one continuous surface instead of a
+   dark slab stacked on a light slab. */
+.cz-canvas::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg,
+        transparent 0%,
+        transparent 46%,
+        rgba(242, 242, 254, .35) 62%,
+        rgba(242, 242, 254, .8) 74%,
+        #f2f2fe 84%);
+}
+
+.cz-canvas .cz-aurora-layer {
+    position: absolute;
+    inset: -25%;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.cz-canvas .cz-blob-1 {
+    background: radial-gradient(closest-side, rgba(179, 91, 243, .40), transparent 72%);
+    width: 70%; height: 65%; top: -8%; left: -6%;
+    filter: blur(60px);
+    animation: cz-aurora-1 37s ease-in-out infinite;
+}
+
+.cz-canvas .cz-blob-2 {
+    background: radial-gradient(closest-side, rgba(133, 8, 225, .38), transparent 72%);
+    width: 62%; height: 58%; top: 18%; right: -10%; left: auto;
+    filter: blur(70px);
+    animation: cz-aurora-2 43s ease-in-out infinite;
+}
+
+.cz-canvas .cz-blob-3 {
+    background: radial-gradient(closest-side, rgba(110, 37, 164, .42), transparent 72%);
+    width: 75%; height: 60%; bottom: -12%; left: 8%; top: auto;
+    filter: blur(75px);
+    animation: cz-aurora-3 53s ease-in-out infinite;
+}
+
+.cz-canvas .cz-blob-4 {
+    background: radial-gradient(closest-side, rgba(93, 141, 240, .22), transparent 72%);
+    width: 55%; height: 50%; bottom: 4%; right: 6%; left: auto; top: auto;
+    filter: blur(80px);
+    animation: cz-aurora-1 61s ease-in-out infinite reverse;
+}
+
+.cz-canvas .cz-aurora-waves {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(78deg, transparent 0 38px, rgba(255, 255, 255, .045) 38px 39px, transparent 39px 92px),
+        repeating-linear-gradient(102deg, transparent 0 54px, rgba(179, 91, 243, .06) 54px 55px, transparent 55px 128px);
+    animation: cz-wave-drift 90s linear infinite;
+}
+
+.cz-canvas .cz-aurora-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--texture-grain);
+    background-size: 160px 160px;
+    opacity: .045;
+    mix-blend-mode: overlay;
+}
+
+.cz-canvas > .hero-section,
+.cz-canvas > .brands-sect {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cz-canvas .cz-aurora-layer,
+    .cz-canvas .cz-aurora-waves { animation: none; }
+}
 
 .hero-section {
     position: relative;
-    overflow: hidden;
     isolation: isolate;
-    background:
-        radial-gradient(60% 80% at 15% 20%, rgba(179, 91, 243, .28), transparent 60%),
-        radial-gradient(50% 70% at 85% 85%, rgba(133, 8, 225, .30), transparent 65%),
-        linear-gradient(120deg, var(--cz-deep) 0%, #000 75%);
+    background: transparent;
 }
 
 .hero-section::before {
@@ -331,28 +598,20 @@ a.login-btn:hover {
     z-index: 0;
     pointer-events: none;
     background-image:
-        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
     background-size: 46px 46px;
     mask-image: radial-gradient(80% 80% at 50% 30%, #000 30%, transparent 80%);
-    animation: cz-drift-a 30s ease-in-out infinite;
-}
-
-.hero-section::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image: var(--texture-grain);
-    background-size: 160px 160px;
-    opacity: .04;
-    mix-blend-mode: overlay;
+    -webkit-mask-image: radial-gradient(80% 80% at 50% 30%, #000 30%, transparent 80%);
 }
 
 .hero-section .container {
     position: relative;
     z-index: 1;
+}
+
+.brands-sect {
+    padding-bottom: 96px;
 }
 
 .bnr_caption .hero-heading,
@@ -387,6 +646,18 @@ a.login-btn:hover {
    ::before arrow rendered *before* the label and was nudged with a
    vertical-align hack, which is why it sat wrong. */
 .bnr-links a,
+.pass-lnk a,
+a.login-btn,
+.view-btns a.view-link,
+.hire-contact a,
+.more-btn a,
+.nwsletr-form input[type="submit"] {
+    background-image: var(--grad-brand-deep);
+    background-size: 175% 100%;
+    background-position: 0% 0%;
+}
+
+.bnr-links a,
 .pass-lnk a {
     display: inline-flex;
     align-items: center;
@@ -394,21 +665,37 @@ a.login-btn:hover {
     gap: 8px;
     box-shadow: var(--shadow-violet-soft);
     transition: transform .25s ease, box-shadow .25s ease, background-position .25s ease;
-    background-size: 140% 100%;
-    background-position: 0% 0%;
     will-change: transform;
 }
 
 /* The theme swaps the gradient for a flat #6E25A4 on hover, which would make
-   the gradient shift snap instead of glide. Keep the gradient. */
+   the gradient shift snap instead of glide. Keep the gradient and simply
+   travel across the wider ramp so the colour deepens as it moves. */
 .bnr-links a:hover,
 .pass-lnk a:hover,
 .bnr-links a:focus-visible,
 .pass-lnk a:focus-visible {
     transform: scale(1.02);
     box-shadow: var(--shadow-violet);
-    background: linear-gradient(90deg, rgba(110, 37, 164, 1) 0%, rgba(133, 8, 225, 1) 80%);
-    background-size: 140% 100%;
+    background-image: var(--grad-brand-deep-hover);
+    background-size: 175% 100%;
+    background-position: 100% 0%;
+}
+
+a.login-btn {
+    background-size: 175% 100%;
+    transition: transform .25s ease, box-shadow .25s ease, background-position .25s ease;
+}
+
+a.login-btn:hover {
+    background-image: var(--grad-brand-deep-hover);
+    background-position: 100% 0%;
+}
+
+.view-btns a.view-link:hover,
+.more-btn a:hover,
+.nwsletr-form input[type="submit"]:hover {
+    background-image: var(--grad-brand-deep-hover);
     background-position: 100% 0%;
 }
 
@@ -458,9 +745,13 @@ a.login-btn:hover {
 .cz-marquee-group {
     display: flex;
     flex-shrink: 0;
-    gap: 8px;
-    padding-right: 8px;
+    align-items: center;
+    gap: 56px;
+    padding-right: 56px;
 }
+
+/* Breathing room between the two counter-running strips */
+#logo-slider01 { margin-bottom: 28px; }
 
 @keyframes cz-marquee-scroll {
     from { transform: translate3d(0, 0, 0); }
@@ -476,29 +767,195 @@ a.login-btn:hover {
     }
 }
 
+/* The supplied brand logos are not transparent — each is dark artwork on a
+   baked-in white plate (~85% white pixels). Dropping the card styling alone
+   would still leave a white rectangle, so the plate is dissolved with
+   `mix-blend-mode: multiply`: against the light lavender the white multiplies
+   away to nothing while the artwork survives. That is why the canvas eases to
+   a light tone here rather than staying dark. */
 .logo-item {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    background: #fff;
-    border-radius: 8px;
-    padding: 8px;
-    box-shadow: 0 10px 26px -16px rgba(41, 12, 71, .28);
-    transition: transform .25s ease, box-shadow .25s ease;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    transition: transform .25s ease, opacity .25s ease;
 }
 
 .logo-item img {
     display: block;
-    width: 165px;
-    height: 89px;
+    width: 150px;
+    height: 80px;
     object-fit: contain;
-    border-radius: 4px;
+    border-radius: 0;
+    mix-blend-mode: multiply;
+    opacity: .82;
+    transition: opacity .25s ease;
 }
 
 .logo-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-violet-soft);
+    transform: translateY(-3px);
+}
+
+.logo-item:hover img {
+    opacity: 1;
+}
+
+/* ---- Successful Transitions ------------------------------------------------
+   The cards were flat white rectangles with a hard 1px purple outline and a
+   blunt drop shadow, all animating as one block. This gives them a layered
+   read: a soft gradient surface, a gradient ring on the avatar, elevation
+   that responds to hover, and a staged reveal so the avatar, name and the
+   before/after row arrive in sequence rather than all at once. */
+.transitions-sect {
+    padding-top: 8px;
+}
+
+#transit-slider .owl-stage {
+    display: flex;
+    align-items: stretch;
+    padding: 24px 0 40px;
+}
+
+#transit-slider .owl-item {
+    display: flex;
+}
+
+.transit-items {
+    border: 1px solid rgba(112, 34, 169, .18);
+    border-radius: 28px;
+    background:
+        linear-gradient(180deg, #fff 0%, #FCFBFF 60%, #F7F4FE 100%);
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .05),
+        0 14px 34px -20px rgba(41, 12, 71, .28);
+    padding-bottom: 28px;
+    position: relative;
+    isolation: isolate;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+/* gradient ring that fades up on hover */
+.transit-items::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--grad-brand);
+    opacity: 0;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: opacity .3s ease;
+}
+
+.transit-items:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 2px 4px rgba(41, 12, 71, .06),
+        0 28px 54px -22px rgba(88, 10, 157, .42);
+    border-color: transparent;
+}
+
+.transit-items:hover::before {
+    opacity: 1;
+}
+
+/* Avatar: gradient halo + gentle lift, giving the card a clear focal point */
+.transit-items .profile-img {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    transition: transform .3s ease;
+}
+
+.transit-items .profile-img::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: var(--grad-brand);
+    opacity: .18;
+    z-index: -1;
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+.transit-items:hover .profile-img {
+    transform: translateY(-4px) scale(1.03);
+}
+
+.transit-items:hover .profile-img::before {
+    opacity: .38;
+    transform: scale(1.06);
+}
+
+.transit-items .profile-img img {
+    border-radius: 50%;
+    box-shadow: 0 10px 24px -12px rgba(41, 12, 71, .45);
+}
+
+/* Company chip */
+.transit-items .txt_icon {
+    border-color: rgba(112, 34, 169, .16);
+    box-shadow: 0 2px 8px -4px rgba(41, 12, 71, .22);
+    background: #fff;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.transit-items:hover .txt_icon {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -10px rgba(88, 10, 157, .4);
+}
+
+/* Before / after row */
+.pro-after-sect .badge {
+    background: rgba(112, 34, 169, .07);
+    color: var(--cz-purple2);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: .06em;
+    border-radius: 999px;
+    padding: 5px 12px;
+}
+
+.pro-after-sect .aftr-rht .badge {
+    background: var(--grad-brand-deep);
+    color: #fff;
+    box-shadow: 0 6px 16px -8px rgba(133, 8, 225, .7);
+}
+
+.pro-after-sect .mid-icon {
+    opacity: .75;
+}
+
+/* Staged reveal: avatar → identity → outcome */
+@keyframes cz-transit-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.owl-item.active .transit-items .profile-img,
+.owl-item.active .transit-items .name_txt,
+.owl-item.active .transit-items .pro_txt,
+.owl-item.active .transit-items .txt_icon,
+.owl-item.active .transit-items .pro-after-sect {
+    animation: cz-transit-in .6s var(--ease-premium) both;
+}
+
+.owl-item.active .transit-items .profile-img    { animation-delay: .02s; }
+.owl-item.active .transit-items .name_txt       { animation-delay: .09s; }
+.owl-item.active .transit-items .pro_txt        { animation-delay: .13s; }
+.owl-item.active .transit-items .txt_icon       { animation-delay: .18s; }
+.owl-item.active .transit-items .pro-after-sect { animation-delay: .24s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .owl-item.active .transit-items > * { animation: none; }
 }
 
 /* ---- Counters ------------------------------------------------------------ */
@@ -551,6 +1008,64 @@ a.login-btn:hover {
     -webkit-text-fill-color: transparent;
 }
 
+/* ---- Explore Programs ------------------------------------------------------
+   Same aurora language as the hero canvas, same drift speeds, tuned darker so
+   the cards and filter controls keep their contrast. */
+.cz-aurora-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.cz-aurora-section > .cz-aurora-layer {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.cz-aurora-section > .cz-aurora-waves {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(78deg, transparent 0 38px, rgba(255, 255, 255, .035) 38px 39px, transparent 39px 92px),
+        repeating-linear-gradient(102deg, transparent 0 54px, rgba(179, 91, 243, .05) 54px 55px, transparent 55px 128px);
+    animation: cz-wave-drift 90s linear infinite;
+}
+
+.cz-aurora-section > .cz-blob-1 {
+    background: radial-gradient(closest-side, rgba(179, 91, 243, .30), transparent 72%);
+    width: 65%; height: 60%; top: -10%; left: -8%;
+    filter: blur(70px);
+    animation: cz-aurora-1 37s ease-in-out infinite;
+}
+
+.cz-aurora-section > .cz-blob-2 {
+    background: radial-gradient(closest-side, rgba(133, 8, 225, .28), transparent 72%);
+    width: 60%; height: 55%; top: 25%; right: -10%;
+    filter: blur(80px);
+    animation: cz-aurora-2 43s ease-in-out infinite;
+}
+
+.cz-aurora-section > .cz-blob-3 {
+    background: radial-gradient(closest-side, rgba(110, 37, 164, .32), transparent 72%);
+    width: 70%; height: 55%; bottom: -10%; left: 10%;
+    filter: blur(85px);
+    animation: cz-aurora-3 53s ease-in-out infinite;
+}
+
+.cz-aurora-section > .container {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cz-aurora-section > .cz-aurora-layer,
+    .cz-aurora-section > .cz-aurora-waves { animation: none; }
+}
+
 /* ---- Explore Programs tabs ------------------------------------------------ */
 
 /* Filters sit ABOVE the cards as a single horizontal row, not as a sidebar
@@ -573,58 +1088,109 @@ a.login-btn:hover {
     margin: 0;
 }
 
+/* Filter controls: an even 3-per-row grid of wide rectangles, so every
+   control shares one width and one height regardless of label length. */
 .tab-wrapper ul.nav-pills {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     padding: 0;
     margin: 0;
 }
 
 .tab-wrapper ul.nav-pills li {
-    flex: 0 1 auto;
+    display: flex;
 }
 
 .tab-wrapper ul.nav-pills li a {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    height: 48px;
-    padding: 0 24px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, .14);
-    background: rgba(255, 255, 255, .06);
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    height: 64px;
+    padding: 0 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    color: rgba(255, 255, 255, .75);
+    color: rgba(255, 255, 255, .74);
     font-size: 16px;
-    line-height: 1;
+    font-weight: 500;
+    line-height: 1.2;
     white-space: nowrap;
     position: relative;
-    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+    overflow: hidden;
+    transition: background .25s ease, color .25s ease, border-color .25s ease,
+                transform .25s ease, box-shadow .25s ease;
 }
 
-/* the theme puts a Font Awesome caret in ::after; not wanted on a pill */
+/* the theme puts a Font Awesome caret in ::after; repurposed as a soft
+   gradient wash that fades in behind the label on hover/active */
 .tab-wrapper ul.nav-pills li a::after {
-    content: none;
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(110, 37, 164, .55), rgba(133, 8, 225, .35));
+    opacity: 0;
+    transition: opacity .25s ease;
+    text-shadow: none;
+    width: auto;
+    height: auto;
+    margin: 0;
+    transform: none;
 }
 
 .tab-wrapper ul.nav-pills li a:hover {
-    background: rgba(255, 255, 255, .12);
-    border-color: rgba(255, 255, 255, .24);
+    background: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .22);
     color: #fff;
     transform: translateY(-2px);
+    box-shadow: 0 10px 26px -16px rgba(0, 0, 0, .6);
 }
 
-.tab-wrapper ul.nav-pills li.active a,
+/* Active state is driven ONLY by `a.active`.
+   The markup previously also carried `class="active"` on the <li>, but
+   Bootstrap's tab plugin only ever moves `.active` between the <a> elements —
+   it never touches the <li>. That stale class kept "Tech & Data" permanently
+   highlighted while a second tab also lit up. Styling the anchor alone means
+   exactly one control can be active at any time. */
 .tab-wrapper ul.nav-pills li a.active {
-    background: var(--grad-brand-flat);
-    border-color: transparent;
+    background: var(--grad-brand-deep);
+    border-color: rgba(179, 91, 243, .5);
     color: #fff;
-    box-shadow: var(--shadow-violet-soft);
+    box-shadow: 0 14px 30px -14px rgba(133, 8, 225, .75);
+    transform: none;
+}
+
+.tab-wrapper ul.nav-pills li a.active::after {
+    opacity: 1;
+}
+
+.tab-wrapper ul.nav-pills li a.active::before {
+    opacity: 1;
+}
+
+@media (max-width: 991px) {
+    .tab-wrapper ul.nav-pills {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .tab-wrapper ul.nav-pills li a {
+        height: 58px;
+        font-size: 15px;
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 575px) {
+    .tab-wrapper ul.nav-pills {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Category pills: swap the raster icons for masked custom SVGs so they can
@@ -793,6 +1359,116 @@ a.login-btn:hover {
     background-size: 160px 160px;
     opacity: .045;
     mix-blend-mode: overlay;
+}
+
+/* ---- Golden Pass -----------------------------------------------------------
+   course-bg01/02/03.jpg and the coin animation GIF were never captured by the
+   original scrape (the files are absent), which is why the three tier cards
+   rendered as bare boxes and the heading had a blank gap beside it. The card
+   artwork is rebuilt as layered CSS mesh gradients — crisper than the source
+   JPEGs, no extra requests — and the coin is now an inline-masked SVG. */
+
+.col-blue,
+.col-orng,
+.col-grn {
+    padding: 22px 30px;
+    border-radius: 10px;
+    min-width: 170px;
+    box-shadow: 0 12px 30px -14px rgba(0, 0, 0, .65), inset 0 1px 0 rgba(255, 255, 255, .18);
+    isolation: isolate;
+}
+
+.col-blue::after,
+.col-orng::after,
+.col-grn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-image: var(--texture-grain);
+    background-size: 160px 160px;
+    opacity: .07;
+    mix-blend-mode: overlay;
+}
+
+.col-blue {
+    background:
+        radial-gradient(120% 90% at 12% 8%, rgba(96, 165, 250, .95), transparent 62%),
+        radial-gradient(110% 95% at 88% 92%, rgba(76, 60, 190, .95), transparent 60%),
+        linear-gradient(140deg, #2E5FD8 0%, #2A3A9E 55%, #4B37B0 100%);
+}
+
+.col-orng {
+    background:
+        radial-gradient(120% 90% at 14% 10%, rgba(253, 186, 116, .95), transparent 62%),
+        radial-gradient(110% 95% at 86% 90%, rgba(217, 88, 24, .95), transparent 60%),
+        linear-gradient(140deg, #F9A03C 0%, #F07C1E 55%, #D2601A 100%);
+}
+
+.col-grn {
+    background:
+        radial-gradient(120% 90% at 12% 10%, rgba(110, 231, 183, .9), transparent 62%),
+        radial-gradient(110% 95% at 88% 90%, rgba(15, 118, 110, .95), transparent 60%),
+        linear-gradient(140deg, #34A780 0%, #2E8F72 55%, #1F6E5C 100%);
+}
+
+/* "+" separators between the tiers */
+.course-col::after {
+    content: '';
+    width: 15px;
+    height: 15px;
+    margin: 0 22px;
+    background-color: rgba(255, 255, 255, .82);
+    -webkit-mask: var(--icon-plus) center / contain no-repeat;
+    mask: var(--icon-plus) center / contain no-repeat;
+    font-size: 0;
+}
+
+/* Gold coin beside the "Golden Pass" title (replaces the missing GIF) */
+.golden-pass h3::after {
+    content: '';
+    display: inline-block;
+    background: none;
+    width: 38px;
+    height: 38px;
+    margin: 0 0 0 14px;
+    flex: 0 0 auto;
+    background-image: var(--icon-coin);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.golden-pass h3 {
+    gap: 0;
+}
+
+/* Sparkle dusting on the gold "LIFE - TIME ACCESS" stub */
+.access-sect {
+    position: relative;
+    overflow: hidden;
+}
+
+.access-sect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: var(--texture-sparkle);
+    background-size: 210px 210px;
+    opacity: .55;
+    animation: cz-sparkle-drift 26s ease-in-out infinite;
+}
+
+@keyframes cz-sparkle-drift {
+    0%, 100% { opacity: .4; transform: translate3d(0, 0, 0); }
+    50%      { opacity: .7; transform: translate3d(0, -6px, 0); }
+}
+
+.access-sect p {
+    position: relative;
+    z-index: 1;
 }
 
 .golden-pass,
@@ -1144,22 +1820,63 @@ footer.site-footer::before {
 .ftr-wrapper .ftr-col:nth-child(4) { transition-delay: .3s; }
 .ftr-wrapper .ftr-col:nth-child(5) { transition-delay: .4s; }
 
-footer.site-footer::after {
-    content: '';
+/* Footer carries the same aurora language as the hero, held in the deep
+   blue/indigo end of the palette so it reads as the page settling rather
+   than restating the hero. Same drift durations, so the whole page shares
+   one continuous sense of motion. */
+footer.site-footer {
+    background:
+        linear-gradient(200deg, #241A44 0%, #291E46 35%, #1E1740 68%, #2A1F52 100%);
+}
+
+footer.site-footer .cz-aurora-layer {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+footer.site-footer .cz-blob-1 {
+    background: radial-gradient(closest-side, rgba(93, 141, 240, .26), transparent 72%);
+    width: 62%; height: 70%; top: -14%; left: -8%;
+    filter: blur(75px);
+    animation: cz-aurora-1 37s ease-in-out infinite;
+}
+
+footer.site-footer .cz-blob-2 {
+    background: radial-gradient(closest-side, rgba(133, 8, 225, .24), transparent 72%);
+    width: 58%; height: 65%; bottom: -16%; right: -8%;
+    filter: blur(85px);
+    animation: cz-aurora-2 43s ease-in-out infinite;
+}
+
+footer.site-footer .cz-blob-3 {
+    background: radial-gradient(closest-side, rgba(110, 37, 164, .22), transparent 72%);
+    width: 65%; height: 60%; top: 25%; left: 22%;
+    filter: blur(90px);
+    animation: cz-aurora-3 53s ease-in-out infinite;
+}
+
+footer.site-footer .cz-aurora-waves {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background:
-        radial-gradient(34% 40% at 12% 10%, rgba(179, 91, 243, .18), transparent 70%),
-        radial-gradient(30% 36% at 88% 90%, rgba(133, 8, 225, .18), transparent 70%);
-    filter: blur(50px);
-    animation: cz-drift-a 28s ease-in-out infinite;
+    background-image:
+        repeating-linear-gradient(78deg, transparent 0 44px, rgba(255, 255, 255, .03) 44px 45px, transparent 45px 104px),
+        repeating-linear-gradient(102deg, transparent 0 62px, rgba(93, 141, 240, .05) 62px 63px, transparent 63px 140px);
+    animation: cz-wave-drift 90s linear infinite;
 }
 
-footer.site-footer .container {
+footer.site-footer .container,
+footer.site-footer .copyright-sect {
     position: relative;
     z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    footer.site-footer .cz-aurora-layer,
+    footer.site-footer .cz-aurora-waves { animation: none; }
 }
 
 .nwsletr-form input[type="email"] {
@@ -1264,14 +1981,15 @@ footer.site-footer .container {
     mask: var(--icon-cross) center / contain no-repeat;
 }
 
+/* Masked icons take the same deepened brand ramp as the buttons, so icon and
+   control colour stay consistent across the interface. */
 .prog-calendar i.fa-calendar-days,
 .tab-prodcts .prog-calendar i.fa-calendar-days {
     display: inline-block;
     width: .95em;
     height: .95em;
     color: transparent;
-    background: currentColor;
-    background-color: var(--cz-purple2);
+    background: var(--grad-brand-deep);
     -webkit-mask: var(--icon-calendar) center / contain no-repeat;
     mask: var(--icon-calendar) center / contain no-repeat;
     vertical-align: -0.14em;
@@ -1283,10 +2001,16 @@ footer.site-footer .container {
     width: .95em;
     height: .95em;
     color: transparent;
-    background-color: var(--cz-violet);
+    background: var(--grad-brand-deep);
     -webkit-mask: var(--icon-cap) center / contain no-repeat;
     mask: var(--icon-cap) center / contain no-repeat;
     vertical-align: -0.14em;
+}
+
+/* Counter stat icons */
+.countr-icon {
+    background: linear-gradient(140deg, rgba(110, 37, 164, .12), rgba(179, 91, 243, .18));
+    border-radius: 14px;
 }
 
 .dropdown-btn i.fa-cloud-arrow-down {
