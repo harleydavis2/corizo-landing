@@ -28,6 +28,15 @@
        depth than a two-stop ramp, without pushing saturation higher. */
     --grad-brand-deep: linear-gradient(118deg, #4A1178 0%, var(--cz-purple2) 32%, var(--cz-violet) 68%, #A63BF5 100%);
     --grad-brand-deep-hover: linear-gradient(118deg, #5A1690 0%, #7B2BBE 32%, #9412F0 68%, #B865F8 100%);
+
+    /* Gold accents — scoped to the Golden Pass only. Deliberately kept out of
+       the global button/icon system so gold reads as a badge of that one
+       premium tier rather than a second brand colour. */
+    --cz-gold-deep:  #8A6320;
+    --cz-gold:       #C79A3A;
+    --cz-gold-light: #E8C877;
+    --cz-gold-pale:  #FBF0CE;
+    --grad-gold: linear-gradient(100deg, var(--cz-gold-deep) 0%, var(--cz-gold) 28%, var(--cz-gold-light) 55%, var(--cz-gold-pale) 72%, var(--cz-gold) 100%);
     --grad-text: linear-gradient(90deg, #fff 0%, var(--cz-lilac) 55%, var(--cz-violet2) 100%);
     --grad-soft: linear-gradient(135deg, rgba(110, 37, 164, .10), rgba(179, 91, 243, .12));
     --shadow-violet: 0 20px 45px -18px rgba(88, 10, 157, .45);
@@ -67,6 +76,8 @@
     --icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
     /* Gold coin — Golden Pass heading (replaces the missing animated GIF) */
     --icon-coin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23FCEBA4'/%3E%3Cstop offset='.45' stop-color='%23E3B84A'/%3E%3Cstop offset='1' stop-color='%23B8862B'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23FFF7D6'/%3E%3Cstop offset='1' stop-color='%23D8A93C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='24' cy='24' rx='15' ry='19' fill='url(%23g)'/%3E%3Cellipse cx='24' cy='24' rx='10.5' ry='14.5' fill='none' stroke='url(%23h)' stroke-width='1.6' opacity='.85'/%3E%3Cellipse cx='19.5' cy='19' rx='3.2' ry='5' fill='%23FFF9E3' opacity='.55'/%3E%3C/svg%3E");
+    /* Overlapping fish-scale pattern — Golden Pass backdrop */
+    --texture-scale: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28' viewBox='0 0 56 28'%3E%3Cg fill='none' stroke='%23E8C877' stroke-width='1.15'%3E%3Cpath d='M0 28a14 14 0 0 1 28 0a14 14 0 0 1 28 0'/%3E%3Cpath d='M-28 14a14 14 0 0 1 28 0a14 14 0 0 1 28 0a14 14 0 0 1 28 0'/%3E%3Cpath d='M0 0a14 14 0 0 1 28 0a14 14 0 0 1 28 0'/%3E%3C/g%3E%3C/svg%3E");
     /* Sparkle field — Golden Pass gold stub */
     --texture-sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 210'%3E%3Cg fill='%23FFFDF0'%3E%3Cpath d='M30 22 31.5 27.5 37 29 31.5 30.5 30 36 28.5 30.5 23 29 28.5 27.5Z' opacity='.9'/%3E%3Cpath d='M160 48 161.2 52.4 165.6 53.6 161.2 54.8 160 59.2 158.8 54.8 154.4 53.6 158.8 52.4Z' opacity='.75'/%3E%3Cpath d='M74 96 75 99.6 78.6 100.6 75 101.6 74 105.2 73 101.6 69.4 100.6 73 99.6Z' opacity='.8'/%3E%3Cpath d='M182 128 183.4 133 188.4 134.4 183.4 135.8 182 140.8 180.6 135.8 175.6 134.4 180.6 133Z' opacity='.65'/%3E%3Cpath d='M46 158 47.2 162.2 51.4 163.4 47.2 164.6 46 168.8 44.8 164.6 40.6 163.4 44.8 162.2Z' opacity='.85'/%3E%3Cpath d='M120 182 121 185.6 124.6 186.6 121 187.6 120 191.2 119 187.6 115.4 186.6 119 185.6Z' opacity='.7'/%3E%3Ccircle cx='96' cy='40' r='1.6' opacity='.7'/%3E%3Ccircle cx='140' cy='96' r='1.4' opacity='.6'/%3E%3Ccircle cx='58' cy='120' r='1.5' opacity='.65'/%3E%3Ccircle cx='168' cy='176' r='1.3' opacity='.55'/%3E%3C/g%3E%3C/svg%3E");
     /* Four-point diamond — Pro Packs ticker separator */
@@ -1225,13 +1236,30 @@ a.login-btn:hover {
     width: 100%;
 }
 
+/* Fixed 3-up grid. auto-fill previously yielded 4 narrow columns on wide
+   screens, which combined with square imagery made very tall cards. Three
+   wider columns plus landscape media keeps each card inside its allotted
+   space without the body copy squeezing. */
 .select-tabs .tab-pane ul {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     margin: 0;
     padding: 0;
     align-items: stretch;
+}
+
+@media (max-width: 991px) {
+    .select-tabs .tab-pane ul {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 575px) {
+    .select-tabs .tab-pane ul {
+        grid-template-columns: 1fr;
+    }
 }
 
 .select-tabs .tab-pane ul li {
@@ -1262,7 +1290,7 @@ a.login-btn:hover {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 16 / 10;
     object-fit: cover;
     border-radius: 16px 16px 0 0;
     transition: transform .3s ease;
@@ -1343,13 +1371,11 @@ a.login-btn:hover {
     mask: var(--icon-diamond) center / contain no-repeat;
 }
 
-.bg-discover,
 .hire-talent {
     position: relative;
     isolation: isolate;
 }
 
-.bg-discover::after,
 .hire-talent::after {
     content: '';
     position: absolute;
@@ -1361,12 +1387,136 @@ a.login-btn:hover {
     mix-blend-mode: overlay;
 }
 
+/* ---- Gold Pass section — animated aurora background -----------------------
+   Deep black base with purple blooms and gold accents. Same co-prime-duration
+   blob language as the hero so the pattern never visibly repeats. Gold is
+   used only as a warm accent radial, not as the dominant colour. */
+
+@keyframes cz-gold-aurora-1 {
+    0%   { transform: translate3d(-5%, -4%, 0) scale(1); }
+    30%  { transform: translate3d(4%, 5%, 0) scale(1.12); }
+    65%  { transform: translate3d(7%, -3%, 0) scale(1.06); }
+    100% { transform: translate3d(-5%, -4%, 0) scale(1); }
+}
+@keyframes cz-gold-aurora-2 {
+    0%   { transform: translate3d(5%, 4%, 0) scale(1.07); }
+    38%  { transform: translate3d(-6%, -3%, 0) scale(1); }
+    72%  { transform: translate3d(-2%, 6%, 0) scale(1.14); }
+    100% { transform: translate3d(5%, 4%, 0) scale(1.07); }
+}
+@keyframes cz-gold-aurora-3 {
+    0%   { transform: translate3d(-3%, 6%, 0) scale(1.09); }
+    44%  { transform: translate3d(6%, -5%, 0) scale(1); }
+    78%  { transform: translate3d(-5%, -2%, 0) scale(1.11); }
+    100% { transform: translate3d(-3%, 6%, 0) scale(1.09); }
+}
+@keyframes cz-gold-aurora-4 {
+    0%   { transform: translate3d(3%, -5%, 0) scale(1); }
+    55%  { transform: translate3d(-4%, 4%, 0) scale(1.08); }
+    100% { transform: translate3d(3%, -5%, 0) scale(1); }
+}
+
+.bg-discover {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Gold/black/purple aurora blob layers */
+.bg-discover > .cz-gp-layer {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* Primary purple plume — dominant, keeps the section rooted in the brand */
+.bg-discover > .cz-gp-blob-1 {
+    background: radial-gradient(closest-side, rgba(106, 13, 173, .50), transparent 72%);
+    width: 75%; height: 70%; top: -12%; left: -8%;
+    filter: blur(80px);
+    animation: cz-gold-aurora-1 41s ease-in-out infinite;
+}
+
+/* Secondary purple — mid-section depth */
+.bg-discover > .cz-gp-blob-2 {
+    background: radial-gradient(closest-side, rgba(133, 8, 225, .38), transparent 72%);
+    width: 65%; height: 60%; top: 28%; right: -10%; left: auto;
+    filter: blur(90px);
+    animation: cz-gold-aurora-2 47s ease-in-out infinite;
+}
+
+/* Gold accent — warm pool, lower opacity so it reads as depth not glow */
+.bg-discover > .cz-gp-blob-3 {
+    background: radial-gradient(closest-side, rgba(199, 154, 58, .28), transparent 72%);
+    width: 60%; height: 55%; bottom: -8%; left: 18%; top: auto;
+    filter: blur(100px);
+    animation: cz-gold-aurora-3 59s ease-in-out infinite;
+}
+
+/* Second gold accent — upper right, very restrained */
+.bg-discover > .cz-gp-blob-4 {
+    background: radial-gradient(closest-side, rgba(184, 134, 43, .18), transparent 72%);
+    width: 50%; height: 45%; top: 5%; right: 2%; left: auto;
+    filter: blur(110px);
+    animation: cz-gold-aurora-4 67s ease-in-out infinite reverse;
+}
+
+/* Third purple bottom anchor */
+.bg-discover > .cz-gp-blob-5 {
+    background: radial-gradient(closest-side, rgba(110, 37, 164, .32), transparent 72%);
+    width: 70%; height: 50%; bottom: 0; left: 5%; top: auto;
+    filter: blur(85px);
+    animation: cz-gold-aurora-1 53s ease-in-out infinite reverse;
+}
+
+/* Topographic wave bands — same subtle grid used in the hero */
+.bg-discover > .cz-gp-waves {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(78deg, transparent 0 38px, rgba(255, 255, 255, .025) 38px 39px, transparent 39px 92px),
+        repeating-linear-gradient(102deg, transparent 0 54px, rgba(199, 154, 58, .04) 54px 55px, transparent 55px 128px);
+    animation: cz-wave-drift 90s linear infinite;
+}
+
+/* Film-grain texture overlay — ties the background to the rest of the dark sections */
+.bg-discover > .cz-gp-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--texture-grain);
+    background-size: 160px 160px;
+    opacity: .04;
+    mix-blend-mode: overlay;
+}
+
+/* All direct children except the aurora layers sit above them */
+.bg-discover > *:not(.cz-gp-layer):not(.cz-gp-waves):not(.cz-gp-grain) {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-discover > .cz-gp-layer,
+    .bg-discover > .cz-gp-waves { animation: none; }
+}
+
 /* ---- Golden Pass -----------------------------------------------------------
    course-bg01/02/03.jpg and the coin animation GIF were never captured by the
    original scrape (the files are absent), which is why the three tier cards
    rendered as bare boxes and the heading had a blank gap beside it. The card
    artwork is rebuilt as layered CSS mesh gradients — crisper than the source
    JPEGs, no extra requests — and the coin is now an inline-masked SVG. */
+
+/* The pass card itself carries no added decoration — no gold frame, texture,
+   pattern or sheen. It keeps the theme's own ticket artwork and type so it
+   reads as clean and minimal; the premium feel comes entirely from the
+   animated section background behind it. */
 
 .col-blue,
 .col-orng,
@@ -1425,45 +1575,17 @@ a.login-btn:hover {
     font-size: 0;
 }
 
-/* Gold coin beside the "Golden Pass" title (replaces the missing GIF) */
-.golden-pass h3::after {
-    content: '';
-    display: inline-block;
-    background: none;
-    width: 38px;
-    height: 38px;
-    margin: 0 0 0 14px;
-    flex: 0 0 auto;
-    background-image: var(--icon-coin);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
+/* Gold coin decoration removed — the premium feel comes from the section
+   background alone, not from decorative elements on the content. */
 
 .golden-pass h3 {
     gap: 0;
 }
 
-/* Sparkle dusting on the gold "LIFE - TIME ACCESS" stub */
+/* Sparkle overlay removed — content stays clean and undecorated.
+   The access-sect keeps its structural role only. */
 .access-sect {
     position: relative;
-    overflow: hidden;
-}
-
-.access-sect::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: var(--texture-sparkle);
-    background-size: 210px 210px;
-    opacity: .55;
-    animation: cz-sparkle-drift 26s ease-in-out infinite;
-}
-
-@keyframes cz-sparkle-drift {
-    0%, 100% { opacity: .4; transform: translate3d(0, 0, 0); }
-    50%      { opacity: .7; transform: translate3d(0, -6px, 0); }
 }
 
 .access-sect p {
