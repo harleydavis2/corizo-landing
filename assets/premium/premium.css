@@ -337,20 +337,35 @@ header.site-header.cz-scrolled {
     margin-top: -34.55%;
 }
 
-/* Nav: logo pinned left, everything else in one right-aligned cluster. */
-.hdr-wrapper {
-    justify-content: flex-start;
-    gap: 32px;
-    flex-wrap: nowrap;
-}
+/* Nav: logo pinned left, everything else in one right-aligned cluster —
+   desktop only. This used to be unconditional `flex-wrap: nowrap`, which
+   fought the theme's own tablet behaviour: style.css deliberately drops
+   .hdr-nav to its own full-width row between 768-991px (`.hdr-nav { order:
+   3; width: 100%; }`), and hides .hdr-nav/.hdr-btns entirely below 767px in
+   favour of the hamburger. Forcing nowrap at every width meant the nav
+   links themselves had to wrap mid-row instead — cramped and not what
+   either breakpoint intended. Restoring the theme's own flex-wrap below
+   992px lets both of its responsive behaviours work again. */
+@media (min-width: 992px) {
+    .hdr-wrapper {
+        justify-content: flex-start;
+        gap: 32px;
+        flex-wrap: nowrap;
+    }
 
-.hdr-wrapper .hdr-nav {
-    margin-left: auto;
+    .hdr-wrapper .hdr-nav {
+        margin-left: auto;
+    }
 }
 
 .hdr-wrapper .hdr-btns {
-    flex: 0 0 auto;
     gap: 8px;
+}
+
+@media (min-width: 992px) {
+    .hdr-wrapper .hdr-btns {
+        flex: 0 0 auto;
+    }
 }
 
 /* The CTAs were visually outweighing the nav links; bring them down to a
@@ -394,6 +409,181 @@ a.cont-btn:hover {
 
 @media (max-width: 767px) {
     .hdr-logo { width: 126px; }
+}
+
+/* ---- Mobile navigation drawer (WP Responsive Menu plugin re-skin) ----------
+   The plugin's markup, JS and open/close mechanism are all kept — only its
+   visuals are overridden. Three real bugs fixed here, not just restyled:
+
+   1. Broken icon font. wp-responsive-menu ships no font files at all (there
+      is no fonts/ directory in the plugin bundle), so its submenu caret
+      `content: "\74"` was rendering as a literal letter "t" next to every
+      expandable item. Replaced with the same masked-SVG chevron used
+      elsewhere on the site.
+   2. No backdrop. The plugin has a scrim feature but it ships disabled
+      (`"enable_overlay": ""` in its localized config) and the template
+      leaves the overlay element out entirely when disabled — there was
+      nothing to show/hide. A `.cz-menu-overlay` element was added to the
+      markup; visibility is synced to the drawer's own open/close class by
+      the observer in premium.js, so no plugin JS/config was touched.
+   3. Layout-triggering animation. The panel slides by animating `left`
+      (-100% → 0), which forces layout on every frame. It's neutralised with
+      `left: 0 !important` and re-driven by `transform: translateX()`
+      instead, which is GPU-composited and matches the performance pass
+      requested elsewhere on the site.
+
+   The panel is also capped to a max width so it reads as a drawer leaving a
+   visible dimmed sliver of the page (a full-bleed takeover on a tablet
+   looks like a broken page swap, not a menu). */
+
+.cz-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(10, 6, 20, .55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+
+.cz-menu-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+body.cz-menu-locked {
+    overflow: hidden;
+}
+
+#mg-wprm-wrap.cbp-spmenu-left {
+    left: 0 !important;
+    top: 0 !important;
+    height: 100vh !important;
+    width: min(340px, 86vw);
+    max-width: min(340px, 86vw);
+    background: linear-gradient(165deg, #1C1338 0%, #150E2B 55%, #0E0A20 100%);
+    border-right: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 24px 0 60px -20px rgba(0, 0, 0, .65);
+    transform: translateX(-105%);
+    transition: transform .35s var(--ease-premium);
+    will-change: transform;
+    overscroll-behavior: contain;
+}
+
+#mg-wprm-wrap.cbp-spmenu-left.cbp-spmenu-open {
+    transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #mg-wprm-wrap.cbp-spmenu-left { transition: none; }
+    .cz-menu-overlay { transition: none; }
+}
+
+#mg-wprm-wrap .menu_title {
+    display: none;
+}
+
+.cz-mobile-ctas {
+    display: flex;
+    gap: 10px;
+    padding: 24px 20px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.cz-mobile-ctas a {
+    flex: 1 1 0;
+    text-align: center;
+    font-size: 14px;
+    padding: 12px 10px;
+}
+
+.cz-mobile-ctas a.cont-btn {
+    border-color: rgba(255, 255, 255, .3);
+    color: #fff;
+}
+
+#wprmenu_menu_ul,
+#wprmenu_menu_ul .sub-menu {
+    padding: 0;
+    margin: 0;
+}
+
+#mg-wprm-wrap ul li a {
+    color: rgba(255, 255, 255, .86);
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: .01em;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 13px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
+    transition: background-color .2s ease, color .2s ease, padding-left .2s ease;
+}
+
+#mg-wprm-wrap ul li a:hover,
+#mg-wprm-wrap ul li a:focus-visible {
+    background-color: rgba(255, 255, 255, .06);
+    color: #fff;
+    padding-left: 26px;
+}
+
+#mg-wprm-wrap ul.sub-menu li a {
+    padding-left: 36px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, .68);
+    background-color: rgba(0, 0, 0, .18);
+}
+
+#mg-wprm-wrap ul.sub-menu li a:hover,
+#mg-wprm-wrap ul.sub-menu li a:focus-visible {
+    padding-left: 42px;
+}
+
+#mg-wprm-wrap ul.sub-menu ul.sub-menu li a {
+    padding-left: 52px;
+}
+
+#mg-wprm-wrap ul.sub-menu ul.sub-menu li a:hover,
+#mg-wprm-wrap ul.sub-menu ul.sub-menu li a:focus-visible {
+    padding-left: 58px;
+}
+
+/* The nested mega-menu carries a 21x22 thumbnail per item (tab-icon01.png
+   etc., reused across dozens of entries) — legible at the original desktop
+   dropdown size but just visual noise at mobile list density. */
+#mg-wprm-wrap ul li a img.menu-image {
+    display: none;
+}
+
+.icon_default.wprmenu_icon_par:before,
+.icon_default.wprmenu_par_opened:before {
+    content: '';
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    margin-left: auto;
+    flex: 0 0 auto;
+    background-color: rgba(255, 255, 255, .55);
+    -webkit-mask: var(--icon-chevron-down) center / contain no-repeat;
+    mask: var(--icon-chevron-down) center / contain no-repeat;
+    position: static;
+    transition: transform .25s ease;
+}
+
+.icon_default.wprmenu_par_opened:before {
+    transform: rotate(180deg);
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+    background-color: var(--cz-purple2) !important;
+    border-radius: 2px;
 }
 
 /* ---- Animated aurora background system -------------------------------------
@@ -1012,6 +1202,39 @@ a.login-btn:hover {
     position: relative;
     isolation: isolate;
     overflow: hidden;
+    /* The theme's own .bg-image rule sets `background-size: 100%` (width-only,
+       height follows the image's fixed aspect ratio) with `no-repeat`. That
+       only coincidentally covered the section back when it was shorter; once
+       the card grid grows taller than the image's scaled height — which
+       varies by breakpoint and by how many programs a tab has — the photo
+       runs out and the section's default background (none) shows through as
+       a white strip at the bottom. `cover` plus a solid fallback colour
+       behind it guarantees full coverage at any height. */
+    background-color: var(--cz-deep);
+    background-size: cover;
+    background-position: top center;
+}
+
+/* The theme gives .pro-pack a top-only margin (125px down to 40px across its
+   five breakpoints — style.css lines 1951, 8179, 8667, 9364, 10966) to
+   separate it from whatever came before. That worked when neighbouring
+   sections were both light, because the gap just showed more of the same
+   white. Now that #exprogram and .pro-pack are both dark aurora sections,
+   that margin opened a literal white strip of body background between them
+   — this was the reported bug. Collapsing the margin to 0 and replacing it
+   with padding (which stays inside the element's own dark background)
+   keeps the same visual breathing room without ever exposing the page
+   behind it, at every breakpoint. !important is needed to beat the theme's
+   five media-query variants without duplicating each of their conditions. */
+.pro-pack {
+    margin-top: 0 !important;
+    padding-top: 64px;
+}
+
+@media (max-width: 767px) {
+    .pro-pack {
+        padding-top: 40px;
+    }
 }
 
 .cz-aurora-section > .cz-aurora-layer {
@@ -1893,6 +2116,25 @@ footer.site-footer::before {
 
     .ftr-wrapper .ftr-logo {
         grid-column: span 1;
+    }
+
+    /* Footer link rows measured 19-20px tall on a touch viewport — the
+       theme relies on line-height alone with no tap padding. Below the
+       ~44px recommended minimum, mis-taps are a near-certainty on a real
+       phone. Padding is added on the <a> itself (not the <li>) so the
+       enlarged tap area stays inside the row instead of pushing every
+       column taller. */
+    .ftr-col ul li a,
+    .ftr-social ul li a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 4px 0;
+    }
+
+    .ftr-social ul li a {
+        min-width: 44px;
+        justify-content: center;
     }
 }
 

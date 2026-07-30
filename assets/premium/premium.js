@@ -113,4 +113,30 @@
        hover transform and produced the visible wobble/jitter on the hero CTA
        and a layout jump on the percentage-width "Connect with us" button.
        Hover motion is now handled entirely in CSS. */
+
+    /* ---- Mobile menu: backdrop + scroll lock --------------------------------
+       The WP Responsive Menu plugin toggles a `cbp-spmenu-open` class on
+       #mg-wprm-wrap itself (via its own JS, on click and on Escape) — it
+       doesn't expose an event for that. A MutationObserver on the class
+       attribute is what lets the custom backdrop and body scroll-lock stay
+       in sync with every way the drawer can open or close, including
+       Escape, without touching or duplicating the plugin's own handlers. */
+    var menuPanel = document.getElementById('mg-wprm-wrap');
+    var menuOverlay = document.querySelector('.cz-menu-overlay');
+    if (menuPanel && menuOverlay) {
+        var syncMenuState = function () {
+            var isOpen = menuPanel.classList.contains('cbp-spmenu-open');
+            menuOverlay.classList.toggle('is-visible', isOpen);
+            document.body.classList.toggle('cz-menu-locked', isOpen);
+        };
+        new MutationObserver(syncMenuState).observe(menuPanel, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        menuOverlay.addEventListener('click', function () {
+            var toggle = document.querySelector('.hamburger.hamburger--slider');
+            if (toggle) toggle.click();
+        });
+    }
 })();
