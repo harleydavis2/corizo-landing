@@ -19,7 +19,6 @@
         href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="assets/wp-content/themes/techglobiz/js/jquery.min.js"></script>
     <script type="text/javascript" src="assets/wp-content/themes/techglobiz/js/bootstrap.min.js"></script>
@@ -1150,7 +1149,7 @@
     </style>
     <link rel='stylesheet' id='techglobiz-style-css' href='assets/wp-content/themes/techglobiz/style.css?ver=1.0.0'
         media='all' />
-    <link rel="stylesheet" id="cz-premium-css" href="assets/premium/premium.css?v=41">
+    <link rel="stylesheet" id="cz-premium-css" href="assets/premium/premium.css?v=9">
     <script id="jquery-core-js" src="assets/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
     <script id="jquery-migrate-js" src="assets/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
     <script id="jquery-telephone-js"
@@ -1280,738 +1279,536 @@
             width: 210px;
         }
     </style>
-    <!-- ── Hero Section: Inter Font ───────────────────────────── -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
-    <!-- ── Hero Section Styles ────────────────────────────────── -->
-    <style id="cz-hero-styles">
-      /* ─── TOKENS ──────────────────────────────────────────── */
-      :root {
-        --bg-base:        #0a0715;
-        --purple-primary: #7c3aed;
-        --purple-light:   #a78bfa;
-        --text-secondary: rgba(255, 255, 255, 0.6);
-      }
-
-      /* ─── NAV ─────────────────────────────────────────────── */
-      #cz-main-nav {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        padding: 20px 60px;
-        border-bottom: 1px solid transparent;
-        background: transparent;
-        backdrop-filter: blur(0px) saturate(100%);
-        -webkit-backdrop-filter: blur(0px) saturate(100%);
-        font-family: 'Inter', system-ui, sans-serif;
-        transition:
-          background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-          border-color     0.4s cubic-bezier(0.16, 1, 0.3, 1),
-          backdrop-filter  0.4s cubic-bezier(0.16, 1, 0.3, 1),
-          box-shadow       0.4s cubic-bezier(0.16, 1, 0.3, 1),
-          padding          0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      #cz-main-nav.scrolled {
-        background: rgba(10, 7, 21, 0.72);
-        backdrop-filter: blur(20px) saturate(160%);
-        -webkit-backdrop-filter: blur(20px) saturate(160%);
-        border-bottom-color: rgba(255, 255, 255, 0.06);
-        box-shadow: 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.45);
-        padding: 14px 60px;
-      }
-      .cz-nav-logo {
-        display: flex; align-items: center;
-        text-decoration: none; flex-shrink: 0;
-      }
-      .cz-nav-logo img {
-        height: 60px; width: auto;
-        filter: brightness(0) invert(1);
-        transition: opacity 0.2s ease;
-      }
-      .cz-nav-logo:hover img { opacity: 0.85; }
-      .cz-nav-right {
-        display: flex; align-items: center;
-        gap: 40px; margin-left: auto;
-      }
-      .cz-nav-links {
-        display: flex; align-items: center;
-        gap: 4px; list-style: none;
-        margin: 0; padding: 0;
-      }
-      .cz-nav-links a {
-        display: flex; align-items: center; gap: 4px;
-        color: rgba(255,255,255,0.78);
-        font-size: 14.5px; font-weight: 500;
-        text-decoration: none;
-        padding: 8px 12px; border-radius: 6px;
-        white-space: nowrap;
-        transition: color 0.2s ease, background-color 0.2s ease;
-      }
-      .cz-nav-links a:hover {
-        color: #fff;
-        background-color: rgba(255,255,255,0.06);
-      }
-      .cz-chevron { opacity: 0.45; transition: opacity 0.2s ease, transform 0.2s ease; }
-      .cz-nav-links a:hover .cz-chevron { opacity: 0.85; transform: translateY(1px); }
-      .cz-nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-      .cz-btn-login {
-        background: var(--purple-primary); color: #fff;
-        border: none; border-radius: 8px;
-        padding: 10px 22px; font-size: 14px; font-weight: 600;
-        font-family: 'Inter', system-ui, sans-serif;
-        cursor: pointer;
-        transition: background 0.2s ease, box-shadow 0.2s ease;
-      }
-      .cz-btn-login:hover { background: #6d28d9; box-shadow: 0 0 20px rgba(124,58,237,0.5); }
-      .cz-btn-contact {
-        background: transparent; color: #fff;
-        border: 1px solid rgba(255,255,255,0.28); border-radius: 8px;
-        padding: 9px 20px; font-size: 14px; font-weight: 500;
-        font-family: 'Inter', system-ui, sans-serif;
-        cursor: pointer;
-        transition: border-color 0.2s ease, background 0.2s ease;
-      }
-      .cz-btn-contact:hover { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); }
-
-      /* ─── HERO ─────────────────────────────────────────────── */
-      .cz-hero {
-        position: relative;
-        min-height: 100vh;
-        display: flex; align-items: center;
-        overflow: hidden;
-        background: var(--bg-base);
-        font-family: 'Inter', system-ui, sans-serif;
-      }
-      #cz-grid-canvas {
-        position: absolute; inset: 0; z-index: 0;
-        width: 100%; height: 100%;
-      }
-      .cz-hero-glow {
-        position: absolute; top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 120vmax; height: 120vmax; border-radius: 50%;
-        background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, rgba(124,58,237,0.08) 38%, transparent 65%);
-        filter: blur(80px); z-index: 0; pointer-events: none;
-      }
-      .cz-hero-glow-br {
-        position: absolute; bottom: -160px; right: -120px;
-        width: 800px; height: 800px; border-radius: 50%;
-        background: radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 65%);
-        filter: blur(70px); z-index: 0; pointer-events: none;
-      }
-      .cz-dot-grid {
-        position: absolute; top: 40px; right: 180px;
-        width: 220px; height: 220px;
-        background-image: radial-gradient(circle, rgba(255,255,255,0.14) 1px, transparent 1px);
-        background-size: 22px 22px;
-        -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 30%, transparent 80%);
-        mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 30%, transparent 80%);
-        z-index: 0; pointer-events: none;
-      }
-      .cz-hero-content {
-        position: relative; z-index: 1;
-        max-width: 640px; padding: 120px 60px 100px;
-      }
-      .cz-badge {
-        display: inline-flex; align-items: center; gap: 8px;
-        background: rgba(255,255,255,0.045);
-        border: 1px solid rgba(255,255,255,0.14);
-        border-radius: 999px; padding: 7px 16px;
-        margin-bottom: 30px; backdrop-filter: blur(6px);
-      }
-      .cz-badge-icon { color: var(--purple-light); display: flex; align-items: center; }
-      .cz-badge-text {
-        font-size: 11.5px; font-weight: 600;
-        letter-spacing: 0.1em; text-transform: uppercase;
-        color: rgba(255,255,255,0.75);
-      }
-      .cz-headline {
-        font-size: clamp(40px, 5.5vw, 68px);
-        font-weight: 800; line-height: 1.08;
-        letter-spacing: -0.02em; margin-bottom: 18px;
-        color: #fff;
-      }
-      .cz-headline .line { display: block; }
-      .cz-headline .gradient-line {
-        background: linear-gradient(90deg, #a78bfa 0%, #7c3aed 100%);
-        -webkit-background-clip: text; background-clip: text;
-        -webkit-text-fill-color: transparent; color: transparent;
-      }
-      .cz-divider {
-        width: 42px; height: 3px;
-        background: linear-gradient(90deg, var(--purple-light), var(--purple-primary));
-        border-radius: 2px; margin-bottom: 22px;
-      }
-      .cz-subtext {
-        font-size: 17px; line-height: 1.65;
-        color: var(--text-secondary);
-        max-width: 460px; margin-bottom: 40px;
-      }
-      .cz-cta {
-        display: inline-flex; align-items: center; gap: 10px;
-        background: var(--purple-primary); color: #fff;
-        font-size: 15px; font-weight: 600;
-        padding: 14px 28px; border-radius: 10px;
-        border: none; cursor: pointer; text-decoration: none;
-        box-shadow: 0 0 30px rgba(124,58,237,0.4), 0 4px 20px rgba(0,0,0,0.3);
-        transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.2s ease;
-      }
-      .cz-cta:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 0 48px rgba(124,58,237,0.6), 0 8px 30px rgba(0,0,0,0.35);
-        background: #6d28d9;
-      }
-      .cz-cta-arrow { display: flex; align-items: center; transition: transform 0.22s ease; }
-      .cz-cta:hover .cz-cta-arrow { transform: translateX(3px); }
-
-      /* ─── ENTRY ANIMATIONS ─────────────────────────────────── */
-      [data-cz-animate] {
-        opacity: 0; transform: translateY(22px);
-        transition:
-          opacity  0.6s cubic-bezier(0.16, 1, 0.3, 1),
-          transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      [data-cz-animate].is-visible { opacity: 1; transform: none; }
-      [data-cz-group] [data-cz-animate]:nth-child(1) { transition-delay: 60ms; }
-      [data-cz-group] [data-cz-animate]:nth-child(2) { transition-delay: 160ms; }
-      [data-cz-group] [data-cz-animate]:nth-child(3) { transition-delay: 250ms; }
-      [data-cz-group] [data-cz-animate]:nth-child(4) { transition-delay: 330ms; }
-      [data-cz-group] [data-cz-animate]:nth-child(5) { transition-delay: 400ms; }
-
-      /* ─── REDUCED MOTION ───────────────────────────────────── */
-      @media (prefers-reduced-motion: reduce) {
-        [data-cz-animate] { opacity: 1; transform: none; transition: none; }
-      }
-
-      /* ─── RESPONSIVE ───────────────────────────────────────── */
-      @media (max-width: 900px) {
-        #cz-main-nav { padding: 16px 28px; }
-        #cz-main-nav.scrolled { padding: 12px 28px; }
-        .cz-nav-links { display: none; }
-        .cz-nav-right { gap: 16px; }
-        .cz-hero-content { padding: 100px 28px 80px; max-width: 100%; }
-        .cz-dot-grid { display: none; }
-      }
-      @media (max-width: 600px) {
-        #cz-main-nav { padding: 14px 20px; }
-        #cz-main-nav.scrolled { padding: 10px 20px; }
-        .cz-hero-content { padding: 88px 20px 64px; }
-        .cz-subtext { font-size: 15.5px; }
-      }
-
-      /* ─── HERO BOTTOM FADE ─────────────────────────────────── */
-      /* Deep multi-stop gradient — purple bloom then solid dark */
-      .cz-hero::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 340px;
-        background: linear-gradient(
-          to bottom,
-          transparent                    0%,
-          rgba(139, 92, 246, 0.04)      20%,
-          rgba(124, 58, 237, 0.13)      42%,
-          rgba(76, 29, 149,  0.38)      62%,
-          rgba(10,  7,  21,  0.82)      80%,
-          #0a0715                       100%
-        );
-        z-index: 2;
-        pointer-events: none;
-      }
-
-      /* ─── TRANSITION BRIDGE ─────────────────────────────────── */
-      .cz-hero-bridge {
-        position: relative;
-        background: #0a0715;
-        padding: 0;
-        overflow: visible;  /* allow glow to bleed out */
-        margin-top: -2px;
-      }
-      /* Large, soft purple orb rising from the seam */
-      .cz-hero-bridge::before {
-        content: '';
-        position: absolute;
-        top: -200px; left: 50%;
-        transform: translateX(-50%);
-        width: 1100px;
-        height: 500px;
-        border-radius: 50%;
-        background: radial-gradient(
-          ellipse at center 30%,
-          rgba(139, 92, 246, 0.28) 0%,
-          rgba(124, 58, 237, 0.12) 40%,
-          rgba(76,  29, 149, 0.04) 65%,
-          transparent              80%
-        );
-        filter: blur(56px);
-        pointer-events: none;
-        z-index: 0;
-      }
-      /* Luminous hairline seam — wider, more opaque */
-      .cz-hero-bridge::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 5%; right: 5%;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent                   0%,
-          rgba(167, 139, 250, 0.2)    20%,
-          rgba(139,  92, 246, 0.7)    50%,
-          rgba(167, 139, 250, 0.2)    80%,
-          transparent                  100%
-        );
-        z-index: 1;
-      }
-
-      /* brands-sect on dark bg — breathing room + white heading */
-      .cz-hero-bridge .brands-sect {
-        position: relative;
-        z-index: 1;
-        padding-top: 64px;
-        background: transparent;
-      }
-      /* Force heading white — overrides any theme color */
-      .cz-hero-bridge .brands-sect .txt-hding {
-        color: #ffffff !important;
-        font-family: 'Inter', system-ui, sans-serif;
-        font-size: clamp(22px, 2.4vw, 32px);
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        text-align: center;
-        margin-bottom: 40px;
-        opacity: 0.92;
-      }
-      /* Logo cards: lift background so they read on dark */
-      .cz-hero-bridge .logo-item {
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-      }
-      .cz-hero-bridge .logo-item:hover {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(167, 139, 250, 0.25);
-        transform: translateY(-2px);
-      }
-      /* Blend bg-colord counter section into the dark theme */
-      .cz-hero-bridge + .bg-colord {
-        background: linear-gradient(
-          to bottom,
-          #0a0715 0%,
-          transparent 55%
-        );
-      }
-    </style>
-
-    <!-- ══ TRANSIT CARD STYLES ══════════════════════════════════ -->
-    <style id="cz-transit-styles">
-      /* ─── Marquee container ─────────────────────────────────── */
-      .cz-transit-marquee {
-        overflow: hidden;
-        width: 100%;
-        mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-      }
-      .cz-transit-track {
-        display: flex;
-        width: max-content;
-        animation: czTransitScroll 38s linear infinite;
-      }
-      .cz-transit-track:hover { animation-play-state: paused; }
-      .cz-transit-group { display: flex; gap: 28px; padding: 40px 14px 20px; }
-      @keyframes czTransitScroll {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }
-      }
-
-      /* ─── Card shell ────────────────────────────────────────── */
-      .tc-card {
-        width: 340px;
-        flex-shrink: 0;
-        background: #fff;
-        border-radius: 22px;
-        box-shadow: 0 4px 32px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.05);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        position: relative;
-        transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
-                    box-shadow 0.28s ease;
-      }
-      .tc-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 16px 48px rgba(124,58,237,0.14), 0 4px 12px rgba(0,0,0,0.08);
-      }
-
-      /* ─── Avatar (overflows card top) ───────────────────────── */
-      .tc-avatar-wrap {
-        display: flex;
-        justify-content: center;
-        padding-top: 28px;
-        margin-bottom: 0;
-      }
-      .tc-avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: top center;
-        border: 3px solid #fff;
-        box-shadow: 0 0 0 3px rgba(139,92,246,0.35), 0 0 0 6px rgba(139,92,246,0.10);
-      }
-
-      /* ─── Card body ─────────────────────────────────────────── */
-      .tc-body {
-        padding: 14px 24px 0;
-        text-align: center;
-      }
-      .tc-name {
-        font-family: 'Inter', system-ui, sans-serif;
-        font-size: 22px;
-        font-weight: 700;
-        color: #1a1a2e;
-        letter-spacing: -0.02em;
-        margin: 0 0 6px;
-      }
-      .tc-program-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 14px;
-      }
-      .tc-program-line {
-        flex: 1;
-        height: 1px;
-        background: #e0d9f5;
-      }
-      .tc-program {
-        font-family: 'Inter', system-ui, sans-serif;
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #7c3aed;
-        white-space: nowrap;
-      }
-
-      /* ─── Company logo badge ────────────────────────────────── */
-      .tc-logo-wrap {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 16px;
-      }
-      .tc-logo-pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        border: 1.5px solid #ede9fe;
-        border-radius: 12px;
-        padding: 8px 18px;
-        min-height: 52px;
-        min-width: 130px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-      }
-      .tc-logo-pill img {
-        max-height: 36px;
-        max-width: 110px;
-        width: auto;
-        object-fit: contain;
-      }
-
-      /* ─── Before/After panel ────────────────────────────────── */
-      .tc-ba-panel {
-        margin: 0;
-        background: linear-gradient(135deg, #f3f0ff 0%, #ede9fe 100%);
-        border-top: 1.5px solid #e0d9f5;
-        padding: 20px 24px 22px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-      }
-
-      .tc-side { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-      .tc-side-label {
-        font-size: 9.5px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: #9ca3af;
-      }
-      .tc-side.after .tc-side-label { color: #7c3aed; }
-
-      .tc-icon-circle {
-        width: 54px; height: 54px;
-        border-radius: 50%;
-        background: #fff;
-        border: 1.5px solid #e5e7eb;
-        display: flex; align-items: center; justify-content: center;
-      }
-      .tc-side.after .tc-icon-circle {
-        background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-        border-color: #c4b5fd;
-      }
-      .tc-icon-circle svg { width: 24px; height: 24px; stroke: #9ca3af; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-      .tc-side.after .tc-icon-circle svg { stroke: #7c3aed; }
-
-      .tc-role {
-        font-family: 'Inter', system-ui, sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        color: #374151;
-        text-align: center;
-        line-height: 1.35;
-      }
-      .tc-role-bar {
-        width: 24px; height: 2px;
-        background: #d1d5db;
-        border-radius: 2px;
-        margin-top: 2px;
-      }
-      .tc-side.after .tc-role-bar { background: #7c3aed; }
-
-      /* ─── Arrow connector ───────────────────────────────────── */
-      .tc-connector {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        flex-shrink: 0;
-      }
-      .tc-dash {
-        display: flex;
-        align-items: center;
-        gap: 3px;
-      }
-      .tc-dash span {
-        display: block;
-        width: 5px; height: 1.5px;
-        background: #c4b5fd;
-        border-radius: 1px;
-      }
-      .tc-arrow-btn {
-        width: 36px; height: 36px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 4px 14px rgba(124,58,237,0.35);
-        flex-shrink: 0;
-      }
-      .tc-arrow-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-    </style>
 </head>
 
 <body
     class="home wp-singular page-template page-template-page-template page-template-home page-template-page-templatehome-php page page-id-19 wp-theme-techglobiz theme-techglobiz woocommerce-no-js no-sidebar">
 
-    <!-- ══ NEW HERO NAV ═══════════════════════════════════════ -->
-    <nav id="cz-main-nav" role="navigation" aria-label="Main navigation">
+    <header id="masthead" class="site-header">
 
-      <!-- Logo — pinned left -->
-      <a href="./" class="cz-nav-logo" aria-label="Corizo home">
-        <img
-          src="assets/wp-content/themes/techglobiz/images/corizo_logo.webp"
-          alt="Corizo" width="180" height="60"
-        />
-      </a>
-
-      <!-- Right group: links + buttons -->
-      <div class="cz-nav-right">
-        <ul class="cz-nav-links" role="list">
-          <li>
-            <a href="#exprogram">
-              Programs
-              <svg class="cz-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="#exprogram">
-              Advanced Programs
-              <svg class="cz-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="#exprogram">
-              Pro Packs
-              <svg class="cz-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </a>
-          </li>
-          <li><a href="#">CORIZO X IBM</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-        <div class="cz-nav-actions">
-          <button class="cz-btn-login">Login</button>
-          <button class="cz-btn-contact">Contact Us</button>
+        <div class="container">
+            <div class="hdr-wrapper">
+                <div class="hdr-logo">
+                    <a href="./"><img src="assets/wp-content/themes/techglobiz/images/hdr-logo.jpg" alt="header logo"></a>
+                </div>
+                <div class="hdr-nav">
+                    <nav id="site-navigation" class="main-navigation">
+                        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Primary
+                            Menu</button>
+                        <div class="menu-menu-1-container">
+                            <ul id="primary-menu" class="menu">
+                                <li id="menu-item-777"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-777">
+                                    <a href="#">Programs</a>
+                                    <ul class="sub-menu">
+                                        <li id="menu-item-790"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-790">
+                                            <a href="#" class="menu-image-title-after menu-image-not-hovered"><img
+                                                    width="21" height="22"
+                                                    src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                    class="menu-image menu-image-title-after" alt=""
+                                                    decoding="async" /><span
+                                                    class="menu-image-title-after menu-image-title">Tech &#038;
+                                                    Data</span></a>
+                                            <ul class="sub-menu">
+                                                <li id="menu-item-406"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-406">
+                                                    <a href="./explore-programs/web-development/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Web
+                                                            Development</span></a>
+                                                </li>
+                                                <li id="menu-item-420"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-420">
+                                                    <a href="./explore-programs/android-development/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Android
+                                                            Development</span></a>
+                                                </li>
+                                                <li id="menu-item-422"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-422">
+                                                    <a href="./explore-programs/cyber-security/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Cyber
+                                                            Security</span></a>
+                                                </li>
+                                                <li id="menu-item-421"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-421">
+                                                    <a href="./explore-programs/artificial-intelligence/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Artificial
+                                                            Intelligence</span></a>
+                                                </li>
+                                                <li id="menu-item-423"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-423">
+                                                    <a href="./explore-programs/data-science/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Data
+                                                            Science</span></a>
+                                                </li>
+                                                <li id="menu-item-424"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-424">
+                                                    <a href="./explore-programs/machine-learning/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Machine
+                                                            Learning</span></a>
+                                                </li>
+                                                <li id="menu-item-116"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-116">
+                                                    <a href="./explore-programs/iot-robotics/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">IoT &#038;
+                                                            Robotics</span></a>
+                                                </li>
+                                                <li id="menu-item-645"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-645">
+                                                    <a href="./explore-programs/cloud-computing/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Cloud
+                                                            Computing</span></a>
+                                                </li>
+                                                <li id="menu-item-650"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-650">
+                                                    <a href="./explore-programs/embedded-system/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Embedded
+                                                            System</span></a>
+                                                </li>
+                                                <li id="menu-item-2165"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-2165">
+                                                    <a href="./explore-programs/dsa/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">DSA</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="menu-item-789"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-789">
+                                            <a href="#" class="menu-image-title-after menu-image-not-hovered"><img
+                                                    width="18" height="18"
+                                                    src="assets/wp-content/uploads/2024/09/tab-icon02.png"
+                                                    class="menu-image menu-image-title-after" alt=""
+                                                    decoding="async" /><span
+                                                    class="menu-image-title-after menu-image-title">Mechanics</span></a>
+                                            <ul class="sub-menu">
+                                                <li id="menu-item-431"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-431">
+                                                    <a href="./explore-programs/hybrid-electric-vehicles/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="18" height="18"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon02.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Hybrid
+                                                            &#038; Electric Vehicles</span></a>
+                                                </li>
+                                                <li id="menu-item-430"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-430">
+                                                    <a href="./explore-programs/auto-cad/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="18" height="18"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon02.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Auto
+                                                            CAD</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="menu-item-788"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-788">
+                                            <a href="#" class="menu-image-title-after menu-image-not-hovered"><img
+                                                    width="19" height="20"
+                                                    src="assets/wp-content/uploads/2024/09/tab-icon03.png"
+                                                    class="menu-image menu-image-title-after" alt=""
+                                                    decoding="async" /><span
+                                                    class="menu-image-title-after menu-image-title">Business</span></a>
+                                            <ul class="sub-menu">
+                                                <li id="menu-item-433"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-433">
+                                                    <a href="./explore-programs/digital-marketing/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="19" height="20"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon03.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Digital
+                                                            Marketing</span></a>
+                                                </li>
+                                                <li id="menu-item-434"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-434">
+                                                    <a href="./explore-programs/finance/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="19" height="20"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon03.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Finance</span></a>
+                                                </li>
+                                                <li id="menu-item-435"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-435">
+                                                    <a href="./explore-programs/human-resource/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="19" height="20"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon03.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Human
+                                                            Resource</span></a>
+                                                </li>
+                                                <li id="menu-item-436"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-436">
+                                                    <a href="./explore-programs/stock-market/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="19" height="20"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon03.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Stock
+                                                            Market</span></a>
+                                                </li>
+                                                <li id="menu-item-432"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-432">
+                                                    <a href="./explore-programs/business-analytics/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="19" height="20"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon03.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Business
+                                                            Analytics</span></a>
+                                                </li>
+                                                <li id="menu-item-2206"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-2206">
+                                                    <a href="./explore-programs/corporate-law/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="19" height="20"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon03.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Corporate
+                                                            Law</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="menu-item-787"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-787">
+                                            <a href="#" class="menu-image-title-after menu-image-not-hovered"><img
+                                                    width="24" height="24"
+                                                    src="assets/wp-content/uploads/2024/09/tab-icon04.png"
+                                                    class="menu-image menu-image-title-after" alt=""
+                                                    decoding="async" /><span
+                                                    class="menu-image-title-after menu-image-title">Medical</span></a>
+                                            <ul class="sub-menu">
+                                                <li id="menu-item-428"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-428">
+                                                    <a href="./explore-programs/genetics-engineering-nanotechnology/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="24"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon04.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Genetics
+                                                            Engineering/ Nanotechnology</span></a>
+                                                </li>
+                                                <li id="menu-item-429"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-429">
+                                                    <a href="./explore-programs/psychology/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="24"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon04.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Psychology</span></a>
+                                                </li>
+                                                <li id="menu-item-2207"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-2207">
+                                                    <a href="./explore-programs/medical-coding/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="24"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon04.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Medical
+                                                            Coding</span></a>
+                                                </li>
+                                                <li id="menu-item-10518"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10518">
+                                                    <a href="./explore-programs/neurology/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="24"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon04.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Neurology</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="menu-item-786"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-786">
+                                            <a href="#" class="menu-image-title-after menu-image-not-hovered"><img
+                                                    width="27" height="28"
+                                                    src="assets/wp-content/uploads/2024/09/tab-icon05.png"
+                                                    class="menu-image menu-image-title-after" alt=""
+                                                    decoding="async" /><span
+                                                    class="menu-image-title-after menu-image-title">Design</span></a>
+                                            <ul class="sub-menu">
+                                                <li id="menu-item-115"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-115">
+                                                    <a href="./explore-programs/ui-ux-design/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="21" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon01.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">UI/UX
+                                                            Design</span></a>
+                                                </li>
+                                                <li id="menu-item-427"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-427">
+                                                    <a href="./explore-programs/graphic-design/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="27" height="28"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon05.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Graphic
+                                                            Design</span></a>
+                                                </li>
+                                                <li id="menu-item-426"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-explore_programs menu-item-426">
+                                                    <a href="./explore-programs/fashion-designing/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="27" height="28"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon05.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Fashion
+                                                            Designing</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="menu-item-785"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-785">
+                                            <a href="#" class="menu-image-title-after menu-image-not-hovered"><img
+                                                    width="24" height="22"
+                                                    src="assets/wp-content/uploads/2024/09/tab-icon06.png"
+                                                    class="menu-image menu-image-title-after" alt=""
+                                                    decoding="async" /><span
+                                                    class="menu-image-title-after menu-image-title">Bootcamp</span></a>
+                                            <ul class="sub-menu">
+                                                <li id="menu-item-4578"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4578">
+                                                    <a href="./arvr/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon06.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">AR
+                                                            VR</span></a>
+                                                </li>
+                                                <li id="menu-item-4579"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4579">
+                                                    <a href="./explore-drone-engineering/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon06.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Drone
+                                                            Engineering</span></a>
+                                                </li>
+                                                <li id="menu-item-4580"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4580">
+                                                    <a href="./robot-engineering/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon06.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Robot
+                                                            Engineering</span></a>
+                                                </li>
+                                                <li id="menu-item-4581"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4581">
+                                                    <a href="./bootcamp-career-advancement-program/"
+                                                        class="menu-image-title-after menu-image-not-hovered"><img
+                                                            width="24" height="22"
+                                                            src="assets/wp-content/uploads/2024/09/tab-icon06.png"
+                                                            class="menu-image menu-image-title-after" alt=""
+                                                            decoding="async" /><span
+                                                            class="menu-image-title-after menu-image-title">Career
+                                                            advancement Program</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="menu-item-776"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-776">
+                                    <a href="#">Advanced Programs</a>
+                                    <ul class="sub-menu">
+                                        <li id="menu-item-89"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-89">
+                                            <a href="./digital-marketing-program/">Digital Marketing Program</a>
+                                        </li>
+                                        <li id="menu-item-92"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-92">
+                                            <a href="./data-science-program/">Data Science Program</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="menu-item-775"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-775">
+                                    <a href="#">Pro Packs</a>
+                                    <ul class="sub-menu">
+                                        <li id="menu-item-148"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-148">
+                                            <a href="./golden-pass/">Golden Pass</a>
+                                        </li>
+                                        <li id="menu-item-174"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-174">
+                                            <a href="./mba-lite-pack/">MBA Lite Pack</a>
+                                        </li>
+                                        <li id="menu-item-178"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-178">
+                                            <a href="./tech-starter-pack/">Tech Starter Pack</a>
+                                        </li>
+                                        <li id="menu-item-182"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-182">
+                                            <a href="./make-your-own-pack-mentor-lead/">Make Your Own Pack</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="menu-item-9972"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9972"><a
+                                        href="./ibm/">CORIZO X IBM</a></li>
+                                <li id="menu-item-32"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32"><a
+                                        href="./about/">About</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!-- #site-navigation -->
+                </div>
+                <div class="hdr-btns">
+                    <a href="./login/" class="login-btn">Login</a>
+                    <a href="./contact-us/" class="cont-btn">Contact Us</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
-    <!-- ══ END NAV ══════════════════════════════════════════════ -->
-
-    <!-- ══ NEW HERO SECTION ═════════════════════════════════════ -->
-    <section class="cz-hero" aria-label="Hero section">
-      <canvas id="cz-grid-canvas" aria-hidden="true"></canvas>
-      <div class="cz-hero-glow" aria-hidden="true"></div>
-      <div class="cz-hero-glow-br" aria-hidden="true"></div>
-      <div class="cz-dot-grid" aria-hidden="true"></div>
-
-      <div class="cz-hero-content" data-cz-group>
-        <div class="cz-badge" data-cz-animate>
-          <span class="cz-badge-icon">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-          </span>
-          <span class="cz-badge-text">Expert-Led &middot; Industry-Focused &middot; Future-Ready</span>
+        <div class="hdr-bg">
+            <div class="container">
+                <div class="hdr-menu">
+                    <nav id="site-navigation" class="main-navigation">
+                        <div class="menu-menu-2-container">
+                            <ul id="header-menu" class="menu">
+                                <li id="menu-item-86"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-86"><a
+                                        href="#overview">Overview</a></li>
+                                <li id="menu-item-85"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a
+                                        href="#syllabus">Syllabus</a></li>
+                                <li id="menu-item-81"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81"><a
+                                        href="#certification">Certification</a></li>
+                                <li id="menu-item-84"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a
+                                        href="#mentors">Mentors</a></li>
+                                <li id="menu-item-83"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-83"><a
+                                        href="#review">Review</a></li>
+                                <li id="menu-item-82"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-82"><a
+                                        href="#faqs">FAQ’s</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!-- #site-navigation -->
+                </div>
+            </div>
         </div>
+    </header>
+    <!-- #masthead -->
+    <style>
+        /*.sub-menu li a:hover { 
+		background-color:#EFE7F5;
+		}
+		.sub-menu {    
+			background-color:#FFF;    
+		}*/
+    </style>
+    <div class="hero-section">
+        <div class="container">
+            <div class="bnr-wrapper d-flex flex-column flex-md-row align-items-center">
+                <!-- Image Section First on Mobile -->
+                <!-- <div class="bnr_img_glry order-1 order-md-2">
+				<img src="./wp-content/themes/techglobiz/images/hro.gif" alt="bnr gallery">
+			</div> -->
 
-        <h1 class="cz-headline" data-cz-animate>
-          <span class="line">Upskill to the</span>
-          <span class="line gradient-line">Top 1%</span>
-          <span class="line">with Expert-led Programs</span>
-        </h1>
-
-        <div class="cz-divider" aria-hidden="true" data-cz-animate></div>
-
-        <p class="cz-subtext" data-cz-animate>
-          From classroom to career, we prepare you with practical learning
-          designed for today&#8217;s Competitive Market.
-        </p>
-
-        <div data-cz-animate>
-          <a href="#exprogram" class="cz-cta" aria-label="Explore programs">
-            Explore Programs
-            <span class="cz-cta-arrow" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </a>
+                <!-- Text Section Second on Mobile -->
+                <div class="bnr_caption order-2 order-md-1">
+                    <div class="hero-heading">Upskill to the</div>
+                    <div class="sml-hding">Top 1%</div>
+                    <div class="hero-heading">with Expert-led Programs</div>
+                    <p>From classroom to career, we prepare you with practical learning designed for today's Competitive
+                        Market.</p>
+                    <div class="bnr-links">
+                        <a href="#exprogram"><span>Explore Programs</span><svg class="cz-btn-arrow" viewBox="0 0 20 20"
+                                fill="none" aria-hidden="true" focusable="false">
+                                <path d="M4 10h11M10.5 5.5 15 10l-4.5 4.5" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg></a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-    <!-- ══ END HERO ══════════════════════════════════════════════ -->
+    </div>
 
-    <!-- ══ HERO SCRIPTS ══════════════════════════════════════════ -->
-    <script>
-    /* ── Canvas wireframe grid ───────────────────────────────── */
-    (() => {
-      const canvas = document.getElementById('cz-grid-canvas');
-      const ctx    = canvas.getContext('2d');
-      const COLS = 30, ROWS = 22, SPACING = 100, FOCAL = 500, AMPLITUDE = 10;
-      const DPR  = Math.min(window.devicePixelRatio || 1, 2);
-      const ROT_X = (62 * Math.PI) / 180;
-      const ROT_Y = (8  * Math.PI) / 180;
-      let W = 0, H = 0, animId = null, startTime = null, pts = [];
 
-      function initGrid() {
-        pts = [];
-        const offX = ((COLS-1)*SPACING)/2, offZ = ((ROWS-1)*SPACING)/2;
-        for (let r=0; r<ROWS; r++)
-          for (let c=0; c<COLS; c++)
-            pts.push({ bx: c*SPACING-offX, by: 0, bz: r*SPACING-offZ });
-      }
-      function resize() {
-        W = window.innerWidth; H = window.innerHeight;
-        canvas.width = W*DPR; canvas.height = H*DPR;
-        canvas.style.width = W+'px'; canvas.style.height = H+'px';
-        ctx.setTransform(DPR,0,0,DPR,0,0);
-      }
-      function project(pt, t) {
-        const dy = Math.sin(pt.bx*0.052+t*0.48)*AMPLITUDE + Math.sin(pt.bz*0.078-t*0.31)*(AMPLITUDE*0.52);
-        let x=pt.bx, y=pt.by+dy, z=pt.bz;
-        const cX=Math.cos(ROT_X), sX=Math.sin(ROT_X);
-        let y1=y*cX-z*sX, z1=y*sX+z*cX;
-        const cY=Math.cos(ROT_Y), sY=Math.sin(ROT_Y);
-        let x2=x*cY+z1*sY, z2=-x*sY+z1*cY;
-        const cx=W*0.5, cy=H*0.72, depth=FOCAL+z2;
-        if (depth<=0) return null;
-        const sc=FOCAL/depth;
-        return { sx: cx+x2*sc, sy: cy+y1*sc, depth: z2 };
-      }
-      function depthOpacity(z) {
-        const t=(z-(-400))/(800-(-400));
-        return 0.55 - Math.max(0,Math.min(1,t))*0.51;
-      }
-      function draw(ts) {
-        if (!startTime) startTime=ts;
-        const t=(ts-startTime)/1000;
-        ctx.clearRect(0,0,W,H);
-        const proj = pts.map(p=>project(p,t));
-        for (let r=0; r<ROWS; r++) {
-          for (let c=0; c<COLS-1; c++) {
-            const a=proj[r*COLS+c], b=proj[r*COLS+c+1];
-            if (!a||!b) continue;
-            const op=(depthOpacity(a.depth)+depthOpacity(b.depth))*0.5;
-            if (op<0.012) continue;
-            ctx.beginPath(); ctx.moveTo(a.sx,a.sy); ctx.lineTo(b.sx,b.sy);
-            ctx.strokeStyle=`rgba(139,92,246,${op.toFixed(3)})`; ctx.lineWidth=1; ctx.stroke();
-          }
-        }
-        for (let c=0; c<COLS; c++) {
-          for (let r=0; r<ROWS-1; r++) {
-            const a=proj[r*COLS+c], b=proj[(r+1)*COLS+c];
-            if (!a||!b) continue;
-            const op=(depthOpacity(a.depth)+depthOpacity(b.depth))*0.5;
-            if (op<0.012) continue;
-            ctx.beginPath(); ctx.moveTo(a.sx,a.sy); ctx.lineTo(b.sx,b.sy);
-            ctx.strokeStyle=`rgba(139,92,246,${op.toFixed(3)})`; ctx.lineWidth=1; ctx.stroke();
-          }
-        }
-        animId = requestAnimationFrame(draw);
-      }
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) { cancelAnimationFrame(animId); animId=null; }
-        else { startTime=null; animId=requestAnimationFrame(draw); }
-      });
-      resize(); initGrid();
-      window.addEventListener('resize', resize);
-      animId = requestAnimationFrame(draw);
-    })();
 
-    /* ── Navbar scroll ───────────────────────────────────────── */
-    (() => {
-      const nav = document.getElementById('cz-main-nav');
-      const fn = () => nav.classList.toggle('scrolled', window.scrollY > 20);
-      window.addEventListener('scroll', fn, { passive: true });
-      fn();
-    })();
-
-    /* ── Staggered hero entry ────────────────────────────────── */
-    (() => {
-      const els = document.querySelectorAll('[data-cz-animate]');
-      requestAnimationFrame(() => requestAnimationFrame(() =>
-        els.forEach(el => el.classList.add('is-visible'))
-      ));
-    })();
-
-    /* ── Canvas scroll parallax ─────────────────────────────────────
-       As user scrolls out of the hero, canvas drifts up slightly
-       (up to 60px), giving the 3-D wireframe a sense of receding depth */
-    (() => {
-      const canvas = document.getElementById('cz-grid-canvas');
-      const hero   = document.querySelector('.cz-hero');
-      if (!canvas || !hero) return;
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (ticking) return;
-        requestAnimationFrame(() => {
-          const scrollY   = window.scrollY;
-          const heroH     = hero.offsetHeight || window.innerHeight;
-          const progress  = Math.min(scrollY / heroH, 1);
-          canvas.style.transform = `translateY(${-(progress * 60).toFixed(1)}px)`;
-          ticking = false;
-        });
-        ticking = true;
-      }, { passive: true });
-    })();
-    </script>
-    <!-- ══ END HERO SCRIPTS ══════════════════════════════════════ -->
-
-    <!-- ══ HERO→PAGE TRANSITION BRIDGE ════════════════════════════ -->
-    <div class="cz-hero-bridge">
+    <div class="bg-colord">
         <div class="brands-sect">
             <h1 class="txt-hding" data-aos="fade-up">Secure Placements with Top Brands</h1>
             <div id="logo-slider01" class="cz-marquee">
@@ -2092,48 +1889,35 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div><!-- /cz-hero-bridge -->
 
-    <div class="bg-colord">
+
         <div class="container">
             <div class="counter-section">
                 <ul>
-                    <li>
+                    <li data-aos="fade-up">
                         <div class="countr-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-                                <circle cx="9.6" cy="7" r="4.1" />
-                                <path d="M9.6 13.2c-4.2 0-7.6 2.1-7.6 4.8v1.4h9.6a6.8 6.8 0 0 1 2.7-7.7 14.6 14.6 0 0 0-4.7-.5Z" />
-                                <path d="m18.2 12.3 1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4Z" />
-                            </svg>
+                            <img src="assets/wp-content/themes/techglobiz/images/rating-icon.svg">
                         </div>
                         <strong>
-                            <span class="countn">4.8</span>
+                            <span class="countn" data-count="10">4.8</span>
                             <p>Google Rating</p>
                         </strong>
                     </li>
-                    <li>
+                    <li data-aos="fade-up" data-aos-delay="100">
                         <div class="countr-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-                                <path d="M12 3 1.4 8.2 12 13.5l10.6-5.3Z" />
-                                <path d="M5.7 12.2v3.5c0 1.9 2.8 3.4 6.3 3.4s6.3-1.5 6.3-3.4v-3.5L12 15.3Z" />
-                            </svg>
+                            <img src="assets/wp-content/themes/techglobiz/images/mentees-icon.svg" alt="" />
                         </div>
                         <strong>
-                            <span class="countn">50K+</span>
+                            <span class="countn" data-count="10">50K+</span>
                             <p>Mentees Trained</p>
                         </strong>
                     </li>
-                    <li>
+                    <li data-aos="fade-up" data-aos-delay="200">
                         <div class="countr-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
-                                aria-hidden="true" focusable="false">
-                                <path
-                                    d="M9.3 3.4h5.4a2.5 2.5 0 0 1 2.5 2.5v1.2h2.3a2.5 2.5 0 0 1 2.5 2.5v8.5a2.5 2.5 0 0 1-2.5 2.5H4.5A2.5 2.5 0 0 1 2 18.1V9.6a2.5 2.5 0 0 1 2.5-2.5h2.3V5.9a2.5 2.5 0 0 1 2.5-2.5Zm0 3.7h5.4V5.9H9.3v1.2Zm3.8 6.4a1.1 1.1 0 0 0-2.2 0v1.7a1.1 1.1 0 0 0 2.2 0v-1.7Z" />
-                            </svg>
+                            <img src="assets/wp-content/themes/techglobiz/images/bag-icon.svg" alt="" />
                         </div>
                         <strong>
-                            <span class="countn">500+</span>
+                            <span class="countn" data-count="10">500+</span>
                             <p>Hiring Partner</p>
                         </strong>
                     </li>
@@ -2143,772 +1927,291 @@
 
         <div class="transitions-sect">
             <h2 class="heding-content" data-aos="fade-up">Some Successful <strong>Transitions!</strong></h2>
-            <div id="transit-slider" class="cz-transit-marquee">
-                <div class="cz-transit-track">
-                    <div class="cz-transit-group">
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img01.png" alt="Pratyush Raj" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Pratyush Raj</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Cloud Computing Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon01.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Web<br>Developer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Security<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img02.png" alt="Kirti Kamkanala" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Kirti Kamkanala</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Machine Learning Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/image-17kk.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech<br>Student</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">AWS Cloud<br>Intern</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img03.png" alt="Sonal Singh" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Sonal Singh</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Marketing Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon03.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BBA<br>Graduate</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-                      <div class="tc-role">Head of<br>Marketing</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img04.png" alt="Tanmay Zaid" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Tanmay Zaid</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Web Development Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon04.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech<br>Graduate</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Data Analyst<br>Intern</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img05.png" alt="Susan Suseel" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Susan Suseel</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Psychology Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon05.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Psychology<br>Student</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Psychology<br>Intern</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/jyuu.png" alt="Joshua Shashank J" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Joshua Shashank J</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Business Analyst</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/idfc.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Graduate</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-                      <div class="tc-role">Deputy<br>Manager</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560831.png" alt="Sahib Nanda" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Sahib Nanda</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Machine Learning Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/Frame-1686563909-.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">Automation<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560838.png" alt="Shaik Mohammed" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Shaik Mohammed</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Web Development Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/Frame-1686563909-hcl.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">Automation<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560837.png" alt="Sharib Tasneem" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Sharib Tasneem</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Data Science Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/image-207291.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Graduate<br>BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">SDE</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560839.png" alt="Adwik Nair" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Adwik Nair</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Product Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/precisely_logo.svg_.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Graduate<br>BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Software<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                    </div>
-                    <div class="cz-transit-group" aria-hidden="true">
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img01.png" alt="Pratyush Raj" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Pratyush Raj</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Cloud Computing Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon01.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Web<br>Developer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Security<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img02.png" alt="Kirti Kamkanala" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Kirti Kamkanala</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Machine Learning Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/image-17kk.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech<br>Student</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">AWS Cloud<br>Intern</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img03.png" alt="Sonal Singh" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Sonal Singh</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Marketing Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon03.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BBA<br>Graduate</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-                      <div class="tc-role">Head of<br>Marketing</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img04.png" alt="Tanmay Zaid" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Tanmay Zaid</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Web Development Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon04.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech<br>Graduate</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Data Analyst<br>Intern</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/themes/techglobiz/images/portfolio-img05.png" alt="Susan Suseel" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Susan Suseel</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Psychology Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/themes/techglobiz/images/under-icon05.jpg" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Psychology<br>Student</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Psychology<br>Intern</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/jyuu.png" alt="Joshua Shashank J" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Joshua Shashank J</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Business Analyst</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/idfc.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Graduate</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-                      <div class="tc-role">Deputy<br>Manager</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560831.png" alt="Sahib Nanda" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Sahib Nanda</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Machine Learning Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/Frame-1686563909-.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">Automation<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560838.png" alt="Shaik Mohammed" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Shaik Mohammed</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Web Development Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/Frame-1686563909-hcl.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">Automation<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560837.png" alt="Sharib Tasneem" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Sharib Tasneem</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Data Science Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/image-207291.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Graduate<br>BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                      <div class="tc-role">SDE</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tc-card">
-                  <div class="tc-avatar-wrap">
-                    <img class="tc-avatar" src="assets/wp-content/uploads/2024/10/Group-1686560839.png" alt="Adwik Nair" loading="lazy">
-                  </div>
-                  <div class="tc-body">
-                    <p class="tc-name">Adwik Nair</p>
-                    <div class="tc-program-row">
-                      <span class="tc-program-line"></span>
-                      <span class="tc-program">Product Program</span>
-                      <span class="tc-program-line"></span>
-                    </div>
-                    <div class="tc-logo-wrap">
-                      <div class="tc-logo-pill">
-                        <img src="assets/wp-content/uploads/2024/10/precisely_logo.svg_.png" alt="company logo" loading="lazy">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tc-ba-panel">
-                    <div class="tc-side before">
-                      <span class="tc-side-label">Before</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                      <div class="tc-role">Graduate<br>BTech</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                    <div class="tc-connector">
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                      <div class="tc-arrow-btn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-                      <div class="tc-dash"><span></span><span></span><span></span><span></span></div>
-                    </div>
-                    <div class="tc-side after">
-                      <span class="tc-side-label">After</span>
-                      <div class="tc-icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div>
-                      <div class="tc-role">Software<br>Engineer</div>
-                      <div class="tc-role-bar"></div>
-                    </div>
-                  </div>
-                </div>
+            <div id="transit-slider" class="owl-carousel">
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/themes/techglobiz/images/portfolio-img01.png" alt="" />
+                    </div>
+                    <div class="name_txt">Pratyush Raj</div>
+                    <div class="pro_txt">Cloud computing Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/themes/techglobiz/images/under-icon01.jpg" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>Web <br /> Developer</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Security <br /> Engineer</strong>
+                        </div>
                     </div>
                 </div>
-            </div><!-- end transit-slider -->
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/themes/techglobiz/images/portfolio-img02.png" alt="" />
+                    </div>
+                    <div class="name_txt">Kirti Kamkanala</div>
+                    <div class="pro_txt">Machine Learning Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/uploads/2024/10/image-17kk.png" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>BTech <br /> Student</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>AWS Cloud <br /> Intern</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/themes/techglobiz/images/portfolio-img03.png" alt="" />
+                    </div>
+                    <div class="name_txt">Sonal Singh</div>
+                    <div class="pro_txt">Marketing Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/themes/techglobiz/images/under-icon03.jpg" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>BBA <br /> Graduate</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Head of <br /> Marketing</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/themes/techglobiz/images/portfolio-img04.png" alt="" />
+                    </div>
+                    <div class="name_txt">Tanmay Zaid</div>
+                    <div class="pro_txt">Web Development Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/themes/techglobiz/images/under-icon04.jpg" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>BTech <br /> Graduate</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Data Analyst <br /> Intern</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/themes/techglobiz/images/portfolio-img05.png" alt="" />
+                    </div>
+                    <div class="name_txt">Susan Suseel</div>
+                    <div class="pro_txt">Psychology Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/themes/techglobiz/images/under-icon05.jpg" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>Psychology <br /> Student</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Psychology <br /> Intern</strong>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/uploads/2024/10/jyuu.png" alt="" />
+                    </div>
+                    <div class="name_txt">Joshua Shashank J</div>
+                    <div class="pro_txt">Business Analyst </div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/uploads/2024/10/idfc.png" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>Graduate</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Deputy <br /> Manager</strong>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/uploads/2024/10/Group-1686560831.png" alt="" />
+                    </div>
+                    <div class="name_txt">Sahib Nanda</div>
+                    <div class="pro_txt">Machine Learning Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/uploads/2024/10/Frame-1686563909-.png" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>BTech</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Automation <br /> Engineer</strong>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/uploads/2024/10/Group-1686560838.png" alt="" />
+                    </div>
+                    <div class="name_txt">Shaik Mohammed Tech</div>
+                    <div class="pro_txt">Web Development Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/uploads/2024/10/Frame-1686563909-hcl.png" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>BTech</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Automation <br /> Engineer</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/uploads/2024/10/Group-1686560837.png" alt="" />
+                    </div>
+                    <div class="name_txt">Sharib Tasneem</div>
+                    <div class="pro_txt">Data Science Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/uploads/2024/10/image-207291.png" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>Graduate BTech</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong> SDE </strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/uploads/2024/10/Group-1686560839.png" alt="" />
+                    </div>
+                    <div class="name_txt">Adwik Nair</div>
+                    <div class="pro_txt">Product Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/uploads/2024/10/precisely_logo.svg_.png" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>Graduate BTech</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Software <br /> Engineer</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transit-items">
+                    <div class="profile-img">
+                        <img src="assets/wp-content/uploads/2024/10/Group-1686560845.png" alt="" />
+                    </div>
+                    <div class="name_txt">Adwik Nair</div>
+                    <div class="pro_txt">Product Program</div>
+                    <div class="txt_icon">
+                        <img src="assets/wp-content/uploads/2024/10/ford_motor_company_logo.svg_.png" alt="" />
+                    </div>
+                    <div class="pro-after-sect">
+                        <div class="bfore-lft">
+                            <div class="badge">BEFORE</div>
+                            <strong>Graduate BTech</strong>
+                        </div>
+                        <div class="mid-icon">
+                            <img src="assets/wp-content/themes/techglobiz/images/mid-arrow-icn.jpg" alt="" />
+                        </div>
+                        <div class="aftr-rht">
+                            <div class="badge">AFTER</div>
+                            <strong>Software <br /> Engineer</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
 
     </div>
 
 
-    <div class="bg-image cz-dark-texture cz-aurora-section" id="exprogram">
-        <div class="cz-aurora-layer cz-blob-1" aria-hidden="true"></div>
-        <div class="cz-aurora-layer cz-blob-2" aria-hidden="true"></div>
-        <div class="cz-aurora-layer cz-blob-3" aria-hidden="true"></div>
-        <div class="cz-aurora-waves" aria-hidden="true"></div>
+    <div class="bg-image cz-dark-texture" id="exprogram">
         <div class="container">
             <div class="select-tabs">
                 <h2 class="heding-content" data-aos="fade-up">Explore Programs</h2>
                 <div id="tabs_section" class="tab-wrapper">
                     <h4>Select Type</h4>
                     <ul class="nav nav-pills">
-                        <li>
+                        <li class="active">
                             <a href="#tech-data" data-toggle="tab" class="active show"> <img
                                     src="assets/wp-content/themes/techglobiz/images/tab-icon01.png" alt="" />Tech & Data</a>
                         </li>
@@ -3614,47 +2917,20 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="pro-pack cz-dark-texture">
-        <h2 class="heding-content" data-aos="fade-up">Pro Packs</h2>
+        <div class="pro-pack cz-dark-texture">
+            <h2 class="heding-content" data-aos="fade-up">Pro Packs</h2>
             <div id="marquee-slider" class="cz-marquee">
                 <div class="cz-marquee-track">
                     <div class="cz-marquee-group">
                         <div class="pill-item">Placement Assistance</div>
                         <div class="pill-item">Mockup Interviews</div>
                         <div class="pill-item">Value Packs</div>
-                        <div class="pill-item">Live Interactive Classes</div>
-                        <div class="pill-item">Industry Mentors</div>
-                        <div class="pill-item">Portfolio Projects</div>
-                        <div class="pill-item">Internship Opportunities</div>
-                        <div class="pill-item">Certifications</div>
-                        <div class="pill-item">Placement Assistance</div>
-                        <div class="pill-item">Mockup Interviews</div>
-                        <div class="pill-item">Value Packs</div>
-                        <div class="pill-item">Live Interactive Classes</div>
-                        <div class="pill-item">Industry Mentors</div>
-                        <div class="pill-item">Portfolio Projects</div>
-                        <div class="pill-item">Internship Opportunities</div>
-                        <div class="pill-item">Certifications</div>
                     </div>
                     <div class="cz-marquee-group" aria-hidden="true">
                         <div class="pill-item">Placement Assistance</div>
                         <div class="pill-item">Mockup Interviews</div>
                         <div class="pill-item">Value Packs</div>
-                        <div class="pill-item">Live Interactive Classes</div>
-                        <div class="pill-item">Industry Mentors</div>
-                        <div class="pill-item">Portfolio Projects</div>
-                        <div class="pill-item">Internship Opportunities</div>
-                        <div class="pill-item">Certifications</div>
-                        <div class="pill-item">Placement Assistance</div>
-                        <div class="pill-item">Mockup Interviews</div>
-                        <div class="pill-item">Value Packs</div>
-                        <div class="pill-item">Live Interactive Classes</div>
-                        <div class="pill-item">Industry Mentors</div>
-                        <div class="pill-item">Portfolio Projects</div>
-                        <div class="pill-item">Internship Opportunities</div>
-                        <div class="pill-item">Certifications</div>
                     </div>
                 </div>
             </div>
@@ -3663,104 +2939,43 @@
 
 
     <div class="bg-discover">
-        <!-- Gold Pass animated aurora background layers (black / purple / gold) -->
-        <div class="cz-gp-layer cz-gp-blob-1" aria-hidden="true"></div>
-        <div class="cz-gp-layer cz-gp-blob-2" aria-hidden="true"></div>
-        <div class="cz-gp-layer cz-gp-blob-3" aria-hidden="true"></div>
-        <div class="cz-gp-layer cz-gp-blob-4" aria-hidden="true"></div>
-        <div class="cz-gp-layer cz-gp-blob-5" aria-hidden="true"></div>
-        <div class="cz-gp-waves" aria-hidden="true"></div>
-        <div class="cz-gp-grain" aria-hidden="true"></div>
         <div class="container">
-            <div class="pass-sect cz-reveal">
-                <div class="cz-ticket">
+            <div class="pass-sect">
                 <div class="golden-pass">
-                    <div class="cz-gp-head">
-                        <span class="cz-gp-crown" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
-                                <path d="M3.4 8.1a1 1 0 0 1 1.55-.83l3.2 2.13 2.98-4.62a1 1 0 0 1 1.68 0l2.98 4.62 3.2-2.13a1 1 0 0 1 1.55.83l-.62 8.05a1.6 1.6 0 0 1-1.6 1.48H5.62a1.6 1.6 0 0 1-1.6-1.48Z" />
-                                <rect x="5.6" y="18.6" width="12.8" height="1.9" rx=".95" />
-                            </svg>
-                        </span>
-                        <div class="cz-gp-titles">
-                            <h3>Golden Pass</h3>
-                            <h4>AN EXCLUSIVE COURSE ACCESS</h4>
-                        </div>
-                    </div>
+                    <h3>Golden Pass</h3>
+                    <h4>AN EXCLUSIVE COURSE ACCESS</h4>
                     <div class="course-row">
                         <div class="course-col">
                             <div class="col-blue">
-                                <span class="cz-gp-ico" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                        <rect x="3" y="4.6" width="18" height="12" rx="2" />
-                                        <line x1="1.8" y1="19.4" x2="22.2" y2="19.4" />
-                                    </svg>
-                                </span>
-                                <div class="cz-gp-ctext">
-                                    <h5>Tech Starter</h5>
-                                    <p>12+ Diverse Courses</p>
-                                </div>
+                                <h5>Tech Starter</h5>
+                                <p>12+ Diverse Courses</p>
                             </div>
                         </div>
 
                         <div class="course-col">
                             <div class="col-orng">
-                                <span class="cz-gp-ico" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                        <rect x="2.8" y="7.3" width="18.4" height="12.4" rx="2.4" />
-                                        <path d="M8.4 7.3V5.8a2.2 2.2 0 0 1 2.2-2.2h2.8a2.2 2.2 0 0 1 2.2 2.2v1.5" />
-                                        <line x1="12" y1="12.4" x2="12" y2="14.6" />
-                                    </svg>
-                                </span>
-                                <div class="cz-gp-ctext">
-                                    <h5>MBA Lite</h5>
-                                    <p>7+ Diverse Courses</p>
-                                </div>
+                                <h5>MBA Lite</h5>
+                                <p>7+ Diverse Courses</p>
                             </div>
                         </div>
 
                         <div class="course-col">
                             <div class="col-grn">
-                                <span class="cz-gp-ico" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                        <rect x="3.6" y="3.6" width="7" height="7" rx="1.8" />
-                                        <rect x="13.4" y="3.6" width="7" height="7" rx="1.8" />
-                                        <rect x="3.6" y="13.4" width="7" height="7" rx="1.8" />
-                                        <rect x="13.4" y="13.4" width="7" height="7" rx="1.8" />
-                                    </svg>
-                                </span>
-                                <div class="cz-gp-ctext">
-                                    <h5>More</h5>
-                                    <p>2+ Diverse Courses</p>
-                                </div>
+                                <h5>More</h5>
+                                <p>2+ Diverse Courses</p>
                             </div>
                         </div>
                     </div>
-                    <div class="get-premium"><span class="cz-gp-spark" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
-                                <path d="M12 2 13.8 8.7 20.5 10.5 13.8 12.3 12 19 10.2 12.3 3.5 10.5 10.2 8.7Z" />
-                            </svg>
-                        </span>Get premium Access to <strong>20+ Courses</strong></div>
+                    <div class="get-premium">Get premium Access to <strong>20+ Courses</strong></div>
                 </div>
                 <div class="access-sect">
-                    <span class="cz-gp-seal" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
-                            <path d="M12 2 13.8 8.7 20.5 10.5 13.8 12.3 12 19 10.2 12.3 3.5 10.5 10.2 8.7Z" />
-                        </svg>
-                    </span>
-                    <p><span class="cz-gp-life">LIFE &ndash; TIME</span><span
-                            class="cz-gp-access">ACCESS</span></p>
+                    <p>LIFE - TIME <br />ACCESS</p>
                 </div>
+                <div class="golden-pass-mob">
+                    <img src="assets/wp-content/themes/techglobiz/images/golden-pass-mob.png" alt="" />
                 </div>
                 <div class="pass-lnk">
-                    <a href="./golden-pass/"><span>Explore Gold</span><svg class="cz-btn-arrow" viewBox="0 0 20 20"
-                            fill="none" aria-hidden="true" focusable="false">
-                            <path d="M4 10h11M10.5 5.5 15 10l-4.5 4.5" stroke="currentColor" stroke-width="1.8"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></a>
+                    <a href="./golden-pass/">Explore Gold</a>
                 </div>
             </div>
         </div>
@@ -3937,11 +3152,11 @@
 				<div class="encoun-badge bdg-clr">HOW WE ENCOUNTER</div>
 			</div> -->
                 <div class="encoun-wrapper">
-                    <div class="encoun-img" data-aos="fade-up">
+                    <div class="encoun-img" data-aos="fade-right">
                         <div class="encoun-badge">LEARNING CHALLENGES</div>
                         <img src="assets/wp-content/themes/techglobiz/images/why-corizo-homepage-gif.gif" alt="" />
                     </div>
-                    <div class="encoun-content" data-aos="fade-up" data-aos-delay="120">
+                    <div class="encoun-content" data-aos="fade-left">
                         <div class="encoun-badge bdg-clr">HOW WE ENCOUNTER</div>
                         <ul>
                             <li>
@@ -4123,11 +3338,7 @@
                 <p>With relevant skills and experience at leading companies, our alumni could add value to your company
                 </p>
                 <div class="hire-contact">
-                    <a href="#"><span>Connect with us</span><svg class="cz-btn-arrow" viewBox="0 0 20 20" fill="none"
-                            aria-hidden="true" focusable="false">
-                            <path d="M4 10h11M10.5 5.5 15 10l-4.5 4.5" stroke="currentColor" stroke-width="1.8"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></a>
+                    <a href="#">Connect with us</a>
                 </div>
                 <ul>
                     <li>
@@ -4279,10 +3490,6 @@
 
 
     <footer id="colophon" class="site-footer">
-        <div class="cz-aurora-layer cz-blob-1" aria-hidden="true"></div>
-        <div class="cz-aurora-layer cz-blob-2" aria-hidden="true"></div>
-        <div class="cz-aurora-layer cz-blob-3" aria-hidden="true"></div>
-        <div class="cz-aurora-waves" aria-hidden="true"></div>
         <div class="container">
             <div class="ftr-wrapper">
                 <div class="ftr-col ftr-logo cz-reveal">
@@ -4574,7 +3781,6 @@
     <div class="wprm-wrapper">
 
         <!-- Overlay Starts here -->
-        <div class="cz-menu-overlay" aria-hidden="true"></div>
         <!-- Overlay Ends here -->
 
         <div id="wprmenu_bar" class="wprmenu_bar normalslide left">
@@ -4591,10 +3797,6 @@
         </div>
         <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left default " id="mg-wprm-wrap">
 
-            <div class="cz-mobile-ctas">
-                <a href="./login/" class="login-btn">Login</a>
-                <a href="./contact-us/" class="cont-btn">Contact Us</a>
-            </div>
 
             <ul id="wprmenu_menu_ul">
 
@@ -5293,7 +4495,36 @@
     </script>
 
     <script>
-        /* transit-slider converted to a pure-CSS infinite marquee — no owlCarousel needed. */
+        $('#transit-slider').owlCarousel({
+            items: 3,
+            loop: true,
+            margin: 25,
+            autoplay: true,
+            autoplaySpeed: 2500,
+            dots: false,
+            nav: false,
+            responsiveClass: true,
+            responsive: {
+                320: {
+                    items: 1,
+                    nav: false,
+                },
+                480: {
+                    items: 1,
+                    nav: false,
+                },
+                768: {
+                    items: 2,
+                    nav: false,
+                },
+                992: {
+                    items: 2,
+                },
+                1200: {
+                    items: 3,
+                }
+            }
+        });
     </script>
 
     <script>
@@ -5559,7 +4790,7 @@
         }
     </script>
 
-    <script src="assets/premium/premium.js?v=7"></script>
+    <script src="assets/premium/premium.js?v=5"></script>
 
 </body>
 

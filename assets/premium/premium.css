@@ -68,6 +68,20 @@
     --icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
     /* Four-point diamond — Pro Packs ticker separator */
     --icon-diamond: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' stroke='none'%3E%3Cpath d='M12 0c.7 5.9 5.4 10.6 12 12-6.6 1.4-11.3 6.1-12 12-.7-5.9-5.4-10.6-12-12C6.6 10.6 11.3 5.9 12 0Z'/%3E%3C/svg%3E");
+    /* Decorative arcs orbiting the transition-card portrait: two incomplete
+       gradient strokes with glowing end nodes. Kept as one data-URI SVG
+       rather than inline markup so all eleven cards share a single
+       definition and the carousel markup stays untouched. */
+    --deco-portrait-arcs: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236E25A4'/%3E%3Cstop offset='1' stop-color='%23B35BF3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M14.8 60.3A94 94 0 0 1 185.2 60.3' stroke='url(%23a)' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M190.8 124.3A94 94 0 0 1 91.8 193.6' stroke='url(%23a)' stroke-width='1.3' stroke-linecap='round'/%3E%3Ccircle cx='14.8' cy='60.3' r='8' fill='%238508E1' opacity='.16'/%3E%3Ccircle cx='14.8' cy='60.3' r='3.6' fill='%238508E1'/%3E%3Ccircle cx='190.8' cy='124.3' r='7' fill='%23B35BF3' opacity='.16'/%3E%3Ccircle cx='190.8' cy='124.3' r='3.2' fill='%23B35BF3'/%3E%3C/svg%3E");
+
+    /* Open book / briefcase — the before → after pair on transition cards.
+       These are used as background-image (not mask-image) so the same
+       pseudo-element can carry both the circular well and the glyph, which
+       means the stroke colour has to be baked into the SVG rather than
+       inherited. Hence a colour-specific token per state. */
+    --icon-book-muted: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236F6A7B' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6.5C10.4 5.2 8.3 4.5 5.8 4.5H3v13h2.8c2.5 0 4.6.7 6.2 2 1.6-1.3 3.7-2 6.2-2H21v-13h-2.8c-2.5 0-4.6.7-6.2 2Z'/%3E%3Cline x1='12' y1='6.5' x2='12' y2='19.5'/%3E%3C/svg%3E");
+    --icon-briefcase-violet: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238508E1' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.8' y='7.3' width='18.4' height='12.4' rx='2.4'/%3E%3Cpath d='M8.4 7.3V5.8a2.2 2.2 0 0 1 2.2-2.2h2.8a2.2 2.2 0 0 1 2.2 2.2v1.5'/%3E%3Cline x1='12' y1='12.4' x2='12' y2='14.6'/%3E%3C/svg%3E");
+
     /* Filled check badge — Discover Value Pack feature bullets */
     --icon-check-badge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9.2'/%3E%3Cpolyline points='7.8 12.3 10.7 15.2 16.2 9.3'/%3E%3C/svg%3E");
 
@@ -992,133 +1006,645 @@ a.login-btn:hover {
     opacity: 1;
 }
 
-/* ---- Successful Transitions ------------------------------------------------
-   The cards were flat white rectangles with a hard 1px purple outline and a
-   blunt drop shadow, all animating as one block. This gives them a layered
-   read: a soft gradient surface, a gradient ring on the avatar, elevation
-   that responds to hover, and a staged reveal so the avatar, name and the
-   before/after row arrive in sequence rather than all at once. */
+/* ---- Successful Transitions — infinite marquee train ------------------------ */
 .transitions-sect {
     padding-top: 8px;
+    overflow: hidden;
 }
 
-#transit-slider .owl-stage {
+/* Outer wrapper clips the scrolling track */
+.cz-transit-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    /* Extra top padding so the portrait avatar (negative-margin'd above the
+       card top) has clearance and is not clipped by overflow:hidden here. */
+    padding: 72px 0 36px;
+}
+
+/* Track holds two identical groups and travels -50% so the loop is seamless */
+.cz-transit-track {
     display: flex;
-    align-items: stretch;
-    padding: 24px 0 40px;
+    width: max-content;
+    will-change: transform;
+    animation: cz-transit-scroll 38s linear infinite;
 }
 
-#transit-slider .owl-item {
+.cz-transit-marquee:hover .cz-transit-track {
+    animation-play-state: paused;
+}
+
+@keyframes cz-transit-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Each group is a flex row of cards */
+.cz-transit-group {
     display: flex;
+    flex-shrink: 0;
+    align-items: flex-start;
+    gap: 32px;
+    padding-right: 32px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .cz-transit-track { animation: none; }
+    .cz-transit-marquee { overflow-x: auto; }
+}
+
+/* Transition card. Rebuilt entirely in CSS — the markup the carousel loops
+   over is untouched, so all eight cards (and any added later) pick this up
+   without per-card edits. Icons come from mask-image tokens rather than new
+   <img> elements for the same reason. */
 .transit-items {
-    border: 1px solid rgba(112, 34, 169, .18);
-    border-radius: 28px;
-    background:
-        linear-gradient(180deg, #fff 0%, #FCFBFF 60%, #F7F4FE 100%);
+    border: 1px solid #EEEBF5;
+    border-radius: 20px;
+    background: #fff;
     box-shadow:
-        0 1px 2px rgba(41, 12, 71, .05),
-        0 14px 34px -20px rgba(41, 12, 71, .28);
-    padding-bottom: 28px;
+        0 1px 2px rgba(41, 12, 71, .03),
+        0 6px 18px -8px rgba(41, 12, 71, .09),
+        0 20px 40px -20px rgba(41, 12, 71, .13);
+    padding: 0;
+    /* Fixed width for the train layout */
+    width: 290px;
+    flex: 0 0 290px;
+    margin-top: 52px;
     position: relative;
     isolation: isolate;
-    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    /* No overflow:hidden — the portrait extends above the card via negative
+       margin-top and must not be clipped. Panels clip themselves individually. */
+    transition: box-shadow .4s var(--ease-premium), border-color .4s var(--ease-premium);
 }
 
-/* gradient ring that fades up on hover */
-.transit-items::before {
+/* Faint dot grid, upper-left — masked so it dissolves well before it reaches
+   the portrait and never competes with the content. */
+.transit-items::after {
     content: '';
     position: absolute;
-    inset: -1px;
-    z-index: -1;
-    border-radius: inherit;
-    padding: 1px;
-    background: var(--grad-brand);
-    opacity: 0;
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    transition: opacity .3s ease;
+    top: 34px;
+    left: 30px;
+    width: 168px;
+    height: 176px;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(112, 34, 169, .3) 1.2px, transparent 1.2px);
+    background-size: 17px 17px;
+    mask-image: linear-gradient(142deg, #000 0%, transparent 70%);
+    -webkit-mask-image: linear-gradient(142deg, #000 0%, transparent 70%);
+    opacity: .4;
 }
 
+/* Layout does not move on hover — only the shadow deepens. */
 .transit-items:hover {
-    transform: translateY(-8px);
+    border-color: #EDE8F5;
     box-shadow:
-        0 2px 4px rgba(41, 12, 71, .06),
-        0 28px 54px -22px rgba(88, 10, 157, .42);
-    border-color: transparent;
+        0 1px 2px rgba(41, 12, 71, .03),
+        0 10px 28px -12px rgba(88, 10, 157, .14),
+        0 38px 72px -32px rgba(88, 10, 157, .24);
 }
 
-.transit-items:hover::before {
-    opacity: 1;
-}
-
-/* Avatar: gradient halo + gentle lift, giving the card a clear focal point */
+/* ---- Portrait: white collar + two decorative gradient arcs ------------- */
 .transit-items .profile-img {
     position: relative;
     display: inline-block;
     border-radius: 50%;
-    transition: transform .3s ease;
+    z-index: 2;
+    margin-top: -44px;
+    width: auto !important;
+    height: auto;
+}
+
+.transit-items .profile-img img {
+    position: relative;
+    z-index: 1;
+    width: 84px !important;
+    max-width: none;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 8px 20px -8px rgba(41, 12, 71, .38);
 }
 
 .transit-items .profile-img::before {
     content: '';
     position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    background: var(--grad-brand);
-    opacity: .18;
-    z-index: -1;
-    transition: opacity .3s ease, transform .3s ease;
+    inset: -26px;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--deco-portrait-arcs);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.transit-items:hover .profile-img {
-    transform: translateY(-4px) scale(1.03);
+/* ---- Identity ----------------------------------------------------------- */
+/* The card is a column flex container with align-items: center (theme), so
+   every child is shrink-to-fit by default. These three need the full card
+   width: the label's flanking rules are flex: 1 pseudo-elements that would
+   otherwise collapse to zero, and the before/after panel has to bleed to
+   both card edges. */
+.transit-items .name_txt,
+.transit-items .pro_txt,
+.transit-items .pro-after-sect {
+    align-self: stretch;
+    width: 100%;
+    /* Stretching to full width means they no longer inherit the centring
+       they got from the card's align-items, so it has to be restated. */
+    text-align: center;
 }
 
-.transit-items:hover .profile-img::before {
-    opacity: .38;
-    transform: scale(1.06);
-}
-
-.transit-items .profile-img img {
-    border-radius: 50%;
-    box-shadow: 0 10px 24px -12px rgba(41, 12, 71, .45);
-}
-
-/* Company chip */
-.transit-items .txt_icon {
-    border-color: rgba(112, 34, 169, .16);
-    box-shadow: 0 2px 8px -4px rgba(41, 12, 71, .22);
-    background: #fff;
-    transition: transform .25s ease, box-shadow .25s ease;
-}
-
-.transit-items:hover .txt_icon {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px -10px rgba(88, 10, 157, .4);
-}
-
-/* Before / after row */
-.pro-after-sect .badge {
-    background: rgba(112, 34, 169, .07);
-    color: var(--cz-purple2);
+.transit-items .name_txt {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 20px;
     font-weight: 600;
-    font-size: 13px;
-    letter-spacing: .06em;
-    border-radius: 999px;
-    padding: 5px 12px;
+    line-height: 1.2;
+    letter-spacing: -.2px;
+    color: #14111C;
+    margin: 12px 0 0;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Program label, flanked by hairlines — the rules are pseudo-elements so the
+   markup stays a single <div>. */
+.transit-items .pro_txt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 6px 0 0;
+    padding: 0 16px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 9.5px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: .18em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: #86818F;
+    position: relative;
+    z-index: 1;
+}
+
+/* Rules stop short of the label via the flex gap, and are capped so they
+   never run the full card width on a 1200px card. */
+.transit-items .pro_txt::before,
+.transit-items .pro_txt::after {
+    content: '';
+    flex: 0 1 190px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(112, 34, 169, .3));
+}
+
+.transit-items .pro_txt::after {
+    background: linear-gradient(90deg, rgba(112, 34, 169, .3), transparent);
+}
+
+/* Company chip — floats slightly above the card surface. */
+.transit-items .txt_icon {
+    display: flex;
+    align-items: center;
+    width: auto;
+    min-width: 80px;
+    height: 36px;
+    padding: 0 14px;
+    margin: 10px auto 0;
+    border: 1px solid #EDE9F5;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .04),
+        0 4px 12px -6px rgba(41, 12, 71, .14);
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: box-shadow .35s var(--ease-premium), transform .35s var(--ease-premium);
+}
+
+.transit-items .txt_icon img {
+    max-height: 20px;
+    width: auto !important;
+    object-fit: contain;
+}
+
+.transit-items .txt_icon:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .04),
+        0 18px 34px -14px rgba(88, 10, 157, .34);
+}
+
+/* ---- Before → After panel ----------------------------------------------
+   Full-bleed to the card edges and split exactly at the midpoint: the two
+   halves are flex: 1 and the arrow node is absolutely centred on the seam,
+   so the colour break and the node always agree regardless of card width. */
+.pro-after-sect {
+    position: relative;
+    display: flex;
+    margin: 14px 0 0;
+    padding: 0;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.pro-after-sect .bfore-lft,
+.pro-after-sect .aftr-rht {
+    flex: 1 1 50%;
+    width: 50%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 10px 20px;
+    position: relative;
+}
+
+.pro-after-sect .bfore-lft {
+    background: #FBFBFC;
+    border-bottom-left-radius: 19px;
+}
+
+/* Faint purple wash distinguishes the "after" half without becoming a
+   hard colour block. The 1px inset shadow on the left edge is the subtle
+   vertical divider between halves. */
+.pro-after-sect .aftr-rht {
+    background: linear-gradient(160deg, #FAF6FE 0%, #F4EBFD 100%);
+    border-bottom-right-radius: 19px;
+    box-shadow: inset 1px 0 0 rgba(112, 34, 169, .09);
+    overflow: hidden;
+}
+
+/* Very soft curved line pattern, lower-right — near-invisible texture. */
+.pro-after-sect .aftr-rht::after {
+    content: '';
+    position: absolute;
+    right: -70px;
+    bottom: -96px;
+    width: 240px;
+    height: 240px;
+    pointer-events: none;
+    border-radius: 50%;
+    border: 1px solid rgba(133, 8, 225, .13);
+    box-shadow:
+        0 0 0 22px transparent,
+        0 0 0 23px rgba(133, 8, 225, .10),
+        0 0 0 45px transparent,
+        0 0 0 46px rgba(133, 8, 225, .07),
+        0 0 0 68px transparent,
+        0 0 0 69px rgba(133, 8, 225, .05);
+}
+
+/* Labels: plain letterspaced caps with a short rule beneath, not pills. */
+.pro-after-sect .badge {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #948FA0;
+}
+
+.pro-after-sect .badge::after {
+    content: '';
+    width: 26px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: .5;
 }
 
 .pro-after-sect .aftr-rht .badge {
-    background: var(--grad-brand-deep);
-    color: #fff;
-    box-shadow: 0 6px 16px -8px rgba(133, 8, 225, .7);
+    background: none;
+    color: var(--cz-violet);
+    box-shadow: none;
 }
 
+.pro-after-sect .aftr-rht .badge::after {
+    opacity: .8;
+}
+
+/* Icon wells. ::before rather than an added element keeps the card markup
+   untouched across every slide. background-image (not mask-image) so one
+   pseudo-element carries both the disc and the glyph — masking would
+   consume the background and leave a bare glyph with no circle. */
+.pro-after-sect .bfore-lft::before,
+.pro-after-sect .aftr-rht::before {
+    content: '';
+    order: 2;
+    width: 44px;
+    height: 44px;
+    margin: 10px 0 8px;
+    border-radius: 50%;
+    background-color: #fff;
+    background-image: var(--icon-book-muted);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .04),
+        0 8px 18px -10px rgba(41, 12, 71, .22);
+    position: relative;
+    z-index: 1;
+    transition: box-shadow .35s var(--ease-premium);
+}
+
+.pro-after-sect .aftr-rht::before {
+    background-image: var(--icon-briefcase-violet);
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .04),
+        0 14px 32px -14px rgba(88, 10, 157, .34);
+}
+
+.pro-after-sect .bfore-lft:hover::before {
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .05),
+        0 20px 38px -14px rgba(41, 12, 71, .3);
+}
+
+.pro-after-sect .aftr-rht:hover::before {
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .05),
+        0 20px 42px -14px rgba(88, 10, 157, .46);
+}
+
+.pro-after-sect strong {
+    order: 3;
+    margin: 0;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #14111C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.pro-after-sect strong::after {
+    content: '';
+    width: 46px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(112, 34, 169, .35);
+}
+
+.pro-after-sect .aftr-rht strong::after {
+    background: var(--cz-violet);
+}
+
+/* Arrow node, centred on the seam. Dotted connectors run out either side and
+   fade toward their far ends via a mask. */
 .pro-after-sect .mid-icon {
-    opacity: .75;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid rgba(133, 8, 225, .20);
+    box-shadow:
+        0 1px 2px rgba(41, 12, 71, .04),
+        0 4px 12px -4px rgba(88, 10, 157, .22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: box-shadow .35s var(--ease-premium);
+}
+
+.pro-after-sect .mid-icon:hover {
+    box-shadow:
+        0 0 0 6px rgba(133, 8, 225, .07),
+        0 12px 32px -12px rgba(88, 10, 157, .5);
+}
+
+.transit-items .mid-icon img {
+    display: none;
+}
+
+.pro-after-sect .mid-icon::before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    background: var(--cz-violet);
+    -webkit-mask-image: var(--icon-arrow-right);
+    mask-image: var(--icon-arrow-right);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    flex-shrink: 0;
+}
+
+.pro-after-sect .mid-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 260px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-image: linear-gradient(90deg, rgba(133, 8, 225, .35) 40%, transparent 0);
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+    mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+
+/* Tablet — same layout, spacing and type scaled down proportionally. */
+@media (max-width: 991px) {
+    .transit-items {
+        margin-top: 88px;
+        border-radius: 28px;
+    }
+
+    .transit-items .profile-img img {
+        width: 140px !important;
+        height: 140px;
+        border-width: 8px;
+    }
+
+    .transit-items .profile-img {
+        margin-top: -78px;
+    }
+
+    .transit-items .name_txt {
+        font-size: 42px;
+    }
+
+    .transit-items .pro_txt {
+        gap: 18px;
+        font-size: 12px;
+    }
+
+    .transit-items .pro_txt::before,
+    .transit-items .pro_txt::after {
+        flex-basis: 120px;
+    }
+
+    .pro-after-sect {
+        margin-top: 36px;
+    }
+
+    .pro-after-sect .bfore-lft,
+    .pro-after-sect .aftr-rht {
+        padding: 38px 18px 42px;
+    }
+
+    .pro-after-sect .bfore-lft {
+        border-bottom-left-radius: 27px;
+    }
+
+    .pro-after-sect .aftr-rht {
+        border-bottom-right-radius: 27px;
+    }
+
+    .pro-after-sect .bfore-lft::before,
+    .pro-after-sect .aftr-rht::before {
+        width: 88px;
+        height: 88px;
+        background-size: 34px 34px;
+        margin: 24px 0 22px;
+    }
+
+    .pro-after-sect strong {
+        font-size: 21px;
+        gap: 18px;
+    }
+
+    .pro-after-sect .mid-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Below 640px the two halves stack. The divider and the connector line
+   rotate with them: the seam becomes horizontal, so the arrow node sits on
+   the boundary between the stacked halves rather than beside them. */
+@media (max-width: 639px) {
+    .transit-items {
+        margin-top: 76px;
+        border-radius: 24px;
+    }
+
+    .transit-items .profile-img img {
+        width: 116px !important;
+        height: 116px;
+        border-width: 7px;
+    }
+
+    .transit-items .profile-img {
+        margin-top: -65px;
+    }
+
+    .transit-items .profile-img::before {
+        inset: -18px;
+    }
+
+    .transit-items .name_txt {
+        font-size: 30px;
+        padding: 0 20px;
+        margin-top: 22px;
+    }
+
+    .transit-items .pro_txt {
+        gap: 12px;
+        font-size: 11px;
+        letter-spacing: .18em;
+        padding: 0 20px;
+    }
+
+    .transit-items .pro_txt::before,
+    .transit-items .pro_txt::after {
+        flex: 1 1 0;
+    }
+
+    .transit-items .txt_icon {
+        min-width: 142px;
+        height: 56px;
+        margin-top: 20px;
+    }
+
+    .pro-after-sect {
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .pro-after-sect .bfore-lft,
+    .pro-after-sect .aftr-rht {
+        flex: 1 1 100%;
+        padding: 32px 20px 34px;
+    }
+
+    .pro-after-sect .bfore-lft {
+        border-radius: 0;
+        padding-bottom: 44px;
+    }
+
+    .pro-after-sect .aftr-rht {
+        border-radius: 0 0 23px 23px;
+        box-shadow: inset 0 1px 0 rgba(112, 34, 169, .09);
+        padding-top: 44px;
+    }
+
+    .pro-after-sect .bfore-lft::before,
+    .pro-after-sect .aftr-rht::before {
+        width: 84px;
+        height: 84px;
+        background-size: 33px 33px;
+        margin: 20px 0 18px;
+    }
+
+    .pro-after-sect strong {
+        font-size: 20px;
+        gap: 16px;
+    }
+
+    .pro-after-sect .mid-icon {
+        width: 54px;
+        height: 54px;
+    }
+
+    .pro-after-sect .mid-icon::before {
+        width: 20px;
+        height: 20px;
+        transform: rotate(90deg);
+    }
+
+    /* Connector becomes vertical to match the stacked seam. */
+    .pro-after-sect .mid-icon::after {
+        width: 2px;
+        height: 300px;
+        background-image: linear-gradient(180deg, rgba(133, 8, 225, .45) 42%, transparent 0);
+        background-size: 2px 11px;
+        background-repeat: repeat-y;
+        mask-image: linear-gradient(180deg, transparent, #000 26%, #000 74%, transparent);
+        -webkit-mask-image: linear-gradient(180deg, transparent, #000 26%, #000 74%, transparent);
+    }
 }
 
 /* Staged reveal: avatar → identity → outcome */
@@ -1131,15 +1657,30 @@ a.login-btn:hover {
 .owl-item.active .transit-items .name_txt,
 .owl-item.active .transit-items .pro_txt,
 .owl-item.active .transit-items .txt_icon,
-.owl-item.active .transit-items .pro-after-sect {
-    animation: cz-transit-in .6s var(--ease-premium) both;
+.owl-item.active .transit-items .bfore-lft,
+.owl-item.active .transit-items .aftr-rht {
+    animation: cz-transit-in .45s var(--ease-premium) both;
 }
 
-.owl-item.active .transit-items .profile-img    { animation-delay: .02s; }
-.owl-item.active .transit-items .name_txt       { animation-delay: .09s; }
-.owl-item.active .transit-items .pro_txt        { animation-delay: .13s; }
-.owl-item.active .transit-items .txt_icon       { animation-delay: .18s; }
-.owl-item.active .transit-items .pro-after-sect { animation-delay: .24s; }
+/* The arrow node is centred with translate(-50%,-50%); the shared fade-up
+   keyframe would overwrite that transform and knock it off the seam, so it
+   gets a variant that carries the centring through both keyframes. */
+@keyframes cz-transit-in-center {
+    from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.owl-item.active .transit-items .mid-icon {
+    animation: cz-transit-in-center .45s var(--ease-premium) both;
+}
+
+.owl-item.active .transit-items .profile-img { animation-delay: .02s; }
+.owl-item.active .transit-items .name_txt    { animation-delay: .08s; }
+.owl-item.active .transit-items .pro_txt     { animation-delay: .12s; }
+.owl-item.active .transit-items .txt_icon    { animation-delay: .17s; }
+.owl-item.active .transit-items .bfore-lft   { animation-delay: .22s; }
+.owl-item.active .transit-items .mid-icon    { animation-delay: .27s; }
+.owl-item.active .transit-items .aftr-rht    { animation-delay: .31s; }
 
 @media (prefers-reduced-motion: reduce) {
     .owl-item.active .transit-items > * { animation: none; }
@@ -1170,29 +1711,197 @@ a.login-btn:hover {
     z-index: 1;
 }
 
+/* Statistics card. One rounded surface holding three equal blocks split by
+   hairline rules — deliberately static. The only motion in this component is
+   the count-up in premium.js, which fires once per page load via
+   IntersectionObserver; the card itself has no entrance, float, lift or
+   scale, so the numbers are the sole focal point.
+   The `background` shorthand is load-bearing here: the theme paints the
+   card's gradient border with a two-layer background-image plus
+   background-clip: padding-box, border-box on a transparent border. Resetting
+   the shorthand clears image/origin/clip in one go so a plain border works. */
+.counter-section {
+    background: #fff;
+    border: 1px solid rgba(207, 170, 242, .40);
+    border-radius: 28px;
+    box-shadow:
+        0 18px 50px -26px rgba(88, 10, 157, .30),
+        0 2px 8px -4px rgba(88, 10, 157, .08);
+    padding: 14px 20px;
+    margin: 96px auto;
+    max-width: 1160px;
+    transition: border-color .3s var(--ease-premium), box-shadow .3s var(--ease-premium);
+}
+
+/* Hover is intentionally a colour/shadow refinement only — no movement. */
+.counter-section:hover {
+    border-color: rgba(179, 91, 243, .58);
+    box-shadow:
+        0 22px 56px -26px rgba(88, 10, 157, .36),
+        0 2px 10px -4px rgba(88, 10, 157, .12);
+}
+
 .counter-section ul {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: stretch;
 }
 
 .counter-section ul li {
-    background: #fff;
-    border: 1px solid rgba(207, 170, 242, .55);
-    border-radius: 16px;
-    box-shadow: var(--shadow-violet-soft);
-    transition: transform .4s var(--ease-premium), box-shadow .4s var(--ease-premium);
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 28px 18px;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transition: none;
 }
 
-.counter-section ul li:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-violet);
+/* Dividers between blocks. `+ li` rather than the theme's nth-of-type(2)
+   so the rule stays correct if a fourth stat is ever added. The nth-of-type
+   selector is repeated here purely to out-specify the theme's own
+   `.counter-section ul li:nth-of-type(2)` (0,2,2), which otherwise wins over
+   `li + li` (0,1,3) and paints a grey border down BOTH sides of the middle
+   block — doubling the 2–3 divider on desktop and leaving stray vertical
+   rules on the stacked mobile layout. */
+.counter-section ul li + li,
+.counter-section ul li:nth-of-type(2) {
+    border-left: 1px solid rgba(120, 60, 180, .15);
+    border-right: 0;
+}
+
+.counter-section .countr-icon {
+    width: 62px;
+    height: 62px;
+    flex: 0 0 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(140deg, rgba(133, 8, 225, .14), rgba(179, 91, 243, .09));
+    box-shadow: none;
+    line-height: normal;
+}
+
+.counter-section .countr-icon svg {
+    width: 27px;
+    height: 27px;
+    color: var(--cz-violet);
+}
+
+.counter-section ul li strong {
+    display: block;
+    text-align: left;
 }
 
 .counter-section ul li strong .countn {
+    display: block;
+    text-align: left;
+    font-family: "DM Sans", sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.5px;
     background: var(--grad-brand);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.counter-section ul li p {
+    margin: 5px 0 0;
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #5B5570;
+    text-transform: none;
+}
+
+/* Tablet — three columns retained, everything scaled down a step. */
+@media (max-width: 991px) {
+    .counter-section {
+        margin: 70px 20px;
+        border-radius: 24px;
+        padding: 10px 12px;
+    }
+
+    .counter-section ul li {
+        gap: 15px;
+        padding: 24px 10px;
+    }
+
+    .counter-section .countr-icon {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+    }
+
+    .counter-section .countr-icon svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    .counter-section ul li strong .countn {
+        font-size: 29px;
+    }
+
+    .counter-section ul li p {
+        font-size: 14px;
+    }
+}
+
+/* Mobile — stack vertically, dividers become horizontal rules. The icon is
+   re-shown here because the theme hides .countr-icon outright below 575px. */
+@media (max-width: 767px) {
+    .counter-section {
+        margin: 48px 0;
+        padding: 6px 18px;
+        border-radius: 22px;
+    }
+
+    .counter-section ul {
+        flex-wrap: wrap;
+    }
+
+    .counter-section ul li {
+        flex: 1 1 100%;
+        justify-content: flex-start;
+        text-align: left;
+        gap: 18px;
+        padding: 22px 4px;
+    }
+
+    .counter-section ul li + li,
+    .counter-section ul li:nth-of-type(2) {
+        border-left: 0;
+        border-right: 0;
+        border-top: 1px solid rgba(120, 60, 180, .15);
+    }
+
+    .counter-section .countr-icon {
+        display: flex;
+        width: 54px;
+        height: 54px;
+        flex-basis: 54px;
+    }
+
+    .counter-section .countr-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .counter-section ul li strong .countn {
+        font-size: 30px;
+    }
+
+    .counter-section ul li p {
+        font-size: 15px;
+    }
 }
 
 /* ---- Explore Programs ------------------------------------------------------
@@ -1722,74 +2431,393 @@ a.login-btn:hover {
    artwork is rebuilt as layered CSS mesh gradients — crisper than the source
    JPEGs, no extra requests — and the coin is now an inline-masked SVG. */
 
-/* The pass card itself carries no added decoration — no gold frame, texture,
-   pattern or sheen. It keeps the theme's own ticket artwork and type so it
-   reads as clean and minimal; the premium feel comes entirely from the
-   animated section background behind it. */
+/* ---- The ticket ----------------------------------------------------------
+   .cz-ticket wraps the two halves so the notch mask and the rounded/clipped
+   surface apply to the pass alone — the Explore CTA is a sibling and must
+   stay outside, or the mask would clip it too.
+
+   The perforation is punched with a real mask rather than drawn with
+   background-coloured circles: the section behind is an animated aurora, so
+   any opaque fake notch would visibly fail to match it. Two radial masks
+   intersected cut genuine holes through the ticket at the seam. */
+.cz-ticket {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    border-radius: 32px;
+    overflow: hidden;
+    -webkit-mask:
+        radial-gradient(circle 17px at 70% -1px, transparent 0 17px, #000 17.5px),
+        radial-gradient(circle 17px at 70% calc(100% + 1px), transparent 0 17px, #000 17.5px);
+    mask:
+        radial-gradient(circle 17px at 70% -1px, transparent 0 17px, #000 17.5px),
+        radial-gradient(circle 17px at 70% calc(100% + 1px), transparent 0 17px, #000 17.5px);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+/* The gold hairline and shadows live on a wrapper pseudo-element rather than
+   a border, because a border would be cut by the notch mask along with
+   everything else. */
+.pass-sect .cz-ticket::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    border-radius: inherit;
+    border: 1px solid rgba(199, 154, 58, .38);
+}
+
+.golden-pass {
+    flex: 0 0 70%;
+    max-width: 70%;
+    background: none;
+    background-color: rgba(14, 11, 20, .82);
+    background-image:
+        radial-gradient(120% 140% at 6% 0%, rgba(60, 40, 96, .55), transparent 60%),
+        radial-gradient(90% 120% at 96% 100%, rgba(120, 88, 30, .18), transparent 62%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 52px 60px 0;
+    text-align: left;
+    justify-content: flex-start;
+    position: relative;
+}
+
+/* Vertical perforation running between the notches. */
+.golden-pass::after {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    right: -1px;
+    width: 2px;
+    z-index: 3;
+    background-image: linear-gradient(180deg, rgba(215, 188, 116, .55) 46%, transparent 0);
+    background-size: 2px 11px;
+    background-repeat: repeat-y;
+    mask-image: linear-gradient(180deg, transparent, #000 9%, #000 91%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 9%, #000 91%, transparent);
+}
+
+/* ---- Header: crown + titles --------------------------------------------- */
+.cz-gp-head {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.cz-gp-crown {
+    flex: 0 0 auto;
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(199, 154, 58, .5);
+    background: radial-gradient(circle at 50% 30%, rgba(120, 88, 30, .5), rgba(12, 10, 16, .95) 72%);
+    box-shadow:
+        0 0 0 6px rgba(199, 154, 58, .05),
+        0 10px 26px -12px rgba(199, 154, 58, .5);
+    color: #E3C67E;
+}
+
+.cz-gp-crown svg {
+    width: 28px;
+    height: 28px;
+}
+
+.golden-pass h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 58px;
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -.5px;
+    text-transform: none;
+    display: block;
+    /* Warm, flat gold — no metallic ramp. */
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: #E6C983;
+    margin: 0;
+}
+
+/* The theme appends a decorative GIF that was never captured by the scrape,
+   so it renders as a blank gap beside the title. */
+.golden-pass h3::after {
+    display: none;
+}
+
+.golden-pass h4 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .34em;
+    line-height: 1.5;
+    margin: 10px 0 0;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: rgba(212, 184, 128, .72);
+}
+
+/* ---- Bundle cards -------------------------------------------------------- */
+.course-row {
+    margin: 40px 0 0;
+    justify-content: flex-start;
+    align-items: stretch;
+    /* The three tiers plus their separators overflow the 70% column at their
+       intrinsic width, so they share the row and shrink instead of wrapping. */
+    flex-wrap: nowrap;
+}
+
+.course-col {
+    align-items: stretch;
+    flex: 1 1 0;
+    min-width: 0;
+}
 
 .col-blue,
 .col-orng,
 .col-grn {
-    padding: 22px 30px;
-    border-radius: 10px;
-    min-width: 170px;
-    box-shadow: 0 12px 30px -14px rgba(0, 0, 0, .65), inset 0 1px 0 rgba(255, 255, 255, .18);
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 16px 16px;
+    border-radius: 16px;
+    flex: 1 1 auto;
+    min-width: 0;
+    background: rgba(255, 255, 255, .028);
+    border: 1px solid rgba(255, 255, 255, .085);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
     isolation: isolate;
+    overflow: visible;
 }
 
-.col-blue::after,
-.col-orng::after,
-.col-grn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background-image: var(--texture-grain);
-    background-size: 160px 160px;
-    opacity: .07;
-    mix-blend-mode: overlay;
+.cz-gp-ctext {
+    min-width: 0;
 }
 
-.col-blue {
-    background:
-        radial-gradient(120% 90% at 12% 8%, rgba(96, 165, 250, .95), transparent 62%),
-        radial-gradient(110% 95% at 88% 92%, rgba(76, 60, 190, .95), transparent 60%),
-        linear-gradient(140deg, #2E5FD8 0%, #2A3A9E 55%, #4B37B0 100%);
+.cz-gp-ico {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
 }
 
-.col-orng {
-    background:
-        radial-gradient(120% 90% at 14% 10%, rgba(253, 186, 116, .95), transparent 62%),
-        radial-gradient(110% 95% at 86% 90%, rgba(217, 88, 24, .95), transparent 60%),
-        linear-gradient(140deg, #F9A03C 0%, #F07C1E 55%, #D2601A 100%);
+.cz-gp-ico svg {
+    width: 23px;
+    height: 23px;
 }
 
-.col-grn {
-    background:
-        radial-gradient(120% 90% at 12% 10%, rgba(110, 231, 183, .9), transparent 62%),
-        radial-gradient(110% 95% at 88% 90%, rgba(15, 118, 110, .95), transparent 60%),
-        linear-gradient(140deg, #34A780 0%, #2E8F72 55%, #1F6E5C 100%);
+/* Each bundle keeps its own hue, but as a low-saturation tinted well rather
+   than the theme's full-bleed photographic card. */
+.col-blue .cz-gp-ico {
+    background: linear-gradient(150deg, rgba(139, 92, 246, .34), rgba(76, 60, 190, .28));
+    border: 1px solid rgba(167, 139, 250, .4);
+    color: #C4B5FD;
 }
 
-/* "+" separators between the tiers */
+.col-orng .cz-gp-ico {
+    background: linear-gradient(150deg, rgba(217, 119, 6, .32), rgba(146, 64, 14, .28));
+    border: 1px solid rgba(234, 179, 8, .34);
+    color: #EFC07A;
+}
+
+.col-grn .cz-gp-ico {
+    background: linear-gradient(150deg, rgba(16, 185, 129, .28), rgba(6, 95, 70, .3));
+    border: 1px solid rgba(52, 211, 153, .32);
+    color: #6EE7B7;
+}
+
+.course-col h5 {
+    font-size: 16.5px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 3px;
+}
+
+.course-col p {
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, .55);
+}
+
+/* Gold "+" separators between the tiers. */
 .course-col::after {
     content: '';
-    width: 15px;
-    height: 15px;
-    margin: 0 22px;
-    background-color: rgba(255, 255, 255, .82);
+    align-self: center;
+    width: 13px;
+    height: 13px;
+    margin: 0 18px;
+    background-color: rgba(215, 188, 116, .8);
     -webkit-mask: var(--icon-plus) center / contain no-repeat;
     mask: var(--icon-plus) center / contain no-repeat;
     font-size: 0;
 }
 
-/* Gold coin and sparkle-overlay decoration were removed — the premium feel
-   comes from the animated section background alone, not from decoration on
-   the content. .golden-pass and .access-sect are left with the theme's own
-   layout rules, unmodified. */
+/* ---- Benefits strip ------------------------------------------------------ */
+/* Block, not flex: as flex items the bare text node and <strong>20+ Courses</strong>
+   become separate boxes that wrap into two columns on narrow widths. Inline
+   flow keeps the sentence together and lets it break naturally. */
+.get-premium {
+    display: block;
+    text-align: center;
+    margin: 44px 0 0;
+    padding: 26px 0 30px;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, .88);
+    border-top: 1px solid rgba(215, 188, 116, .16);
+}
 
-.golden-pass,
+/* The theme draws the strip's rules as absolutely-positioned 3px bars filled
+   with a white padding-box gradient, which reads as two solid light lines on
+   this dark surface. A single hairline border replaces both. */
+.get-premium::before,
+.get-premium::after {
+    display: none;
+}
+
+.cz-gp-spark {
+    display: inline-flex;
+    vertical-align: -2px;
+    margin-right: 10px;
+    color: #D7BC74;
+}
+
+.cz-gp-spark svg {
+    width: 17px;
+    height: 17px;
+}
+
+.get-premium strong {
+    color: #E6C983;
+    font-weight: 600;
+}
+
+/* ---- Right premium panel -------------------------------------------------- */
+.access-sect {
+    flex: 0 0 30%;
+    max-width: 30%;
+    width: auto;
+    flex-direction: column;
+    align-content: center;
+    gap: 0;
+    padding: 44px 26px;
+    position: relative;
+    overflow: hidden;
+    background: none;
+    background-color: #E8C878;
+    background-image:
+        radial-gradient(120% 90% at 22% 6%, rgba(255, 244, 214, .92), transparent 58%),
+        radial-gradient(110% 100% at 88% 96%, rgba(176, 133, 53, .55), transparent 62%),
+        linear-gradient(158deg, #EFD79B 0%, #E2BE72 52%, #C9A354 100%);
+}
+
+/* Curved line pattern + star particles, both very low contrast. */
+.access-sect::before {
+    content: '';
+    position: absolute;
+    inset: -30% -60% auto -20%;
+    height: 150%;
+    pointer-events: none;
+    background:
+        radial-gradient(closest-side, transparent 63%, rgba(255, 255, 255, .32) 63.6%, transparent 65%),
+        radial-gradient(closest-side, transparent 73%, rgba(255, 255, 255, .22) 73.6%, transparent 75%),
+        radial-gradient(closest-side, transparent 83%, rgba(255, 255, 255, .16) 83.6%, transparent 85%);
+    opacity: .8;
+}
+
+.access-sect::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle 1.4px at 18% 22%, rgba(255, 252, 240, .95), transparent 100%),
+        radial-gradient(circle 1.1px at 78% 14%, rgba(255, 252, 240, .8), transparent 100%),
+        radial-gradient(circle 1.6px at 86% 62%, rgba(255, 252, 240, .9), transparent 100%),
+        radial-gradient(circle 1.1px at 26% 78%, rgba(255, 252, 240, .75), transparent 100%),
+        radial-gradient(circle 1.3px at 62% 88%, rgba(255, 252, 240, .8), transparent 100%);
+}
+
+.cz-gp-seal {
+    position: relative;
+    z-index: 1;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #16121C;
+    color: #E6C983;
+    box-shadow: 0 8px 20px -8px rgba(60, 40, 8, .6);
+}
+
+.cz-gp-seal svg {
+    width: 19px;
+    height: 19px;
+}
+
+.access-sect p {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin: 26px 0 0;
+    padding: 22px 0 24px;
+    /* The theme rotates this block 180° and sets it vertical; the panel now
+       reads horizontally like the reference. */
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    transform: none;
+    color: #241B0B;
+    border-top: 1px solid rgba(70, 50, 12, .28);
+    border-bottom: 1px solid rgba(70, 50, 12, .28);
+    font-family: "Playfair Display", Georgia, serif;
+    line-height: 1.1;
+    letter-spacing: normal;
+    text-transform: uppercase;
+}
+
+.cz-gp-life {
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .3em;
+    text-indent: .3em;
+    color: rgba(36, 27, 11, .82);
+}
+
+.cz-gp-access {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 46px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-indent: .04em;
+    line-height: 1.05;
+}
+
+/* ---- Explore CTA ---------------------------------------------------------- */
+.pass-lnk {
+    margin-top: 44px;
+}
+
+.pass-lnk a {
+    margin: 0;
+}
+
 .discover-col {
     transition: transform .25s ease, box-shadow .25s ease;
 }
@@ -1823,6 +2851,168 @@ a.login-btn:hover {
 .pass-sect {
     position: relative;
     z-index: 1;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 118px;
+    padding-top: 30px;
+}
+
+/* ---- Discover Value Packs heading ---------------------------------------- */
+.discover-row h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.22;
+    letter-spacing: -.2px;
+    text-transform: none;
+    margin-bottom: 54px;
+    position: relative;
+    padding-bottom: 22px;
+}
+
+/* Small gold divider beneath the heading. */
+.discover-row h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 118px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(215, 188, 116, .85), transparent);
+}
+
+/* ---- Entrance -------------------------------------------------------------
+   The ticket and cards fade in on scroll; nothing changes position
+   afterwards, so the section reads as stable rather than animated. */
+@keyframes cz-gp-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* The shared .cz-reveal treatment blurs and shifts the element it lands on.
+   Both are dropped here: `filter` on an ancestor changes what
+   `backdrop-filter` samples — and `blur(0)` still counts as an active filter
+   once the transition settles — which would quietly kill the ticket's glass
+   surface. Opacity alone gives the fade the brief asks for. */
+.pass-sect.cz-reveal {
+    filter: none;
+    transform: none;
+    transition: opacity .7s var(--ease-premium);
+}
+
+.pass-sect.cz-reveal.is-visible .course-col {
+    animation: cz-gp-in .5s var(--ease-premium) both;
+}
+
+.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(1) { animation-delay: .16s; }
+.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(2) { animation-delay: .24s; }
+.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(3) { animation-delay: .32s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pass-sect.cz-reveal.is-visible .course-col {
+        animation: none;
+    }
+}
+
+/* ---- Golden Pass responsive ------------------------------------------------ */
+@media (max-width: 1199px) {
+    /* Below 1200px the theme hides the real ticket outright (in three
+       separate breakpoint blocks) and swaps in a flat PNG of the desktop
+       design. That PNG is gone now the ticket itself is responsive, so the
+       display must be restored or the section renders empty. */
+    .golden-pass,
+    .access-sect {
+        display: flex;
+    }
+
+    .pass-sect .golden-pass-mob {
+        display: none;
+    }
+
+    .golden-pass {
+        padding: 44px 40px 0;
+    }
+
+    .golden-pass h3 { font-size: 48px; }
+    .cz-gp-access { font-size: 38px; }
+    .col-blue, .col-orng, .col-grn { padding: 15px 17px; gap: 12px; }
+    .course-col::after { margin: 0 12px; }
+    .get-premium { font-size: 17px; }
+}
+
+@media (max-width: 991px) {
+    .golden-pass { padding: 38px 30px 0; }
+    .golden-pass h3 { font-size: 40px; }
+    .cz-gp-crown { width: 54px; height: 54px; }
+    .cz-gp-crown svg { width: 24px; height: 24px; }
+    .course-row { margin-top: 32px; flex-wrap: wrap; gap: 12px 0; }
+    .course-col { flex: 1 1 100%; width: 100%; }
+    .course-col::after { display: none; }
+    .col-blue, .col-orng, .col-grn { width: 100%; }
+    .cz-gp-access { font-size: 32px; }
+    .cz-gp-life { font-size: 13px; }
+    .discover-row h3 { font-size: 32px; }
+}
+
+/* Below 767 the ticket stacks: the premium panel moves under the main
+   content and the perforation rotates with it, so the seam stays a real
+   ticket tear rather than disappearing. */
+@media (max-width: 767px) {
+    .pass-sect {
+        margin-bottom: 80px;
+        padding-top: 10px;
+    }
+
+    .cz-ticket {
+        flex-wrap: wrap;
+        border-radius: 26px;
+        -webkit-mask:
+            radial-gradient(circle 15px at -1px 70%, transparent 0 15px, #000 15.5px),
+            radial-gradient(circle 15px at calc(100% + 1px) 70%, transparent 0 15px, #000 15.5px);
+        mask:
+            radial-gradient(circle 15px at -1px 70%, transparent 0 15px, #000 15.5px),
+            radial-gradient(circle 15px at calc(100% + 1px) 70%, transparent 0 15px, #000 15.5px);
+        -webkit-mask-composite: source-in;
+        mask-composite: intersect;
+    }
+
+    .golden-pass,
+    .access-sect {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .golden-pass {
+        padding: 34px 24px 0;
+    }
+
+    /* Seam becomes horizontal to match the stacked layout. */
+    .golden-pass::after {
+        top: auto;
+        bottom: -1px;
+        left: 14px;
+        right: 14px;
+        width: auto;
+        height: 2px;
+        background-image: linear-gradient(90deg, rgba(215, 188, 116, .55) 46%, transparent 0);
+        background-size: 11px 2px;
+        background-repeat: repeat-x;
+        mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    }
+
+    .golden-pass h3 { font-size: 34px; }
+    .golden-pass h4 { font-size: 11px; letter-spacing: .26em; }
+    .cz-gp-head { gap: 16px; }
+    .cz-gp-crown { width: 48px; height: 48px; }
+    .cz-gp-crown svg { width: 21px; height: 21px; }
+    .get-premium { font-size: 15.5px; margin-top: 34px; padding: 22px 0 26px; }
+    .access-sect { padding: 34px 24px 38px; }
+    .access-sect p { margin-top: 20px; padding: 18px 0 20px; }
+    .cz-gp-access { font-size: 36px; }
+    .discover-row h3 { font-size: 27px; margin-bottom: 40px; }
 }
 
 /* ---- Advanced Program cards ------------------------------------------------ */
