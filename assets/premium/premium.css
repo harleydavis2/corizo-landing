@@ -35,6 +35,43 @@
     --shadow-violet-soft: 0 14px 34px -16px rgba(110, 37, 164, .28);
     --ease-premium: cubic-bezier(.22, 1, .36, 1);
 
+    /* ---- Vertical colour score -------------------------------------------
+       The page is one continuous field, not a stack of slabs. These are the
+       exact hand-off colours where one section ends and the next begins;
+       every section gradient below starts on its predecessor's --stop and
+       ends on its successor's, so no boundary can ever show a seam. Change
+       a stop here and both sides of that boundary move together. */
+    --stop-hero: #0A0715;
+    /* hero → brand strip */
+    --stop-brands: #100A24;
+    /* brand strip → proof (counters + transitions) */
+    --stop-proof: #241854;
+    /* proof → explore programs */
+    --stop-programs: #2D1F5B;
+    /* explore programs mid-field */
+    --stop-packs: #120C2A;
+    /* pro packs → gold pass */
+    --stop-gold: #05030C;
+    /* gold pass → light zone */
+    --stop-light: #F2F2FE;
+    /* light zone → footer */
+    --stop-footer: #241A44;
+
+    /* ---- Radius scale ------------------------------------------------------
+       Four steps, applied by role rather than by section: controls, chips,
+       cards, panels. Anything that used an ad-hoc value now maps onto one. */
+    --r-control: 12px;
+    --r-chip: 16px;
+    --r-card: 22px;
+    --r-panel: 28px;
+
+    /* ---- Elevation scale ---------------------------------------------------
+       Every shadow on the page is one of these three, tinted with the brand
+       plum rather than neutral black so lifted surfaces stay in the palette. */
+    --elev-1: 0 1px 2px rgba(28, 12, 58, .04), 0 4px 14px -6px rgba(28, 12, 58, .08);
+    --elev-2: 0 2px 6px -2px rgba(28, 12, 58, .06), 0 14px 36px -16px rgba(28, 12, 58, .16);
+    --elev-3: 0 4px 12px -4px rgba(28, 12, 58, .08), 0 28px 60px -26px rgba(58, 20, 118, .30);
+
     /* Hand-drawn line icons, used as mask-images so they can take any fill
        (solid, gradient, currentColor) instead of relying on an icon font. */
     --icon-calendar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='3'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
@@ -90,7 +127,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         animation-duration: .001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: .001ms !important;
@@ -99,7 +139,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    html { scroll-behavior: smooth; }
+    html {
+        scroll-behavior: smooth;
+    }
 }
 
 /* Horizontal-overflow guard.
@@ -122,25 +164,55 @@ html {
 /* ---- Reusable motion textures ------------------------------------------ */
 
 @keyframes cz-drift-a {
-    0%   { transform: translate3d(-4%, -3%, 0) scale(1); }
-    50%  { transform: translate3d(3%, 4%, 0) scale(1.08); }
-    100% { transform: translate3d(-4%, -3%, 0) scale(1); }
+    0% {
+        transform: translate3d(-4%, -3%, 0) scale(1);
+    }
+
+    50% {
+        transform: translate3d(3%, 4%, 0) scale(1.08);
+    }
+
+    100% {
+        transform: translate3d(-4%, -3%, 0) scale(1);
+    }
 }
 
 @keyframes cz-drift-b {
-    0%   { transform: translate3d(3%, 2%, 0) scale(1.05); }
-    50%  { transform: translate3d(-4%, -4%, 0) scale(1); }
-    100% { transform: translate3d(3%, 2%, 0) scale(1.05); }
+    0% {
+        transform: translate3d(3%, 2%, 0) scale(1.05);
+    }
+
+    50% {
+        transform: translate3d(-4%, -4%, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(3%, 2%, 0) scale(1.05);
+    }
 }
 
 @keyframes cz-grain-shift {
-    0%, 100% { transform: translate3d(0, 0, 0); }
-    50%      { transform: translate3d(-1.5%, 1.5%, 0); }
+
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    50% {
+        transform: translate3d(-1.5%, 1.5%, 0);
+    }
 }
 
 @keyframes cz-fade-up {
-    from { opacity: 0; transform: translateY(26px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .cz-dark-texture {
@@ -174,7 +246,7 @@ html {
     animation: cz-grain-shift 9s steps(6) infinite;
 }
 
-.cz-dark-texture > * {
+.cz-dark-texture>* {
     position: relative;
     z-index: 1;
 }
@@ -198,7 +270,7 @@ html {
     animation: cz-drift-b 26s ease-in-out infinite;
 }
 
-.cz-light-texture > * {
+.cz-light-texture>* {
     position: relative;
     z-index: 1;
 }
@@ -220,7 +292,9 @@ html {
 }
 
 @keyframes cz-flow-rotate {
-    to { --cz-angle: 360deg; }
+    to {
+        --cz-angle: 360deg;
+    }
 }
 
 .bnr-links a,
@@ -272,8 +346,8 @@ a.login-btn:focus-visible::after,
     transition: transform .25s ease;
 }
 
-a:hover > .cz-btn-arrow,
-a:focus-visible > .cz-btn-arrow {
+a:hover>.cz-btn-arrow,
+a:focus-visible>.cz-btn-arrow {
     transform: translateX(3px);
 }
 
@@ -411,18 +485,31 @@ a.cont-btn:hover {
 }
 
 @media (max-width: 1199px) {
-    .hdr-logo { width: 150px; }
-    .hdr-wrapper { gap: 20px; }
+    .hdr-logo {
+        width: 150px;
+    }
+
+    .hdr-wrapper {
+        gap: 20px;
+    }
+
     a.login-btn,
-    a.cont-btn { font-size: 14px; padding: 8px 16px; }
+    a.cont-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
 
 @media (max-width: 991px) {
-    .hdr-logo { width: 138px; }
+    .hdr-logo {
+        width: 138px;
+    }
 }
 
 @media (max-width: 767px) {
-    .hdr-logo { width: 126px; }
+    .hdr-logo {
+        width: 126px;
+    }
 }
 
 /* ---- Mobile navigation drawer (WP Responsive Menu plugin re-skin) ----------
@@ -491,8 +578,13 @@ body.cz-menu-locked {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    #mg-wprm-wrap.cbp-spmenu-left { transition: none; }
-    .cz-menu-overlay { transition: none; }
+    #mg-wprm-wrap.cbp-spmenu-left {
+        transition: none;
+    }
+
+    .cz-menu-overlay {
+        transition: none;
+    }
 }
 
 #mg-wprm-wrap .menu_title {
@@ -612,30 +704,68 @@ body.cz-menu-locked {
    which reads as organic drift rather than a sliding texture. */
 
 @keyframes cz-aurora-1 {
-    0%   { transform: translate3d(-6%, -4%, 0) scale(1); }
-    33%  { transform: translate3d(5%, 6%, 0) scale(1.14); }
-    66%  { transform: translate3d(8%, -5%, 0) scale(1.05); }
-    100% { transform: translate3d(-6%, -4%, 0) scale(1); }
+    0% {
+        transform: translate3d(-6%, -4%, 0) scale(1);
+    }
+
+    33% {
+        transform: translate3d(5%, 6%, 0) scale(1.14);
+    }
+
+    66% {
+        transform: translate3d(8%, -5%, 0) scale(1.05);
+    }
+
+    100% {
+        transform: translate3d(-6%, -4%, 0) scale(1);
+    }
 }
 
 @keyframes cz-aurora-2 {
-    0%   { transform: translate3d(6%, 5%, 0) scale(1.08); }
-    40%  { transform: translate3d(-7%, -3%, 0) scale(1); }
-    70%  { transform: translate3d(-2%, 7%, 0) scale(1.16); }
-    100% { transform: translate3d(6%, 5%, 0) scale(1.08); }
+    0% {
+        transform: translate3d(6%, 5%, 0) scale(1.08);
+    }
+
+    40% {
+        transform: translate3d(-7%, -3%, 0) scale(1);
+    }
+
+    70% {
+        transform: translate3d(-2%, 7%, 0) scale(1.16);
+    }
+
+    100% {
+        transform: translate3d(6%, 5%, 0) scale(1.08);
+    }
 }
 
 @keyframes cz-aurora-3 {
-    0%   { transform: translate3d(-4%, 7%, 0) scale(1.1); }
-    45%  { transform: translate3d(7%, -6%, 0) scale(1); }
-    80%  { transform: translate3d(-6%, -2%, 0) scale(1.12); }
-    100% { transform: translate3d(-4%, 7%, 0) scale(1.1); }
+    0% {
+        transform: translate3d(-4%, 7%, 0) scale(1.1);
+    }
+
+    45% {
+        transform: translate3d(7%, -6%, 0) scale(1);
+    }
+
+    80% {
+        transform: translate3d(-6%, -2%, 0) scale(1.12);
+    }
+
+    100% {
+        transform: translate3d(-4%, 7%, 0) scale(1.1);
+    }
 }
 
 /* Slow horizontal travel for the topographic wave layer */
 @keyframes cz-wave-drift {
-    from { background-position: 0 0, 0 0; }
-    to   { background-position: 1200px 0, -900px 0; }
+    from {
+        background-position: 0 0, 0 0;
+    }
+
+    to {
+        background-position: 1200px 0, -900px 0;
+    }
 }
 
 .cz-aurora {
@@ -644,7 +774,7 @@ body.cz-menu-locked {
     overflow: hidden;
 }
 
-.cz-aurora > .cz-aurora-layer {
+.cz-aurora>.cz-aurora-layer {
     position: absolute;
     inset: -25%;
     z-index: 0;
@@ -653,7 +783,7 @@ body.cz-menu-locked {
 }
 
 /* soft topographic wave bands, masked so they only whisper */
-.cz-aurora > .cz-aurora-waves {
+.cz-aurora>.cz-aurora-waves {
     position: absolute;
     inset: 0;
     z-index: 0;
@@ -664,151 +794,136 @@ body.cz-menu-locked {
     animation: cz-wave-drift 90s linear infinite;
 }
 
-.cz-aurora > *:not(.cz-aurora-layer):not(.cz-aurora-waves) {
+.cz-aurora>*:not(.cz-aurora-layer):not(.cz-aurora-waves) {
     position: relative;
     z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cz-aurora > .cz-aurora-layer,
-    .cz-aurora > .cz-aurora-waves {
+
+    .cz-aurora>.cz-aurora-layer,
+    .cz-aurora>.cz-aurora-waves {
         animation: none;
     }
 }
 
-/* ---- Hero + brand strip: one continuous canvas ------------------------------
-   The hero and "Secure Placements" strip previously had two unrelated
-   backgrounds (dark gradient, then flat #f2f2fe) which read as two stacked
-   slabs. They now sit inside one .cz-canvas element sharing a single aurora,
-   with the base gradient easing from deep violet into near-black and then
-   lifting again, so the seam between them disappears. */
-.cz-canvas {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
+/* ==========================================================================
+   ONE CONTINUOUS CANVAS
+   ==========================================================================
+   The page used to be six independently-backgrounded slabs — near-black hero,
+   white proof strip, violet Explore Programs, an *unpainted* Pro Packs band
+   that showed the white body through, black Gold Pass, light lower page — so
+   every boundary announced itself as a horizontal seam.
+
+   It is now a single vertical field with exactly two tonal events instead of
+   six: one long dark movement (hero → Gold Pass) and one dissolve into the
+   light lower page, then a mirrored dissolve back into the footer. Each
+   section paints a gradient that *starts on the previous section's end colour
+   and ends on the next one's start colour*, using the shared --stop-* tokens,
+   so adjacent edges are the same pixel value by construction rather than by
+   eyeballing. The aurora blobs keep their co-prime drift durations in every
+   dark section, so the motion reads as one field passing behind the content
+   rather than each section running its own loop.
+
+   Nothing here relies on section order in the DOM beyond the adjacency
+   selectors, which are written against real neighbours so a mis-edit fails
+   loudly (unstyled section) rather than silently (re-introduced seam). */
+
+/* Safety floor. Any strip that somehow ends up unpainted now shows the deep
+   base rather than #fff — which is exactly the bug that made the Pro Packs
+   heading (white text) invisible. */
+body {
+    background-color: var(--stop-hero);
+}
+
+/* ---- Movement 1: the dark field -------------------------------------------
+   hero → brand strip → proof → programs → packs → gold pass */
+
+/* Proof zone (counters + successful transitions). Formerly a white slab that
+   the hero faded into over 55% of its height; now it carries the field
+   forward, deepening as it approaches Explore Programs. */
+.cz-hero-bridge+.bg-colord {
+    background-image: linear-gradient(180deg,
+            var(--stop-brands) 0%,
+            #150E33 26%,
+            #1D1345 58%,
+            var(--stop-proof) 100%);
+    padding-bottom: 96px;
+}
+
+/* Its blurred accent wash was tuned for a light surface — barely visible at
+   10% alpha on near-black. Lift it so the proof zone has the same living
+   background as its neighbours instead of reading as flat paint. */
+.cz-hero-bridge+.bg-colord::before {
     background:
-        linear-gradient(172deg,
-            #35235F 0%,
-            #201545 18%,
-            #150E33 38%,
-            #241858 52%,
-            #4B3C86 63%,
-            #9E8FD0 72%,
-            #DCD8F4 80%,
-            #f2f2fe 88%,
-            #f2f2fe 100%);
-}
-
-/* Veil: sits above the drifting blobs but below content, fading the aurora
-   out as the canvas eases into the light brand strip. This is what makes
-   hero → "Secure Placements" read as one continuous surface instead of a
-   dark slab stacked on a light slab. */
-.cz-canvas::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background: linear-gradient(180deg,
-        transparent 0%,
-        transparent 46%,
-        rgba(242, 242, 254, .35) 62%,
-        rgba(242, 242, 254, .8) 74%,
-        #f2f2fe 84%);
-}
-
-.cz-canvas .cz-aurora-layer {
-    position: absolute;
-    inset: -25%;
-    z-index: 0;
-    pointer-events: none;
-    will-change: transform;
-}
-
-.cz-canvas .cz-blob-1 {
-    background: radial-gradient(closest-side, rgba(179, 91, 243, .40), transparent 72%);
-    width: 70%; height: 65%; top: -8%; left: -6%;
-    filter: blur(60px);
-    animation: cz-aurora-1 37s ease-in-out infinite;
-}
-
-.cz-canvas .cz-blob-2 {
-    background: radial-gradient(closest-side, rgba(133, 8, 225, .38), transparent 72%);
-    width: 62%; height: 58%; top: 18%; right: -10%; left: auto;
+        radial-gradient(34% 36% at 12% 12%, rgba(139, 92, 246, .30), transparent 70%),
+        radial-gradient(30% 32% at 88% 82%, rgba(179, 91, 243, .26), transparent 70%);
     filter: blur(70px);
-    animation: cz-aurora-2 43s ease-in-out infinite;
 }
 
-.cz-canvas .cz-blob-3 {
-    background: radial-gradient(closest-side, rgba(110, 37, 164, .42), transparent 72%);
-    width: 75%; height: 60%; bottom: -12%; left: 8%; top: auto;
-    filter: blur(75px);
-    animation: cz-aurora-3 53s ease-in-out infinite;
+/* Content in the dark field. The theme colours these headings #000 because
+   they used to sit on white. */
+.cz-hero-bridge+.bg-colord .heding-content,
+.pro-pack .heding-content {
+    color: #fff;
 }
 
-.cz-canvas .cz-blob-4 {
-    background: radial-gradient(closest-side, rgba(93, 141, 240, .22), transparent 72%);
-    width: 55%; height: 50%; bottom: 4%; right: 6%; left: auto; top: auto;
-    filter: blur(80px);
-    animation: cz-aurora-1 61s ease-in-out infinite reverse;
+/* The emphasised word starts on lilac rather than ramping out of white — with
+   a white lead-in ("Some Successful"), a gradient that opens white spends its
+   first three letters looking like the rest of the sentence. */
+.cz-hero-bridge+.bg-colord .heding-content strong {
+    background: linear-gradient(100deg, #C4B5FD 0%, var(--cz-lilac) 45%, var(--cz-violet2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.cz-canvas .cz-aurora-waves {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-        repeating-linear-gradient(78deg, transparent 0 38px, rgba(255, 255, 255, .045) 38px 39px, transparent 39px 92px),
-        repeating-linear-gradient(102deg, transparent 0 54px, rgba(179, 91, 243, .06) 54px 55px, transparent 55px 128px);
-    animation: cz-wave-drift 90s linear infinite;
+/* Statistics card, dark-field variant. Glass rather than white so it belongs
+   to the field instead of punching a hole in it. */
+.cz-hero-bridge+.bg-colord .counter-section {
+    background: rgba(255, 255, 255, .045);
+    border-color: rgba(255, 255, 255, .11);
+    border-radius: var(--r-panel);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 60px -30px rgba(0, 0, 0, .8);
 }
 
-.cz-canvas .cz-aurora-grain {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image: var(--texture-grain);
-    background-size: 160px 160px;
-    opacity: .045;
-    mix-blend-mode: overlay;
+.cz-hero-bridge+.bg-colord .counter-section:hover {
+    border-color: rgba(179, 91, 243, .38);
+    box-shadow: 0 28px 70px -30px rgba(88, 10, 157, .7);
 }
 
-.cz-canvas > .hero-section,
-.cz-canvas > .brands-sect {
-    position: relative;
-    z-index: 1;
+.cz-hero-bridge+.bg-colord .counter-section ul li+li,
+.cz-hero-bridge+.bg-colord .counter-section ul li:nth-of-type(2) {
+    border-left-color: rgba(255, 255, 255, .1);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .cz-canvas .cz-aurora-layer,
-    .cz-canvas .cz-aurora-waves { animation: none; }
+@media (max-width: 767px) {
+
+    .cz-hero-bridge+.bg-colord .counter-section ul li+li,
+    .cz-hero-bridge+.bg-colord .counter-section ul li:nth-of-type(2) {
+        border-top-color: rgba(255, 255, 255, .1);
+    }
 }
 
-.hero-section {
-    position: relative;
-    isolation: isolate;
-    background: transparent;
+.cz-hero-bridge+.bg-colord .counter-section .countr-icon {
+    background: linear-gradient(140deg, rgba(167, 139, 250, .22), rgba(133, 8, 225, .14));
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
-    background-size: 46px 46px;
-    mask-image: radial-gradient(80% 80% at 50% 30%, #000 30%, transparent 80%);
-    -webkit-mask-image: radial-gradient(80% 80% at 50% 30%, #000 30%, transparent 80%);
+.cz-hero-bridge+.bg-colord .counter-section .countr-icon svg {
+    color: #C4B5FD;
 }
 
-.hero-section .container {
-    position: relative;
-    z-index: 1;
+.cz-hero-bridge+.bg-colord .counter-section ul li strong .countn {
+    background: linear-gradient(100deg, #fff 0%, #DDD3FB 45%, var(--cz-lilac) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cz-hero-bridge+.bg-colord .counter-section ul li p {
+    color: rgba(255, 255, 255, .58);
 }
 
 .brands-sect {
@@ -823,11 +938,22 @@ body.cz-menu-locked {
     animation: cz-fade-up .9s var(--ease-premium) forwards;
 }
 
-.bnr_caption .hero-heading:first-child { animation-delay: .05s; }
-.bnr_caption .sml-hding { animation-delay: .2s; }
-.bnr_caption .hero-heading + .hero-heading,
-.bnr_caption p { animation-delay: .35s; }
-.bnr-links { animation-delay: .5s; }
+.bnr_caption .hero-heading:first-child {
+    animation-delay: .05s;
+}
+
+.bnr_caption .sml-hding {
+    animation-delay: .2s;
+}
+
+.bnr_caption .hero-heading+.hero-heading,
+.bnr_caption p {
+    animation-delay: .35s;
+}
+
+.bnr-links {
+    animation-delay: .5s;
+}
 
 .sml-hding {
     background: linear-gradient(100deg, #fff 0%, var(--cz-lilac) 45%, var(--cz-violet2) 100%);
@@ -839,7 +965,9 @@ body.cz-menu-locked {
 }
 
 @keyframes cz-sheen-text {
-    to { background-position: -200% 0; }
+    to {
+        background-position: -200% 0;
+    }
 }
 
 /* Hero / Golden Pass CTA. inline-flex + centred items is what actually keeps
@@ -952,17 +1080,25 @@ a.login-btn:hover {
 }
 
 /* Breathing room between the two counter-running strips */
-#logo-slider01 { margin-bottom: 28px; }
+#logo-slider01 {
+    margin-bottom: 28px;
+}
 
 @keyframes cz-marquee-scroll {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(-50%, 0, 0); }
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .cz-marquee-track {
         animation: none;
     }
+
     .cz-marquee {
         overflow-x: auto;
     }
@@ -1006,685 +1142,12 @@ a.login-btn:hover {
     opacity: 1;
 }
 
-/* ---- Successful Transitions — infinite marquee train ------------------------ */
-.transitions-sect {
-    padding-top: 8px;
-    overflow: hidden;
-}
-
-/* Outer wrapper clips the scrolling track */
-.cz-transit-marquee {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-    /* Extra top padding so the portrait avatar (negative-margin'd above the
-       card top) has clearance and is not clipped by overflow:hidden here. */
-    padding: 72px 0 36px;
-}
-
-/* Track holds two identical groups and travels -50% so the loop is seamless */
-.cz-transit-track {
-    display: flex;
-    width: max-content;
-    will-change: transform;
-    animation: cz-transit-scroll 38s linear infinite;
-}
-
-.cz-transit-marquee:hover .cz-transit-track {
-    animation-play-state: paused;
-}
-
-@keyframes cz-transit-scroll {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(-50%, 0, 0); }
-}
-
-/* Each group is a flex row of cards */
-.cz-transit-group {
-    display: flex;
-    flex-shrink: 0;
-    align-items: flex-start;
-    gap: 32px;
-    padding-right: 32px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cz-transit-track { animation: none; }
-    .cz-transit-marquee { overflow-x: auto; }
-}
-
-/* Transition card. Rebuilt entirely in CSS — the markup the carousel loops
-   over is untouched, so all eight cards (and any added later) pick this up
-   without per-card edits. Icons come from mask-image tokens rather than new
-   <img> elements for the same reason. */
-.transit-items {
-    border: 1px solid #EEEBF5;
-    border-radius: 20px;
-    background: #fff;
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .03),
-        0 6px 18px -8px rgba(41, 12, 71, .09),
-        0 20px 40px -20px rgba(41, 12, 71, .13);
-    padding: 0;
-    /* Fixed width for the train layout */
-    width: 290px;
-    flex: 0 0 290px;
-    margin-top: 52px;
-    position: relative;
-    isolation: isolate;
-    /* No overflow:hidden — the portrait extends above the card via negative
-       margin-top and must not be clipped. Panels clip themselves individually. */
-    transition: box-shadow .4s var(--ease-premium), border-color .4s var(--ease-premium);
-}
-
-/* Faint dot grid, upper-left — masked so it dissolves well before it reaches
-   the portrait and never competes with the content. */
-.transit-items::after {
-    content: '';
-    position: absolute;
-    top: 34px;
-    left: 30px;
-    width: 168px;
-    height: 176px;
-    z-index: 0;
-    pointer-events: none;
-    background-image: radial-gradient(rgba(112, 34, 169, .3) 1.2px, transparent 1.2px);
-    background-size: 17px 17px;
-    mask-image: linear-gradient(142deg, #000 0%, transparent 70%);
-    -webkit-mask-image: linear-gradient(142deg, #000 0%, transparent 70%);
-    opacity: .4;
-}
-
-/* Layout does not move on hover — only the shadow deepens. */
-.transit-items:hover {
-    border-color: #EDE8F5;
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .03),
-        0 10px 28px -12px rgba(88, 10, 157, .14),
-        0 38px 72px -32px rgba(88, 10, 157, .24);
-}
-
-/* ---- Portrait: white collar + two decorative gradient arcs ------------- */
-.transit-items .profile-img {
-    position: relative;
-    display: inline-block;
-    border-radius: 50%;
-    z-index: 2;
-    margin-top: -44px;
-    width: auto !important;
-    height: auto;
-}
-
-.transit-items .profile-img img {
-    position: relative;
-    z-index: 1;
-    width: 84px !important;
-    max-width: none;
-    height: 84px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    box-shadow: 0 8px 20px -8px rgba(41, 12, 71, .38);
-}
-
-.transit-items .profile-img::before {
-    content: '';
-    position: absolute;
-    inset: -26px;
-    z-index: 0;
-    pointer-events: none;
-    background-image: var(--deco-portrait-arcs);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-/* ---- Identity ----------------------------------------------------------- */
-/* The card is a column flex container with align-items: center (theme), so
-   every child is shrink-to-fit by default. These three need the full card
-   width: the label's flanking rules are flex: 1 pseudo-elements that would
-   otherwise collapse to zero, and the before/after panel has to bleed to
-   both card edges. */
-.transit-items .name_txt,
-.transit-items .pro_txt,
-.transit-items .pro-after-sect {
-    align-self: stretch;
-    width: 100%;
-    /* Stretching to full width means they no longer inherit the centring
-       they got from the card's align-items, so it has to be restated. */
-    text-align: center;
-}
-
-.transit-items .name_txt {
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -.2px;
-    color: #14111C;
-    margin: 12px 0 0;
-    padding: 0 16px;
-    position: relative;
-    z-index: 1;
-}
-
-/* Program label, flanked by hairlines — the rules are pseudo-elements so the
-   markup stays a single <div>. */
-.transit-items .pro_txt {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 6px 0 0;
-    padding: 0 16px;
-    font-family: "DM Sans", sans-serif;
-    font-size: 9.5px;
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: .18em;
-    line-height: 1.4;
-    text-transform: uppercase;
-    color: #86818F;
-    position: relative;
-    z-index: 1;
-}
-
-/* Rules stop short of the label via the flex gap, and are capped so they
-   never run the full card width on a 1200px card. */
-.transit-items .pro_txt::before,
-.transit-items .pro_txt::after {
-    content: '';
-    flex: 0 1 190px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(112, 34, 169, .3));
-}
-
-.transit-items .pro_txt::after {
-    background: linear-gradient(90deg, rgba(112, 34, 169, .3), transparent);
-}
-
-/* Company chip — floats slightly above the card surface. */
-.transit-items .txt_icon {
-    display: flex;
-    align-items: center;
-    width: auto;
-    min-width: 80px;
-    height: 36px;
-    padding: 0 14px;
-    margin: 10px auto 0;
-    border: 1px solid #EDE9F5;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .04),
-        0 4px 12px -6px rgba(41, 12, 71, .14);
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-    transition: box-shadow .35s var(--ease-premium), transform .35s var(--ease-premium);
-}
-
-.transit-items .txt_icon img {
-    max-height: 20px;
-    width: auto !important;
-    object-fit: contain;
-}
-
-.transit-items .txt_icon:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .04),
-        0 18px 34px -14px rgba(88, 10, 157, .34);
-}
-
-/* ---- Before → After panel ----------------------------------------------
-   Full-bleed to the card edges and split exactly at the midpoint: the two
-   halves are flex: 1 and the arrow node is absolutely centred on the seam,
-   so the colour break and the node always agree regardless of card width. */
-.pro-after-sect {
-    position: relative;
-    display: flex;
-    margin: 14px 0 0;
-    padding: 0;
-    align-items: stretch;
-    flex-wrap: nowrap;
-    width: 100%;
-}
-
-.pro-after-sect .bfore-lft,
-.pro-after-sect .aftr-rht {
-    flex: 1 1 50%;
-    width: 50%;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 18px 10px 20px;
-    position: relative;
-}
-
-.pro-after-sect .bfore-lft {
-    background: #FBFBFC;
-    border-bottom-left-radius: 19px;
-}
-
-/* Faint purple wash distinguishes the "after" half without becoming a
-   hard colour block. The 1px inset shadow on the left edge is the subtle
-   vertical divider between halves. */
-.pro-after-sect .aftr-rht {
-    background: linear-gradient(160deg, #FAF6FE 0%, #F4EBFD 100%);
-    border-bottom-right-radius: 19px;
-    box-shadow: inset 1px 0 0 rgba(112, 34, 169, .09);
-    overflow: hidden;
-}
-
-/* Very soft curved line pattern, lower-right — near-invisible texture. */
-.pro-after-sect .aftr-rht::after {
-    content: '';
-    position: absolute;
-    right: -70px;
-    bottom: -96px;
-    width: 240px;
-    height: 240px;
-    pointer-events: none;
-    border-radius: 50%;
-    border: 1px solid rgba(133, 8, 225, .13);
-    box-shadow:
-        0 0 0 22px transparent,
-        0 0 0 23px rgba(133, 8, 225, .10),
-        0 0 0 45px transparent,
-        0 0 0 46px rgba(133, 8, 225, .07),
-        0 0 0 68px transparent,
-        0 0 0 69px rgba(133, 8, 225, .05);
-}
-
-/* Labels: plain letterspaced caps with a short rule beneath, not pills. */
-.pro-after-sect .badge {
-    order: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    background: none;
-    border-radius: 0;
-    padding: 0;
-    font-family: "DM Sans", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .26em;
-    line-height: 1;
-    text-transform: uppercase;
-    color: #948FA0;
-}
-
-.pro-after-sect .badge::after {
-    content: '';
-    width: 26px;
-    height: 2px;
-    border-radius: 2px;
-    background: currentColor;
-    opacity: .5;
-}
-
-.pro-after-sect .aftr-rht .badge {
-    background: none;
-    color: var(--cz-violet);
-    box-shadow: none;
-}
-
-.pro-after-sect .aftr-rht .badge::after {
-    opacity: .8;
-}
-
-/* Icon wells. ::before rather than an added element keeps the card markup
-   untouched across every slide. background-image (not mask-image) so one
-   pseudo-element carries both the disc and the glyph — masking would
-   consume the background and leave a bare glyph with no circle. */
-.pro-after-sect .bfore-lft::before,
-.pro-after-sect .aftr-rht::before {
-    content: '';
-    order: 2;
-    width: 44px;
-    height: 44px;
-    margin: 10px 0 8px;
-    border-radius: 50%;
-    background-color: #fff;
-    background-image: var(--icon-book-muted);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 18px 18px;
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .04),
-        0 8px 18px -10px rgba(41, 12, 71, .22);
-    position: relative;
-    z-index: 1;
-    transition: box-shadow .35s var(--ease-premium);
-}
-
-.pro-after-sect .aftr-rht::before {
-    background-image: var(--icon-briefcase-violet);
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .04),
-        0 14px 32px -14px rgba(88, 10, 157, .34);
-}
-
-.pro-after-sect .bfore-lft:hover::before {
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .05),
-        0 20px 38px -14px rgba(41, 12, 71, .3);
-}
-
-.pro-after-sect .aftr-rht:hover::before {
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .05),
-        0 20px 42px -14px rgba(88, 10, 157, .46);
-}
-
-.pro-after-sect strong {
-    order: 3;
-    margin: 0;
-    font-family: "DM Sans", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.3;
-    color: #14111C;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
-
-.pro-after-sect strong::after {
-    content: '';
-    width: 46px;
-    height: 2px;
-    border-radius: 2px;
-    background: rgba(112, 34, 169, .35);
-}
-
-.pro-after-sect .aftr-rht strong::after {
-    background: var(--cz-violet);
-}
-
-/* Arrow node, centred on the seam. Dotted connectors run out either side and
-   fade toward their far ends via a mask. */
-.pro-after-sect .mid-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    width: 32px;
-    height: 32px;
-    margin: 0;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid rgba(133, 8, 225, .20);
-    box-shadow:
-        0 1px 2px rgba(41, 12, 71, .04),
-        0 4px 12px -4px rgba(88, 10, 157, .22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-    transition: box-shadow .35s var(--ease-premium);
-}
-
-.pro-after-sect .mid-icon:hover {
-    box-shadow:
-        0 0 0 6px rgba(133, 8, 225, .07),
-        0 12px 32px -12px rgba(88, 10, 157, .5);
-}
-
-.transit-items .mid-icon img {
-    display: none;
-}
-
-.pro-after-sect .mid-icon::before {
-    content: '';
-    width: 14px;
-    height: 14px;
-    background: var(--cz-violet);
-    -webkit-mask-image: var(--icon-arrow-right);
-    mask-image: var(--icon-arrow-right);
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    flex-shrink: 0;
-}
-
-.pro-after-sect .mid-icon::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 260px;
-    height: 1px;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    background-image: linear-gradient(90deg, rgba(133, 8, 225, .35) 40%, transparent 0);
-    background-size: 8px 1px;
-    background-repeat: repeat-x;
-    mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
-}
-
-/* Tablet — same layout, spacing and type scaled down proportionally. */
-@media (max-width: 991px) {
-    .transit-items {
-        margin-top: 88px;
-        border-radius: 28px;
-    }
-
-    .transit-items .profile-img img {
-        width: 140px !important;
-        height: 140px;
-        border-width: 8px;
-    }
-
-    .transit-items .profile-img {
-        margin-top: -78px;
-    }
-
-    .transit-items .name_txt {
-        font-size: 42px;
-    }
-
-    .transit-items .pro_txt {
-        gap: 18px;
-        font-size: 12px;
-    }
-
-    .transit-items .pro_txt::before,
-    .transit-items .pro_txt::after {
-        flex-basis: 120px;
-    }
-
-    .pro-after-sect {
-        margin-top: 36px;
-    }
-
-    .pro-after-sect .bfore-lft,
-    .pro-after-sect .aftr-rht {
-        padding: 38px 18px 42px;
-    }
-
-    .pro-after-sect .bfore-lft {
-        border-bottom-left-radius: 27px;
-    }
-
-    .pro-after-sect .aftr-rht {
-        border-bottom-right-radius: 27px;
-    }
-
-    .pro-after-sect .bfore-lft::before,
-    .pro-after-sect .aftr-rht::before {
-        width: 88px;
-        height: 88px;
-        background-size: 34px 34px;
-        margin: 24px 0 22px;
-    }
-
-    .pro-after-sect strong {
-        font-size: 21px;
-        gap: 18px;
-    }
-
-    .pro-after-sect .mid-icon {
-        width: 60px;
-        height: 60px;
-    }
-}
-
-/* Below 640px the two halves stack. The divider and the connector line
-   rotate with them: the seam becomes horizontal, so the arrow node sits on
-   the boundary between the stacked halves rather than beside them. */
-@media (max-width: 639px) {
-    .transit-items {
-        margin-top: 76px;
-        border-radius: 24px;
-    }
-
-    .transit-items .profile-img img {
-        width: 116px !important;
-        height: 116px;
-        border-width: 7px;
-    }
-
-    .transit-items .profile-img {
-        margin-top: -65px;
-    }
-
-    .transit-items .profile-img::before {
-        inset: -18px;
-    }
-
-    .transit-items .name_txt {
-        font-size: 30px;
-        padding: 0 20px;
-        margin-top: 22px;
-    }
-
-    .transit-items .pro_txt {
-        gap: 12px;
-        font-size: 11px;
-        letter-spacing: .18em;
-        padding: 0 20px;
-    }
-
-    .transit-items .pro_txt::before,
-    .transit-items .pro_txt::after {
-        flex: 1 1 0;
-    }
-
-    .transit-items .txt_icon {
-        min-width: 142px;
-        height: 56px;
-        margin-top: 20px;
-    }
-
-    .pro-after-sect {
-        flex-wrap: wrap;
-        margin-top: 30px;
-    }
-
-    .pro-after-sect .bfore-lft,
-    .pro-after-sect .aftr-rht {
-        flex: 1 1 100%;
-        padding: 32px 20px 34px;
-    }
-
-    .pro-after-sect .bfore-lft {
-        border-radius: 0;
-        padding-bottom: 44px;
-    }
-
-    .pro-after-sect .aftr-rht {
-        border-radius: 0 0 23px 23px;
-        box-shadow: inset 0 1px 0 rgba(112, 34, 169, .09);
-        padding-top: 44px;
-    }
-
-    .pro-after-sect .bfore-lft::before,
-    .pro-after-sect .aftr-rht::before {
-        width: 84px;
-        height: 84px;
-        background-size: 33px 33px;
-        margin: 20px 0 18px;
-    }
-
-    .pro-after-sect strong {
-        font-size: 20px;
-        gap: 16px;
-    }
-
-    .pro-after-sect .mid-icon {
-        width: 54px;
-        height: 54px;
-    }
-
-    .pro-after-sect .mid-icon::before {
-        width: 20px;
-        height: 20px;
-        transform: rotate(90deg);
-    }
-
-    /* Connector becomes vertical to match the stacked seam. */
-    .pro-after-sect .mid-icon::after {
-        width: 2px;
-        height: 300px;
-        background-image: linear-gradient(180deg, rgba(133, 8, 225, .45) 42%, transparent 0);
-        background-size: 2px 11px;
-        background-repeat: repeat-y;
-        mask-image: linear-gradient(180deg, transparent, #000 26%, #000 74%, transparent);
-        -webkit-mask-image: linear-gradient(180deg, transparent, #000 26%, #000 74%, transparent);
-    }
-}
-
-/* Staged reveal: avatar → identity → outcome */
-@keyframes cz-transit-in {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-.owl-item.active .transit-items .profile-img,
-.owl-item.active .transit-items .name_txt,
-.owl-item.active .transit-items .pro_txt,
-.owl-item.active .transit-items .txt_icon,
-.owl-item.active .transit-items .bfore-lft,
-.owl-item.active .transit-items .aftr-rht {
-    animation: cz-transit-in .45s var(--ease-premium) both;
-}
-
-/* The arrow node is centred with translate(-50%,-50%); the shared fade-up
-   keyframe would overwrite that transform and knock it off the seam, so it
-   gets a variant that carries the centring through both keyframes. */
-@keyframes cz-transit-in-center {
-    from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)); }
-    to   { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-.owl-item.active .transit-items .mid-icon {
-    animation: cz-transit-in-center .45s var(--ease-premium) both;
-}
-
-.owl-item.active .transit-items .profile-img { animation-delay: .02s; }
-.owl-item.active .transit-items .name_txt    { animation-delay: .08s; }
-.owl-item.active .transit-items .pro_txt     { animation-delay: .12s; }
-.owl-item.active .transit-items .txt_icon    { animation-delay: .17s; }
-.owl-item.active .transit-items .bfore-lft   { animation-delay: .22s; }
-.owl-item.active .transit-items .mid-icon    { animation-delay: .27s; }
-.owl-item.active .transit-items .aftr-rht    { animation-delay: .31s; }
-
-@media (prefers-reduced-motion: reduce) {
-    .owl-item.active .transit-items > * { animation: none; }
-}
+/* ---- Successful Transitions ------------------------------------------------
+   The marquee and the transition cards are owned by the #cz-transit-styles
+   block in index.html — it loads after this file, so anything declared here
+   at equal specificity would simply lose. Keeping one owner per component
+   avoids the split-brain that produced ~700 lines of dead .transit-items
+   rules here after the markup was rebuilt. */
 
 /* ---- Counters ------------------------------------------------------------ */
 
@@ -1706,7 +1169,7 @@ a.login-btn:hover {
     animation: cz-drift-b 26s ease-in-out infinite;
 }
 
-.bg-colord > * {
+.bg-colord>* {
     position: relative;
     z-index: 1;
 }
@@ -1768,7 +1231,7 @@ a.login-btn:hover {
    `li + li` (0,1,3) and paints a grey border down BOTH sides of the middle
    block — doubling the 2–3 divider on desktop and leaving stray vertical
    rules on the stacked mobile layout. */
-.counter-section ul li + li,
+.counter-section ul li+li,
 .counter-section ul li:nth-of-type(2) {
     border-left: 1px solid rgba(120, 60, 180, .15);
     border-right: 0;
@@ -1876,7 +1339,7 @@ a.login-btn:hover {
         padding: 22px 4px;
     }
 
-    .counter-section ul li + li,
+    .counter-section ul li+li,
     .counter-section ul li:nth-of-type(2) {
         border-left: 0;
         border-right: 0;
@@ -1904,56 +1367,63 @@ a.login-btn:hover {
     }
 }
 
-/* ---- Explore Programs ------------------------------------------------------
-   Same aurora language as the hero canvas, same drift speeds, tuned darker so
-   the cards and filter controls keep their contrast. */
+/* ---- Explore Programs — background ----------------------------------------
+   This section used to be a scraped JPEG photograph (bg-img-blue.jpg) with a
+   flat violet fill behind it, which is why it read as dead next to the hero:
+   a still image cannot participate in a moving field, and the photograph's own
+   vignette fought the aurora layers drifting on top of it.
+
+   It is now a mesh: four radial pools of violet / indigo / deep navy, each on
+   its own co-prime drift (37s / 43s / 53s / 61s — the same periods the hero
+   uses), over a vertical base that opens on the proof section's exit colour
+   and closes on the Pro Packs entry colour. Because the section carries the
+   handoff colours at both edges, neither boundary can show a step.
+
+   Restraint is enforced by the numbers, not by taste: no single pool exceeds
+   .30 alpha, all four are blurred past 70px, and the wave layer sits at .035.
+   Nothing in the background moves fast enough or contrasts hard enough to
+   compete with a card. */
 .cz-aurora-section {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    /* The theme's own .bg-image rule sets `background-size: 100%` (width-only,
-       height follows the image's fixed aspect ratio) with `no-repeat`. That
-       only coincidentally covered the section back when it was shorter; once
-       the card grid grows taller than the image's scaled height — which
-       varies by breakpoint and by how many programs a tab has — the photo
-       runs out and the section's default background (none) shows through as
-       a white strip at the bottom. `cover` plus a solid fallback colour
-       behind it guarantees full coverage at any height. */
-    background-color: var(--cz-deep);
-    background-size: cover;
-    background-position: top center;
+    /* `background` shorthand, not `background-color`: this has to clear the
+       theme's `.bg-image { background: url(images/bg-img-blue.jpg) }` outright.
+       Setting only the colour would leave the photograph painted on top. */
+    background:
+        linear-gradient(180deg,
+            var(--stop-proof) 0%,
+            #2A1C63 16%,
+            var(--stop-programs) 42%,
+            #241A55 74%,
+            #1A1140 90%,
+            var(--stop-packs) 100%);
+    padding-bottom: 110px;
 }
 
-/* The theme gives .pro-pack a top-only margin (125px down to 40px across its
-   five breakpoints — style.css lines 1951, 8179, 8667, 9364, 10966) to
-   separate it from whatever came before. That worked when neighbouring
-   sections were both light, because the gap just showed more of the same
-   white. Now that #exprogram and .pro-pack are both dark aurora sections,
-   that margin opened a literal white strip of body background between them
-   — this was the reported bug. Collapsing the margin to 0 and replacing it
-   with padding (which stays inside the element's own dark background)
-   keeps the same visual breathing room without ever exposing the page
-   behind it, at every breakpoint. !important is needed to beat the theme's
-   five media-query variants without duplicating each of their conditions. */
-.pro-pack {
-    margin-top: 0 !important;
-    padding-top: 64px;
+/* Static mesh under the drifting pools — gives the field a base structure so
+   the movement reads as light shifting across a surface rather than as blobs
+   sliding over flat paint. */
+.cz-aurora-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(58% 42% at 78% 8%, rgba(93, 141, 240, .16), transparent 68%),
+        radial-gradient(50% 38% at 14% 46%, rgba(139, 92, 246, .14), transparent 70%),
+        radial-gradient(70% 40% at 50% 104%, rgba(10, 7, 21, .55), transparent 72%);
 }
 
-@media (max-width: 767px) {
-    .pro-pack {
-        padding-top: 40px;
-    }
-}
-
-.cz-aurora-section > .cz-aurora-layer {
+.cz-aurora-section>.cz-aurora-layer {
     position: absolute;
     z-index: 0;
     pointer-events: none;
     will-change: transform;
 }
 
-.cz-aurora-section > .cz-aurora-waves {
+.cz-aurora-section>.cz-aurora-waves {
     position: absolute;
     inset: 0;
     z-index: 0;
@@ -1961,38 +1431,94 @@ a.login-btn:hover {
     background-image:
         repeating-linear-gradient(78deg, transparent 0 38px, rgba(255, 255, 255, .035) 38px 39px, transparent 39px 92px),
         repeating-linear-gradient(102deg, transparent 0 54px, rgba(179, 91, 243, .05) 54px 55px, transparent 55px 128px);
+    /* Fades out at both ends so the wave texture never terminates on an edge
+       — the same trick the hero grid uses at the bridge. */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 84%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 84%, transparent 100%);
     animation: cz-wave-drift 90s linear infinite;
 }
 
-.cz-aurora-section > .cz-blob-1 {
-    background: radial-gradient(closest-side, rgba(179, 91, 243, .30), transparent 72%);
-    width: 65%; height: 60%; top: -10%; left: -8%;
-    filter: blur(70px);
+.cz-aurora-section>.cz-blob-1 {
+    background: radial-gradient(closest-side, rgba(139, 92, 246, .30), transparent 72%);
+    width: 66%;
+    height: 58%;
+    top: -12%;
+    left: -8%;
+    filter: blur(72px);
     animation: cz-aurora-1 37s ease-in-out infinite;
 }
 
-.cz-aurora-section > .cz-blob-2 {
-    background: radial-gradient(closest-side, rgba(133, 8, 225, .28), transparent 72%);
-    width: 60%; height: 55%; top: 25%; right: -10%;
-    filter: blur(80px);
+.cz-aurora-section>.cz-blob-2 {
+    background: radial-gradient(closest-side, rgba(133, 8, 225, .26), transparent 72%);
+    width: 60%;
+    height: 52%;
+    top: 22%;
+    right: -12%;
+    filter: blur(84px);
     animation: cz-aurora-2 43s ease-in-out infinite;
 }
 
-.cz-aurora-section > .cz-blob-3 {
-    background: radial-gradient(closest-side, rgba(110, 37, 164, .32), transparent 72%);
-    width: 70%; height: 55%; bottom: -10%; left: 10%;
-    filter: blur(85px);
+.cz-aurora-section>.cz-blob-3 {
+    background: radial-gradient(closest-side, rgba(76, 60, 190, .30), transparent 72%);
+    width: 72%;
+    height: 52%;
+    bottom: -8%;
+    left: 8%;
+    filter: blur(88px);
     animation: cz-aurora-3 53s ease-in-out infinite;
 }
 
-.cz-aurora-section > .container {
+.cz-aurora-section>.container {
     position: relative;
     z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cz-aurora-section > .cz-aurora-layer,
-    .cz-aurora-section > .cz-aurora-waves { animation: none; }
+
+    .cz-aurora-section>.cz-aurora-layer,
+    .cz-aurora-section>.cz-aurora-waves {
+        animation: none;
+    }
+}
+
+/* ---- Explore Programs → Pro Packs -------------------------------------------
+   The reported "large white space before the next section" was not padding at
+   all: `.pro-pack` had no background of its own, so the theme's 125px top
+   margin plus its own 64px of padding exposed ~190px of raw <body> white
+   between two dark sections — and, being white-on-white, took the "Pro Packs"
+   heading with it.
+
+   Both halves are fixed here. The margin becomes padding (which lives inside
+   the element's own paint), and the element gets a field that opens on
+   Explore Programs' exit colour and closes on Gold Pass's entry colour, so it
+   is now a genuine link between the two rather than a gap. */
+.pro-pack {
+    margin-top: 0 !important;
+    padding: 96px 0 0;
+    background: linear-gradient(180deg,
+            var(--stop-packs) 0%,
+            #0C0820 55%,
+            var(--stop-gold) 100%);
+}
+
+@media (max-width: 991px) {
+    .cz-aurora-section {
+        padding-bottom: 88px;
+    }
+
+    .pro-pack {
+        padding-top: 72px;
+    }
+}
+
+@media (max-width: 767px) {
+    .cz-aurora-section {
+        padding-bottom: 64px;
+    }
+
+    .pro-pack {
+        padding-top: 56px;
+    }
 }
 
 /* ---- Explore Programs tabs ------------------------------------------------ */
@@ -2007,7 +1533,7 @@ a.login-btn:hover {
     gap: 24px;
 }
 
-.tab-wrapper > h4 {
+.tab-wrapper>h4 {
     font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
@@ -2053,7 +1579,7 @@ a.login-btn:hover {
     position: relative;
     overflow: hidden;
     transition: background .25s ease, color .25s ease, border-color .25s ease,
-                transform .25s ease, box-shadow .25s ease;
+        transform .25s ease, box-shadow .25s ease;
 }
 
 /* the theme puts a Font Awesome caret in ::after; repurposed as a soft
@@ -2109,6 +1635,7 @@ a.login-btn:hover {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
+
     .tab-wrapper ul.nav-pills li a {
         height: 58px;
         font-size: 15px;
@@ -2128,7 +1655,7 @@ a.login-btn:hover {
     display: none;
 }
 
-.tab-wrapper .nav-pills > li > a::before {
+.tab-wrapper .nav-pills>li>a::before {
     content: '';
     display: inline-block;
     width: 17px;
@@ -2138,30 +1665,67 @@ a.login-btn:hover {
     opacity: .85;
 }
 
-.tab-wrapper .nav-pills > li:nth-child(1) > a::before { -webkit-mask: var(--icon-cat-tech) center / contain no-repeat; mask: var(--icon-cat-tech) center / contain no-repeat; }
-.tab-wrapper .nav-pills > li:nth-child(2) > a::before { -webkit-mask: var(--icon-cat-mechanics) center / contain no-repeat; mask: var(--icon-cat-mechanics) center / contain no-repeat; }
-.tab-wrapper .nav-pills > li:nth-child(3) > a::before { -webkit-mask: var(--icon-cat-business) center / contain no-repeat; mask: var(--icon-cat-business) center / contain no-repeat; }
-.tab-wrapper .nav-pills > li:nth-child(4) > a::before { -webkit-mask: var(--icon-cat-medical) center / contain no-repeat; mask: var(--icon-cat-medical) center / contain no-repeat; }
-.tab-wrapper .nav-pills > li:nth-child(5) > a::before { -webkit-mask: var(--icon-cat-design) center / contain no-repeat; mask: var(--icon-cat-design) center / contain no-repeat; }
-.tab-wrapper .nav-pills > li:nth-child(6) > a::before { -webkit-mask: var(--icon-cat-bootcamp) center / contain no-repeat; mask: var(--icon-cat-bootcamp) center / contain no-repeat; }
-
-/* Even responsive grid. The previous bento (mixed 2/4-column spans with three
-   different aspect ratios) squeezed images and produced ragged card heights,
-   so it is replaced by a uniform auto-fill grid: every card is the same
-   width, every card stretches to equal height, and every image is a true
-   1:1 crop. */
-.tab-wrapper .tab-content.clearfix {
-    width: 100%;
+.tab-wrapper .nav-pills>li:nth-child(1)>a::before {
+    -webkit-mask: var(--icon-cat-tech) center / contain no-repeat;
+    mask: var(--icon-cat-tech) center / contain no-repeat;
 }
+
+.tab-wrapper .nav-pills>li:nth-child(2)>a::before {
+    -webkit-mask: var(--icon-cat-mechanics) center / contain no-repeat;
+    mask: var(--icon-cat-mechanics) center / contain no-repeat;
+}
+
+.tab-wrapper .nav-pills>li:nth-child(3)>a::before {
+    -webkit-mask: var(--icon-cat-business) center / contain no-repeat;
+    mask: var(--icon-cat-business) center / contain no-repeat;
+}
+
+.tab-wrapper .nav-pills>li:nth-child(4)>a::before {
+    -webkit-mask: var(--icon-cat-medical) center / contain no-repeat;
+    mask: var(--icon-cat-medical) center / contain no-repeat;
+}
+
+.tab-wrapper .nav-pills>li:nth-child(5)>a::before {
+    -webkit-mask: var(--icon-cat-design) center / contain no-repeat;
+    mask: var(--icon-cat-design) center / contain no-repeat;
+}
+
+.tab-wrapper .nav-pills>li:nth-child(6)>a::before {
+    -webkit-mask: var(--icon-cat-bootcamp) center / contain no-repeat;
+    mask: var(--icon-cat-bootcamp) center / contain no-repeat;
+}
+
+/* ---- Explore Programs — the card ------------------------------------------
+   Rebuilt as a product card: media, then claim, then proof, then price-of-
+   entry facts, then the action. Everything below is CSS-only — the markup is
+   a WordPress loop repeated ~40 times across six tabs, so a structural change
+   would have to be made forty times and would break the next time the loop is
+   re-generated. The pieces the theme gives us map cleanly onto the new roles:
+
+     .tab-img-sect img   → the media well
+     .tab-img-sect h4    → the category, lifted out of the image and floated
+                           as a badge (it was a heading burned into the photo)
+     .tab-prodcts img    → the rating row
+     .tab-prodcts p      → the headline (it is the course's actual claim)
+     .prog-admin a       → the two fact tiles; their labels are supplied by
+                           CSS because the markup carries only the values
+     .tab-more-btn a     → the CTA
+
+   No rating figures or review counts are invented — the star graphic is the
+   theme's own asset and stays the whole rating statement. */
 
 /* Fixed 3-up grid. auto-fill previously yielded 4 narrow columns on wide
    screens, which combined with square imagery made very tall cards. Three
    wider columns plus landscape media keeps each card inside its allotted
    space without the body copy squeezing. */
+.tab-wrapper .tab-content.clearfix {
+    width: 100%;
+}
+
 .select-tabs .tab-pane ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 30px;
     margin: 0;
     padding: 0;
     align-items: stretch;
@@ -2170,7 +1734,7 @@ a.login-btn:hover {
 @media (max-width: 991px) {
     .select-tabs .tab-pane ul {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 24px;
     }
 }
 
@@ -2186,21 +1750,30 @@ a.login-btn:hover {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: var(--r-panel);
     background: #fff;
-    transition: transform .25s ease, box-shadow .25s ease;
+    /* A hairline of white at low alpha rather than a grey border: on the dark
+       field it reads as the card catching light along its edge, which is what
+       separates it from the background without drawing a box. */
+    border: 1px solid rgba(255, 255, 255, .55);
+    box-shadow:
+        0 2px 6px -2px rgba(10, 7, 21, .2),
+        0 24px 56px -28px rgba(10, 7, 21, .6);
+    transition: transform .35s var(--ease-premium), box-shadow .35s var(--ease-premium);
 }
 
 .select-tabs .tab-pane ul li:hover {
     transform: translateY(-6px);
-    box-shadow: var(--shadow-violet);
+    box-shadow:
+        0 2px 6px -2px rgba(10, 7, 21, .22),
+        0 34px 74px -30px rgba(88, 10, 157, .62);
 }
 
-/* Square media well — object-fit crops instead of stretching. */
+/* ---- Media well ---------------------------------------------------------- */
 .tab-img-sect {
     position: relative;
     overflow: hidden;
-    border-radius: 16px 16px 0 0;
+    border-radius: var(--r-panel) var(--r-panel) 0 0;
     flex: 0 0 auto;
 }
 
@@ -2210,39 +1783,353 @@ a.login-btn:hover {
     height: auto;
     aspect-ratio: 16 / 10;
     object-fit: cover;
-    border-radius: 16px 16px 0 0;
-    transition: transform .3s ease;
+    border-radius: var(--r-panel) var(--r-panel) 0 0;
+    transition: transform .5s var(--ease-premium);
 }
 
 .select-tabs .tab-pane ul li:hover .tab-img-sect img {
-    transform: scale(1.04);
+    transform: scale(1.045);
 }
 
+/* Soft overlay. Kept low and long rather than a hard scrim: its job is to
+   seat the floating badge, not to darken the photograph. */
 .tab-img-sect::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, .72) 0%, rgba(0, 0, 0, .1) 42%, transparent 62%);
     pointer-events: none;
+    background: linear-gradient(0deg,
+            rgba(12, 8, 26, .62) 0%,
+            rgba(12, 8, 26, .26) 34%,
+            rgba(12, 8, 26, .04) 60%,
+            transparent 78%);
 }
 
-/* Card body fills remaining height so the "Know More" row bottom-aligns
-   across every card in the row regardless of copy length. */
+/* Category badge. The theme renders this as a 24px white heading sitting
+   directly on the photo; as a floating pill it becomes a label the eye can
+   skip when it is scanning for a course rather than a category. */
+.tab-img-sect h4 {
+    position: absolute;
+    z-index: 1;
+    bottom: 18px;
+    left: 18px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: max-content;
+    max-width: calc(100% - 36px);
+    margin: 0;
+    padding: 8px 15px 8px 11px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .93);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    backdrop-filter: blur(10px) saturate(150%);
+    box-shadow: 0 4px 16px -6px rgba(10, 7, 21, .5);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: #4C1D95;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Icon well. The glyph is chosen per tab pane rather than per card, because
+   the tab *is* the category — every card inside #Design is a design course.
+   Defaults to the tech mark so a new pane is never iconless. */
+.tab-img-sect h4::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 21px;
+    height: 21px;
+    border-radius: 7px;
+    background-image:
+        linear-gradient(140deg, rgba(139, 92, 246, .22), rgba(124, 58, 237, .12)),
+        var(--icon-cat-tech);
+    background-size: 100% 100%, 13px 13px;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+}
+
+#Mechanics .tab-img-sect h4::before {
+    background-image:
+        linear-gradient(140deg, rgba(139, 92, 246, .22), rgba(124, 58, 237, .12)),
+        var(--icon-cat-mechanics);
+}
+
+#Business .tab-img-sect h4::before {
+    background-image:
+        linear-gradient(140deg, rgba(139, 92, 246, .22), rgba(124, 58, 237, .12)),
+        var(--icon-cat-business);
+}
+
+#Medical .tab-img-sect h4::before {
+    background-image:
+        linear-gradient(140deg, rgba(139, 92, 246, .22), rgba(124, 58, 237, .12)),
+        var(--icon-cat-medical);
+}
+
+#Design .tab-img-sect h4::before {
+    background-image:
+        linear-gradient(140deg, rgba(139, 92, 246, .22), rgba(124, 58, 237, .12)),
+        var(--icon-cat-design);
+}
+
+#Bootcamp .tab-img-sect h4::before {
+    background-image:
+        linear-gradient(140deg, rgba(139, 92, 246, .22), rgba(124, 58, 237, .12)),
+        var(--icon-cat-bootcamp);
+}
+
+/* ---- Body ---------------------------------------------------------------- */
 .select-tabs .tab-pane ul li .tab-prodcts {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
-    padding: 16px;
+    padding: 22px 24px 24px;
+    background: #fff;
+    border-radius: 0 0 var(--r-panel) var(--r-panel);
 }
 
-.select-tabs .tab-pane ul li .tab-prodcts > p:last-of-type {
+/* Rating row — the theme's five-star raster, sized down to a caption and
+   followed by a short rule that separates it from the headline.
+   `align-self` is load-bearing: .tab-prodcts is a column flex container, so
+   the default `stretch` was pulling this replaced element to the full card
+   width and blowing the star strip up to ~350px. */
+.select-tabs .tab-pane ul li .tab-prodcts>img {
+    display: block;
+    align-self: flex-start;
+    width: auto;
+    height: 17px;
+    margin: 0 0 14px;
+}
+
+.select-tabs .tab-pane ul li .tab-prodcts>img+p {
+    position: relative;
+    padding-top: 16px;
+}
+
+.select-tabs .tab-pane ul li .tab-prodcts>img+p::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--cz-violet), var(--cz-lilac));
+}
+
+/* Headline. The course's claim is the card's largest type — bigger than the
+   category and bigger than the facts, because it is the only line that
+   differs meaningfully between two cards in the same category. */
+.select-tabs .tab-pane ul li .tab-prodcts p {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.34;
+    letter-spacing: -.015em;
+    color: #17132B;
+    margin: 0 0 20px;
+}
+
+.select-tabs .tab-pane ul li .tab-prodcts>p:last-of-type {
     flex: 1 1 auto;
+}
+
+/* ---- Fact tiles ----------------------------------------------------------
+   Two equal wells split by a hairline. Each carries a label the markup does
+   not contain (it ships only "2 Months" / "13k+ Mentees"), so the labels are
+   supplied here — they name what the number means, which is the difference
+   between a fact and a fragment. */
+.prog-admin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 0 0 20px;
+}
+
+.select-tabs .tab-pane ul li .prog-admin a,
+.tab-prodcts .prog-admin a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 11px;
+    row-gap: 1px;
+    margin: 0;
+    padding: 12px 13px;
+    border-radius: var(--r-chip);
+    background: #F6F5FB;
+    border: 1px solid #EDEBF6;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #17132B;
+    text-decoration: none;
+    transition: background .25s ease, border-color .25s ease;
+}
+
+.select-tabs .tab-pane ul li .prog-admin a:hover {
+    background: #F1EEFC;
+    border-color: rgba(124, 58, 237, .24);
+}
+
+/* Icon well, spanning both text rows. */
+.select-tabs .tab-pane ul li .prog-admin a i {
+    grid-row: 1 / 3;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    border-radius: 10px;
+    background: rgba(124, 58, 237, .1);
+}
+
+.select-tabs .tab-pane ul li .prog-admin a i::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--cz-violet);
+    -webkit-mask-size: 17px 17px;
+    mask-size: 17px 17px;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.select-tabs .tab-pane ul li .prog-admin .prog-calendar i::before {
+    -webkit-mask-image: var(--icon-calendar);
+    mask-image: var(--icon-calendar);
+}
+
+.select-tabs .tab-pane ul li .prog-admin .prog-certi i::before {
+    -webkit-mask-image: var(--icon-cap);
+    mask-image: var(--icon-cap);
+}
+
+/* Label above value. ::before occupies row 1 of column 2; the anchor's own
+   text node flows into row 2. */
+.select-tabs .tab-pane ul li .prog-admin a::before {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: #7B7590;
+}
+
+.select-tabs .tab-pane ul li .prog-admin .prog-calendar::before {
+    content: 'Duration';
+}
+
+.select-tabs .tab-pane ul li .prog-admin .prog-certi::before {
+    content: 'Community';
+}
+
+/* ---- CTA ------------------------------------------------------------------ */
+.tab-more-btn {
+    border-top: 1px solid #EEECF6;
+    margin: 0;
+    padding: 20px 0 0;
 }
 
 .tab-more-btn a {
     display: inline-flex;
     align-items: center;
-    transition: color .25s ease;
+    gap: 12px;
+    padding: 8px 8px 8px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(124, 58, 237, .28);
+    background: #fff;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #2E1065;
+    text-decoration: none;
+    transition: border-color .25s ease, box-shadow .25s ease, color .25s ease;
+}
+
+.tab-more-btn a:hover {
+    border-color: rgba(124, 58, 237, .55);
+    box-shadow: 0 8px 22px -12px rgba(124, 58, 237, .8);
+    color: #4C1D95;
+}
+
+/* Round arrow chip. Overrides the shared masked-arrow treatment further down
+   this file, which renders link arrows as bare glyphs. */
+.tab-more-btn a::after {
+    content: '';
+    display: block;
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background-color: var(--cz-violet);
+    background-image: none;
+    -webkit-mask: none;
+    mask: none;
+    transform: none;
+    transition: transform .3s var(--ease-premium), background-color .25s ease;
+}
+
+.tab-more-btn a::before {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+.tab-more-btn a {
+    position: relative;
+}
+
+/* The arrow itself rides on the chip via a background image so the chip stays
+   a single element (the anchor has only two pseudo-elements to spend). */
+.tab-more-btn a::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='18' y2='12'/%3E%3Cpolyline points='12 6 18 12 12 18'/%3E%3C/svg%3E");
+    background-size: 16px 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.tab-more-btn a:hover::after {
+    transform: translateX(3px);
+    background-color: #6D28D9;
+}
+
+@media (max-width: 1199px) {
+    .select-tabs .tab-pane ul li .tab-prodcts {
+        padding: 20px 20px 22px;
+    }
+
+    .select-tabs .tab-pane ul li .tab-prodcts p {
+        font-size: 17px;
+    }
+
+    .prog-admin {
+        gap: 10px;
+    }
+
+    .select-tabs .tab-pane ul li .prog-admin a {
+        padding: 11px 11px;
+        font-size: 13px;
+        column-gap: 9px;
+    }
+}
+
+/* Below 420px the two tiles stop fitting side by side; stacking them keeps
+   the label/value pair intact rather than letting "13k+ Mentees" wrap. */
+@media (max-width: 420px) {
+    .prog-admin {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ---- Pro Packs ticker ------------------------------------------------------
@@ -2311,38 +2198,153 @@ a.login-btn:hover {
    used only as a warm accent radial, not as the dominant colour. */
 
 @keyframes cz-gold-aurora-1 {
-    0%   { transform: translate3d(-5%, -4%, 0) scale(1); }
-    30%  { transform: translate3d(4%, 5%, 0) scale(1.12); }
-    65%  { transform: translate3d(7%, -3%, 0) scale(1.06); }
-    100% { transform: translate3d(-5%, -4%, 0) scale(1); }
+    0% {
+        transform: translate3d(-5%, -4%, 0) scale(1);
+    }
+
+    30% {
+        transform: translate3d(4%, 5%, 0) scale(1.12);
+    }
+
+    65% {
+        transform: translate3d(7%, -3%, 0) scale(1.06);
+    }
+
+    100% {
+        transform: translate3d(-5%, -4%, 0) scale(1);
+    }
 }
+
 @keyframes cz-gold-aurora-2 {
-    0%   { transform: translate3d(5%, 4%, 0) scale(1.07); }
-    38%  { transform: translate3d(-6%, -3%, 0) scale(1); }
-    72%  { transform: translate3d(-2%, 6%, 0) scale(1.14); }
-    100% { transform: translate3d(5%, 4%, 0) scale(1.07); }
+    0% {
+        transform: translate3d(5%, 4%, 0) scale(1.07);
+    }
+
+    38% {
+        transform: translate3d(-6%, -3%, 0) scale(1);
+    }
+
+    72% {
+        transform: translate3d(-2%, 6%, 0) scale(1.14);
+    }
+
+    100% {
+        transform: translate3d(5%, 4%, 0) scale(1.07);
+    }
 }
+
 @keyframes cz-gold-aurora-3 {
-    0%   { transform: translate3d(-3%, 6%, 0) scale(1.09); }
-    44%  { transform: translate3d(6%, -5%, 0) scale(1); }
-    78%  { transform: translate3d(-5%, -2%, 0) scale(1.11); }
-    100% { transform: translate3d(-3%, 6%, 0) scale(1.09); }
+    0% {
+        transform: translate3d(-3%, 6%, 0) scale(1.09);
+    }
+
+    44% {
+        transform: translate3d(6%, -5%, 0) scale(1);
+    }
+
+    78% {
+        transform: translate3d(-5%, -2%, 0) scale(1.11);
+    }
+
+    100% {
+        transform: translate3d(-3%, 6%, 0) scale(1.09);
+    }
 }
+
 @keyframes cz-gold-aurora-4 {
-    0%   { transform: translate3d(3%, -5%, 0) scale(1); }
-    55%  { transform: translate3d(-4%, 4%, 0) scale(1.08); }
-    100% { transform: translate3d(3%, -5%, 0) scale(1); }
+    0% {
+        transform: translate3d(3%, -5%, 0) scale(1);
+    }
+
+    55% {
+        transform: translate3d(-4%, 4%, 0) scale(1.08);
+    }
+
+    100% {
+        transform: translate3d(3%, -5%, 0) scale(1);
+    }
 }
 
 .bg-discover {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    background: #000;
+    /* Opens on the colour Pro Packs hands over and holds black through the
+       ticket, so the two dark sections read as one field. */
+    background: linear-gradient(180deg, var(--stop-gold) 0%, #000 22%, #000 100%);
+    /* Clearance for the dissolve below — the ticket must finish before the
+       surface starts lifting, or the veil washes over it. */
+    padding-bottom: 300px;
 }
 
+/* ---- Movement 2: the dissolve into the light lower page --------------------
+   This is the page's one deliberate tonal event, and it gets ~340px to
+   happen in — long enough that no single scroll position shows an edge. The
+   dark field does not stop; it thins out. The Gold Pass aurora keeps drifting
+   underneath and is simply veiled as the surface lifts.
+
+   Everything below the fold (Advanced Programs, testimonials, articles) is a
+   reading zone: long copy, portraits, quotes. Lifting it out of the dark is
+   what keeps it readable — the continuity comes from *how* it arrives, not
+   from refusing to change value at all. */
+.bg-discover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 340px;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(30, 20, 62, .28) 26%,
+            rgba(120, 108, 180, .55) 54%,
+            rgba(210, 208, 240, .88) 74%,
+            var(--stop-light) 88%,
+            var(--stop-light) 100%);
+}
+
+/* The lower page's ambient wash is masked in over 200px. Without this it
+   switches on at full strength on the section's first pixel row, which is a
+   faint but real edge exactly where the dissolve is supposed to have made the
+   boundary undetectable. */
+.bg-discover+.bg-colord::before {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 200px);
+    mask-image: linear-gradient(180deg, transparent 0, #000 200px);
+}
+
+/* The lower page opens on exactly that colour and, at its foot, hands over to
+   the footer the same way — mirrored, so the page closes as it opened. */
+/* Padding, not a margin on the last child: a bottom margin here collapses
+   straight out of the wrapper and opens a real gap between this section and
+   the footer, which is the class of bug this whole pass exists to remove. */
+.bg-discover+.bg-colord {
+    position: relative;
+    background: var(--stop-light);
+    padding-bottom: 260px;
+}
+
+.bg-discover+.bg-colord::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 300px;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(196, 190, 232, .38) 30%,
+            rgba(108, 92, 168, .6) 58%,
+            rgba(48, 36, 96, .9) 82%,
+            var(--stop-footer) 100%);
+}
+
+
 /* Gold/black/purple aurora blob layers */
-.bg-discover > .cz-gp-layer {
+.bg-discover>.cz-gp-layer {
     position: absolute;
     z-index: 0;
     pointer-events: none;
@@ -2350,47 +2352,66 @@ a.login-btn:hover {
 }
 
 /* Primary purple plume — dominant, keeps the section rooted in the brand */
-.bg-discover > .cz-gp-blob-1 {
+.bg-discover>.cz-gp-blob-1 {
     background: radial-gradient(closest-side, rgba(106, 13, 173, .50), transparent 72%);
-    width: 75%; height: 70%; top: -12%; left: -8%;
+    width: 75%;
+    height: 70%;
+    top: -12%;
+    left: -8%;
     filter: blur(80px);
     animation: cz-gold-aurora-1 41s ease-in-out infinite;
 }
 
 /* Secondary purple — mid-section depth */
-.bg-discover > .cz-gp-blob-2 {
+.bg-discover>.cz-gp-blob-2 {
     background: radial-gradient(closest-side, rgba(133, 8, 225, .38), transparent 72%);
-    width: 65%; height: 60%; top: 28%; right: -10%; left: auto;
+    width: 65%;
+    height: 60%;
+    top: 28%;
+    right: -10%;
+    left: auto;
     filter: blur(90px);
     animation: cz-gold-aurora-2 47s ease-in-out infinite;
 }
 
 /* Gold accent — warm pool, lower opacity so it reads as depth not glow */
-.bg-discover > .cz-gp-blob-3 {
+.bg-discover>.cz-gp-blob-3 {
     background: radial-gradient(closest-side, rgba(199, 154, 58, .28), transparent 72%);
-    width: 60%; height: 55%; bottom: -8%; left: 18%; top: auto;
+    width: 60%;
+    height: 55%;
+    bottom: -8%;
+    left: 18%;
+    top: auto;
     filter: blur(100px);
     animation: cz-gold-aurora-3 59s ease-in-out infinite;
 }
 
 /* Second gold accent — upper right, very restrained */
-.bg-discover > .cz-gp-blob-4 {
+.bg-discover>.cz-gp-blob-4 {
     background: radial-gradient(closest-side, rgba(184, 134, 43, .18), transparent 72%);
-    width: 50%; height: 45%; top: 5%; right: 2%; left: auto;
+    width: 50%;
+    height: 45%;
+    top: 5%;
+    right: 2%;
+    left: auto;
     filter: blur(110px);
     animation: cz-gold-aurora-4 67s ease-in-out infinite reverse;
 }
 
 /* Third purple bottom anchor */
-.bg-discover > .cz-gp-blob-5 {
+.bg-discover>.cz-gp-blob-5 {
     background: radial-gradient(closest-side, rgba(110, 37, 164, .32), transparent 72%);
-    width: 70%; height: 50%; bottom: 0; left: 5%; top: auto;
+    width: 70%;
+    height: 50%;
+    bottom: 0;
+    left: 5%;
+    top: auto;
     filter: blur(85px);
     animation: cz-gold-aurora-1 53s ease-in-out infinite reverse;
 }
 
 /* Topographic wave bands — same subtle grid used in the hero */
-.bg-discover > .cz-gp-waves {
+.bg-discover>.cz-gp-waves {
     position: absolute;
     inset: 0;
     z-index: 0;
@@ -2402,7 +2423,7 @@ a.login-btn:hover {
 }
 
 /* Film-grain texture overlay — ties the background to the rest of the dark sections */
-.bg-discover > .cz-gp-grain {
+.bg-discover>.cz-gp-grain {
     position: absolute;
     inset: 0;
     z-index: 0;
@@ -2414,14 +2435,17 @@ a.login-btn:hover {
 }
 
 /* All direct children except the aurora layers sit above them */
-.bg-discover > *:not(.cz-gp-layer):not(.cz-gp-waves):not(.cz-gp-grain) {
+.bg-discover>*:not(.cz-gp-layer):not(.cz-gp-waves):not(.cz-gp-grain) {
     position: relative;
     z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .bg-discover > .cz-gp-layer,
-    .bg-discover > .cz-gp-waves { animation: none; }
+
+    .bg-discover>.cz-gp-layer,
+    .bg-discover>.cz-gp-waves {
+        animation: none;
+    }
 }
 
 /* ---- Golden Pass -----------------------------------------------------------
@@ -2564,18 +2588,38 @@ a.login-btn:hover {
     color: rgba(212, 184, 128, .72);
 }
 
-/* ---- Bundle cards -------------------------------------------------------- */
+/* ---- Bundle cards --------------------------------------------------------
+   Layout note on the "+" separators, which were rendering *below* the cards
+   instead of between them:
+
+   The glyph is a ::after on .course-col, and .course-col was a flex row
+   holding the card (flex: 1 1 auto) plus that pseudo-element. The theme also
+   left flex-wrap at `wrap`. The card claimed the column's full width, so the
+   "+" had nowhere to go on line 1 and wrapped onto line 2 — sitting under the
+   card and adding 27px to the row's height.
+
+   Making the row nowrap would have fixed the wrap but not the geometry: the
+   three columns share one flex basis, so columns 1 and 2 would each have had
+   to fit a card *and* a separator inside the same width as column 3's bare
+   card, leaving the three cards unequal.
+
+   So the separator is taken out of the flow entirely. The row carries a fixed
+   gap, every column is a plain equal-width track, and the "+" is absolutely
+   positioned in the middle of the gap that precedes each column after the
+   first — centred on both axes by construction, with identical space either
+   side at every viewport width. */
 .course-row {
-    margin: 40px 0 0;
-    justify-content: flex-start;
+    display: flex !important;
+    flex-wrap: nowrap !important;
     align-items: stretch;
-    /* The three tiers plus their separators overflow the 70% column at their
-       intrinsic width, so they share the row and shrink instead of wrapping. */
-    flex-wrap: nowrap;
+    gap: 44px;
 }
 
 .course-col {
-    align-items: stretch;
+    position: relative;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
     flex: 1 1 0;
     min-width: 0;
 }
@@ -2649,17 +2693,34 @@ a.login-btn:hover {
     color: rgba(255, 255, 255, .55);
 }
 
-/* Gold "+" separators between the tiers. */
-.course-col::after {
-    content: '';
-    align-self: center;
-    width: 13px;
-    height: 13px;
-    margin: 0 18px;
-    background-color: rgba(215, 188, 116, .8);
-    -webkit-mask: var(--icon-plus) center / contain no-repeat;
-    mask: var(--icon-plus) center / contain no-repeat;
-    font-size: 0;
+/* Gold "+" separators between the tiers.
+   Anchored to the column that *follows* each gap rather than the one that
+   precedes it, so the last column needs no special case — there is simply no
+   gap after it. left: calc(-1 * gap/2) lands the glyph on the gap's midline;
+   top: 50% + translate(-50%,-50%) lands it on the row's. */
+.course-col+.course-col::after {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: -22px;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 1;
+    color: rgba(215, 188, 116, .85);
+    text-shadow: 0 0 18px rgba(215, 188, 116, .35);
+    pointer-events: none;
+}
+
+/* The theme's own ::after on every .course-col is now unused — suppress it so
+   a stray glyph cannot reappear on the first column. */
+.course-row>.course-col:first-child::after {
+    display: none !important;
 }
 
 /* ---- Benefits strip ------------------------------------------------------ */
@@ -2887,8 +2948,15 @@ a.login-btn:hover {
    The ticket and cards fade in on scroll; nothing changes position
    afterwards, so the section reads as stable rather than animated. */
 @keyframes cz-gp-in {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* The shared .cz-reveal treatment blurs and shifts the element it lands on.
@@ -2906,9 +2974,17 @@ a.login-btn:hover {
     animation: cz-gp-in .5s var(--ease-premium) both;
 }
 
-.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(1) { animation-delay: .16s; }
-.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(2) { animation-delay: .24s; }
-.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(3) { animation-delay: .32s; }
+.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(1) {
+    animation-delay: .16s;
+}
+
+.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(2) {
+    animation-delay: .24s;
+}
+
+.pass-sect.cz-reveal.is-visible .course-col:nth-of-type(3) {
+    animation-delay: .32s;
+}
 
 @media (prefers-reduced-motion: reduce) {
     .pass-sect.cz-reveal.is-visible .course-col {
@@ -2918,6 +2994,7 @@ a.login-btn:hover {
 
 /* ---- Golden Pass responsive ------------------------------------------------ */
 @media (max-width: 1199px) {
+
     /* Below 1200px the theme hides the real ticket outright (in three
        separate breakpoint blocks) and swaps in a flat PNG of the desktop
        design. That PNG is gone now the ticket itself is responsive, so the
@@ -2935,25 +3012,91 @@ a.login-btn:hover {
         padding: 44px 40px 0;
     }
 
-    .golden-pass h3 { font-size: 48px; }
-    .cz-gp-access { font-size: 38px; }
-    .col-blue, .col-orng, .col-grn { padding: 15px 17px; gap: 12px; }
-    .course-col::after { margin: 0 12px; }
-    .get-premium { font-size: 17px; }
+    .golden-pass h3 {
+        font-size: 48px;
+    }
+
+    .cz-gp-access {
+        font-size: 38px;
+    }
+
+    .col-blue,
+    .col-orng,
+    .col-grn {
+        padding: 15px 17px;
+        gap: 12px;
+    }
+
+    /* Gap and separator offset move together — half the gap, always. */
+    .course-row {
+        gap: 32px;
+    }
+
+    .course-col+.course-col::after {
+        left: -16px;
+        font-size: 17px;
+    }
+
+    .get-premium {
+        font-size: 17px;
+    }
 }
 
 @media (max-width: 991px) {
-    .golden-pass { padding: 38px 30px 0; }
-    .golden-pass h3 { font-size: 40px; }
-    .cz-gp-crown { width: 54px; height: 54px; }
-    .cz-gp-crown svg { width: 24px; height: 24px; }
-    .course-row { margin-top: 32px; flex-wrap: wrap; gap: 12px 0; }
-    .course-col { flex: 1 1 100%; width: 100%; }
-    .course-col::after { display: none; }
-    .col-blue, .col-orng, .col-grn { width: 100%; }
-    .cz-gp-access { font-size: 32px; }
-    .cz-gp-life { font-size: 13px; }
-    .discover-row h3 { font-size: 32px; }
+    .golden-pass {
+        padding: 38px 30px 0;
+    }
+
+    .golden-pass h3 {
+        font-size: 40px;
+    }
+
+    .cz-gp-crown {
+        width: 54px;
+        height: 54px;
+    }
+
+    .cz-gp-crown svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Stacked: the tiers read as a list, and a "+" between stacked rows would
+       claim a vertical rhythm the layout no longer has. The row gap carries
+       the separation instead. */
+    .course-row {
+        margin-top: 32px;
+        flex-wrap: wrap !important;
+        gap: 14px;
+    }
+
+    .course-col {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .course-col::after,
+    .course-col+.course-col::after {
+        display: none !important;
+    }
+
+    .col-blue,
+    .col-orng,
+    .col-grn {
+        width: 100%;
+    }
+
+    .cz-gp-access {
+        font-size: 32px;
+    }
+
+    .cz-gp-life {
+        font-size: 13px;
+    }
+
+    .discover-row h3 {
+        font-size: 32px;
+    }
 }
 
 /* Below 767 the ticket stacks: the premium panel moves under the main
@@ -3003,16 +3146,52 @@ a.login-btn:hover {
         -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
     }
 
-    .golden-pass h3 { font-size: 34px; }
-    .golden-pass h4 { font-size: 11px; letter-spacing: .26em; }
-    .cz-gp-head { gap: 16px; }
-    .cz-gp-crown { width: 48px; height: 48px; }
-    .cz-gp-crown svg { width: 21px; height: 21px; }
-    .get-premium { font-size: 15.5px; margin-top: 34px; padding: 22px 0 26px; }
-    .access-sect { padding: 34px 24px 38px; }
-    .access-sect p { margin-top: 20px; padding: 18px 0 20px; }
-    .cz-gp-access { font-size: 36px; }
-    .discover-row h3 { font-size: 27px; margin-bottom: 40px; }
+    .golden-pass h3 {
+        font-size: 34px;
+    }
+
+    .golden-pass h4 {
+        font-size: 11px;
+        letter-spacing: .26em;
+    }
+
+    .cz-gp-head {
+        gap: 16px;
+    }
+
+    .cz-gp-crown {
+        width: 48px;
+        height: 48px;
+    }
+
+    .cz-gp-crown svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .get-premium {
+        font-size: 15.5px;
+        margin-top: 34px;
+        padding: 22px 0 26px;
+    }
+
+    .access-sect {
+        padding: 34px 24px 38px;
+    }
+
+    .access-sect p {
+        margin-top: 20px;
+        padding: 18px 0 20px;
+    }
+
+    .cz-gp-access {
+        font-size: 36px;
+    }
+
+    .discover-row h3 {
+        font-size: 27px;
+        margin-bottom: 40px;
+    }
 }
 
 /* ---- Advanced Program cards ------------------------------------------------ */
@@ -3199,7 +3378,7 @@ a.login-btn:hover {
     box-shadow: var(--shadow-violet);
 }
 
-.hire-talent > * {
+.hire-talent>* {
     position: relative;
     z-index: 1;
 }
@@ -3258,76 +3437,483 @@ a.login-btn:hover {
     box-shadow: var(--shadow-violet-soft);
 }
 
-/* ---- Footer ----------------------------------------------------------------------- */
+/* ---- Footer -----------------------------------------------------------------
+   The footer is the last movement of the page, not an appendix bolted to the
+   bottom of it. Three things make it read that way:
+
+   1. It opens on --stop-footer, the exact colour the section above dissolves
+      into, so there is no edge to notice — only the moment the surface has
+      finished going dark again.
+   2. It runs the same aurora system as the hero and Explore Programs, on the
+      same co-prime drift periods, held in the blue/indigo end of the palette
+      so it settles rather than restates.
+   3. Its content sits inside one softly-bordered panel with a single vertical
+      rule separating the brand column from the link columns. The panel edge —
+      not a change of background — is what marks the footer as a distinct
+      region, which is a much quieter signal than a hard band of colour.
+
+   Type scale: 15px headings (was 24px, which competed with page headings),
+   14.5px links at 62% white, 13.5px addresses. The hierarchy is carried by
+   weight and opacity, not size, because every item here is secondary. */
 
 footer.site-footer {
     position: relative;
     isolation: isolate;
     overflow: hidden;
+    background: linear-gradient(180deg,
+            var(--stop-footer) 0%,
+            #251B46 34%,
+            #1F1740 68%,
+            #241A48 100%);
+    padding: 96px 0 0;
 }
 
+/* The gradient hairline that used to sit across the very top edge is gone —
+   it was drawing the seam this pass is meant to erase. */
 footer.site-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: min(420px, 70%);
-    height: 2px;
-    transform: translateX(-50%);
-    background: var(--grad-brand);
-    border-radius: 999px;
-    box-shadow: 0 0 50px 12px rgba(179, 91, 243, .45);
+    content: none;
 }
 
+/* ---- Aurora --------------------------------------------------------------- */
+footer.site-footer .cz-aurora-layer {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+footer.site-footer .cz-blob-1 {
+    background: radial-gradient(closest-side, rgba(139, 92, 246, .28), transparent 72%);
+    width: 62%;
+    height: 74%;
+    top: -18%;
+    left: -8%;
+    filter: blur(80px);
+    animation: cz-aurora-1 37s ease-in-out infinite;
+}
+
+footer.site-footer .cz-blob-2 {
+    background: radial-gradient(closest-side, rgba(133, 8, 225, .26), transparent 72%);
+    width: 58%;
+    height: 68%;
+    bottom: -18%;
+    right: -8%;
+    filter: blur(90px);
+    animation: cz-aurora-2 43s ease-in-out infinite;
+}
+
+footer.site-footer .cz-blob-3 {
+    background: radial-gradient(closest-side, rgba(93, 141, 240, .2), transparent 72%);
+    width: 66%;
+    height: 60%;
+    top: 22%;
+    left: 24%;
+    filter: blur(95px);
+    animation: cz-aurora-3 53s ease-in-out infinite;
+}
+
+footer.site-footer .cz-aurora-waves {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(78deg, transparent 0 44px, rgba(255, 255, 255, .028) 44px 45px, transparent 45px 104px),
+        repeating-linear-gradient(102deg, transparent 0 62px, rgba(139, 92, 246, .05) 62px 63px, transparent 63px 140px);
+    animation: cz-wave-drift 90s linear infinite;
+}
+
+/* The aurora is faded in over the first 200px so the drifting light does not
+   suddenly switch on at the boundary — it arrives with the surface. */
+footer.site-footer .cz-aurora-layer,
+footer.site-footer .cz-aurora-waves {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 200px);
+    mask-image: linear-gradient(180deg, transparent 0, #000 200px);
+}
+
+footer.site-footer .container,
+footer.site-footer .copyright-sect {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    footer.site-footer .cz-aurora-layer,
+    footer.site-footer .cz-aurora-waves {
+        animation: none;
+    }
+}
+
+/* ---- Panel ---------------------------------------------------------------- */
+footer.site-footer>.container {
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, .022);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    padding: 56px 56px 48px;
+}
+
+/* ---- Columns --------------------------------------------------------------
+   Brand column is 1.5x a link column and carries the only vertical rule on
+   the page — the divider marks "identity | navigation", which is a real
+   distinction, rather than decorating every column boundary equally. */
 .ftr-wrapper {
     display: grid;
-    grid-template-columns: 1.3fr repeat(4, 1fr);
-    gap: 40px;
+    grid-template-columns: 1.55fr repeat(4, 1fr);
+    gap: 0 44px;
+    align-items: start;
 }
 
 .ftr-wrapper .ftr-col {
     max-width: none;
+    position: relative;
 }
 
-@media (max-width: 991px) {
-    .ftr-wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .ftr-wrapper .ftr-logo {
-        grid-column: span 2;
-    }
+.ftr-wrapper .ftr-logo {
+    padding-right: 44px;
 }
 
-@media (max-width: 600px) {
-    .ftr-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .ftr-wrapper .ftr-logo {
-        grid-column: span 1;
-    }
-
-    /* Footer link rows measured 19-20px tall on a touch viewport — the
-       theme relies on line-height alone with no tap padding. Below the
-       ~44px recommended minimum, mis-taps are a near-certainty on a real
-       phone. Padding is added on the <a> itself (not the <li>) so the
-       enlarged tap area stays inside the row instead of pushing every
-       column taller. */
-    .ftr-col ul li a,
-    .ftr-social ul li a {
-        display: inline-flex;
-        align-items: center;
-        min-height: 44px;
-        padding: 4px 0;
-    }
-
-    .ftr-social ul li a {
-        min-width: 44px;
-        justify-content: center;
-    }
+.ftr-wrapper .ftr-logo::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(255, 255, 255, .13) 12%,
+            rgba(255, 255, 255, .13) 76%,
+            transparent 100%);
 }
 
+/* ---- Brand column --------------------------------------------------------- */
+.ftr-col.ftr-logo>a {
+    display: inline-block;
+    margin-bottom: 26px;
+}
+
+.ftr-col.ftr-logo>a img {
+    max-width: 168px;
+    height: auto;
+}
+
+.ftr-col .short-txt {
+    font-family: "DM Sans", sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    line-height: 1.62;
+    color: rgba(255, 255, 255, .58);
+    margin: 0 0 30px;
+}
+
+/* Two registered offices, one after the other. The label is set small and
+   lilac, the company name in white — so each block reads as
+   "label / name / address" without needing rules or bullets.
+
+   Selected on the inline colour rather than on position: the markup gives the
+   labels `style="color:#6E25A4"` and the names `style="color:#fffff"` (a
+   five-digit hex the browser discards, which is why the names were never
+   actually white). Matching the attribute value keeps the two roles apart
+   even though both elements carry a style attribute — `strong[style]` alone
+   matched both and pushed the company names into 10px uppercase. */
+.ftr-col .short-txt strong[style*="6E25A4"] {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--cz-lilac) !important;
+    margin-bottom: 5px;
+}
+
+.ftr-col .short-txt strong[style*="fffff"] {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    text-transform: none;
+    color: #fff !important;
+    margin-bottom: 3px;
+}
+
+.ftr-col .short-txt a {
+    color: rgba(255, 255, 255, .78);
+}
+
+/* ---- Newsletter -----------------------------------------------------------
+   A dark glass field rather than the theme's light-grey pill, which read as a
+   foreign control dropped onto a dark surface. The button sits inside the
+   field's padding so the whole thing is one object. */
+.ftr-col.ftr-logo>strong {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: #fff;
+    margin: 0 0 8px;
+}
+
+.ftr-col.ftr-logo p {
+    font-family: "DM Sans", sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .55);
+    margin: 0 0 16px;
+    max-width: 320px;
+}
+
+.ftr-col.ftr-logo p strong {
+    font-weight: 600;
+    color: rgba(255, 255, 255, .75);
+}
+
+.nwsletr-form form {
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 14px;
+    padding: 5px 5px 5px 6px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+    max-width: 340px;
+    transition: border-color .3s var(--ease-premium), background .3s var(--ease-premium);
+}
+
+.nwsletr-form form:focus-within {
+    border-color: rgba(179, 91, 243, .55);
+    background: rgba(255, 255, 255, .07);
+}
+
+.nwsletr-form form input[type="email"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    padding: 0 10px;
+    height: 40px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.nwsletr-form form input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, .48);
+}
+
+.nwsletr-form input[type="email"]:focus {
+    outline: none;
+    /* The field is a child of the form; the focus ring lives on the form so
+       the whole control lights up as one object. */
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.nwsletr-form form input[type="submit"] {
+    flex: 0 0 auto;
+    background-image: var(--grad-brand-deep);
+    background-size: 175% 100%;
+    background-position: 0 0;
+    border: 0;
+    border-radius: 10px;
+    height: 40px;
+    padding: 0 20px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background-position .3s var(--ease-premium), box-shadow .3s var(--ease-premium);
+}
+
+.nwsletr-form form input[type="submit"]:hover {
+    transform: none;
+    background-image: var(--grad-brand-deep-hover);
+    background-position: 100% 0;
+    box-shadow: 0 6px 20px -8px rgba(133, 8, 225, .9);
+}
+
+/* ---- Link columns ---------------------------------------------------------
+   Each heading carries a short lilac rule beneath it. Four identical rules
+   across four columns is a pattern, not decoration: it tells the reader these
+   four blocks are peers, which the differing list lengths otherwise obscure. */
+.ftr-col h4 {
+    position: relative;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -.01em;
+    color: #fff;
+    margin: 0 0 26px;
+    padding-bottom: 12px;
+}
+
+.ftr-col h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 26px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--cz-violet), var(--cz-lilac));
+}
+
+.ftr-col ul li {
+    margin: 0 0 14px;
+    line-height: 1.4;
+}
+
+.ftr-col ul li:last-child {
+    margin-bottom: 0;
+}
+
+.ftr-col ul li a {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14.5px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, .62);
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.ftr-col ul li a:hover,
+.ftr-social ul li a:hover {
+    color: #fff;
+}
+
+/* ---- Social + app row ------------------------------------------------------ */
+.ftr-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin: 48px 0 0;
+    padding: 28px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, .07);
+}
+
+.ftr-apps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 22px;
+}
+
+.ftr-apps p {
+    font-family: "DM Sans", sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, .45);
+    margin: 0;
+    letter-spacing: .2px;
+}
+
+.ftr-apps ul {
+    gap: 0 12px;
+    align-items: center;
+}
+
+.ftr-apps ul li img {
+    height: 38px;
+    width: auto;
+    border-radius: 8px;
+    opacity: .9;
+    transition: opacity .2s ease;
+}
+
+.ftr-apps ul li img:hover {
+    opacity: 1;
+}
+
+.ftr-social ul {
+    gap: 0 12px;
+    align-items: center;
+}
+
+.ftr-social ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(255, 255, 255, .04);
+    color: rgba(255, 255, 255, .75);
+    font-size: 18px;
+    transition: transform .3s var(--ease-premium), border-color .3s ease, background .3s ease, color .3s ease;
+}
+
+.ftr-social ul li a:hover {
+    transform: translateY(-3px);
+    border-color: rgba(179, 91, 243, .45);
+    background: rgba(179, 91, 243, .12);
+    color: #fff;
+}
+
+/* ---- Payment strip ---------------------------------------------------------
+   The partner marks are supplied as dark-on-white raster logos, so they get
+   light chips rather than being inverted — a mangled logo reads as a bug, and
+   these are other companies' marks. */
+.copyright-sect {
+    border-top: 1px solid rgba(255, 255, 255, .07);
+    padding: 26px 0 30px;
+    margin: 56px 0 0;
+    background: rgba(0, 0, 0, .18);
+}
+
+.ftr-btm-sect {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 14px 26px;
+}
+
+.ftr-btm-sect p {
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, .45);
+    margin: 0;
+}
+
+.ftr-btm-sect ul {
+    gap: 10px 12px;
+}
+
+.ftr-btm-sect ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .93);
+    box-shadow: 0 2px 8px -4px rgba(0, 0, 0, .5);
+}
+
+.ftr-btm-sect ul li img {
+    max-height: 22px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ---- Reveal ----------------------------------------------------------------- */
 .cz-reveal {
     opacity: 0;
     filter: blur(6px);
@@ -3341,96 +3927,111 @@ footer.site-footer::before {
     transform: translateY(0);
 }
 
-.ftr-wrapper .ftr-col:nth-child(1) { transition-delay: 0s; }
-.ftr-wrapper .ftr-col:nth-child(2) { transition-delay: .1s; }
-.ftr-wrapper .ftr-col:nth-child(3) { transition-delay: .2s; }
-.ftr-wrapper .ftr-col:nth-child(4) { transition-delay: .3s; }
-.ftr-wrapper .ftr-col:nth-child(5) { transition-delay: .4s; }
-
-/* Footer carries the same aurora language as the hero, held in the deep
-   blue/indigo end of the palette so it reads as the page settling rather
-   than restating the hero. Same drift durations, so the whole page shares
-   one continuous sense of motion. */
-footer.site-footer {
-    background:
-        linear-gradient(200deg, #241A44 0%, #291E46 35%, #1E1740 68%, #2A1F52 100%);
+.ftr-wrapper .ftr-col:nth-child(1) {
+    transition-delay: 0s;
 }
 
-footer.site-footer .cz-aurora-layer {
-    position: absolute;
-    z-index: 0;
-    pointer-events: none;
-    will-change: transform;
+.ftr-wrapper .ftr-col:nth-child(2) {
+    transition-delay: .1s;
 }
 
-footer.site-footer .cz-blob-1 {
-    background: radial-gradient(closest-side, rgba(93, 141, 240, .26), transparent 72%);
-    width: 62%; height: 70%; top: -14%; left: -8%;
-    filter: blur(75px);
-    animation: cz-aurora-1 37s ease-in-out infinite;
+.ftr-wrapper .ftr-col:nth-child(3) {
+    transition-delay: .2s;
 }
 
-footer.site-footer .cz-blob-2 {
-    background: radial-gradient(closest-side, rgba(133, 8, 225, .24), transparent 72%);
-    width: 58%; height: 65%; bottom: -16%; right: -8%;
-    filter: blur(85px);
-    animation: cz-aurora-2 43s ease-in-out infinite;
+.ftr-wrapper .ftr-col:nth-child(4) {
+    transition-delay: .3s;
 }
 
-footer.site-footer .cz-blob-3 {
-    background: radial-gradient(closest-side, rgba(110, 37, 164, .22), transparent 72%);
-    width: 65%; height: 60%; top: 25%; left: 22%;
-    filter: blur(90px);
-    animation: cz-aurora-3 53s ease-in-out infinite;
+.ftr-wrapper .ftr-col:nth-child(5) {
+    transition-delay: .4s;
 }
 
-footer.site-footer .cz-aurora-waves {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-        repeating-linear-gradient(78deg, transparent 0 44px, rgba(255, 255, 255, .03) 44px 45px, transparent 45px 104px),
-        repeating-linear-gradient(102deg, transparent 0 62px, rgba(93, 141, 240, .05) 62px 63px, transparent 63px 140px);
-    animation: cz-wave-drift 90s linear infinite;
+/* ---- Footer responsive ------------------------------------------------------ */
+@media (max-width: 1199px) {
+    footer.site-footer>.container {
+        padding: 44px 40px 40px;
+    }
+
+    .ftr-wrapper {
+        gap: 0 32px;
+    }
+
+    .ftr-wrapper .ftr-logo {
+        padding-right: 32px;
+    }
 }
 
-footer.site-footer .container,
-footer.site-footer .copyright-sect {
-    position: relative;
-    z-index: 1;
+@media (max-width: 991px) {
+    footer.site-footer {
+        padding-top: 72px;
+    }
+
+    footer.site-footer>.container {
+        padding: 40px 32px 36px;
+        border-radius: 24px;
+    }
+
+    .ftr-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 32px;
+    }
+
+    .ftr-wrapper .ftr-logo {
+        grid-column: span 2;
+        padding-right: 0;
+        padding-bottom: 36px;
+        border-bottom: 1px solid rgba(255, 255, 255, .09);
+    }
+
+    /* The vertical rule only means "identity | navigation" while the two sit
+       side by side. Stacked, that job passes to the horizontal rule above. */
+    .ftr-wrapper .ftr-logo::after {
+        content: none;
+    }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    footer.site-footer .cz-aurora-layer,
-    footer.site-footer .cz-aurora-waves { animation: none; }
-}
+@media (max-width: 600px) {
+    footer.site-footer {
+        padding-top: 56px;
+    }
 
-.nwsletr-form input[type="email"] {
-    transition: box-shadow .35s var(--ease-premium), border-color .35s var(--ease-premium);
-}
+    footer.site-footer>.container {
+        padding: 32px 22px 30px;
+        border-radius: 20px;
+    }
 
-.nwsletr-form input[type="email"]:focus {
-    outline: none;
-    border-color: var(--cz-lilac);
-    box-shadow: 0 0 0 3px rgba(179, 91, 243, .25);
-}
+    .ftr-wrapper {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
 
-.nwsletr-form input[type="submit"] {
-    transition: transform .3s var(--ease-premium), box-shadow .3s var(--ease-premium);
-}
+    .ftr-wrapper .ftr-logo {
+        grid-column: span 1;
+    }
 
-.nwsletr-form input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-violet-soft);
-}
+    /* Footer link rows measured 19-20px tall on a touch viewport — the theme
+       relies on line-height alone with no tap padding. Below the ~44px
+       recommended minimum, mis-taps are a near-certainty on a real phone. */
+    .ftr-col ul li {
+        margin-bottom: 2px;
+    }
 
-.ftr-social ul li a {
-    transition: transform .3s var(--ease-premium);
-}
+    .ftr-col ul li a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 4px 0;
+    }
 
-.ftr-social ul li a:hover {
-    transform: translateY(-3px);
+    .ftr-info {
+        justify-content: flex-start;
+        margin-top: 36px;
+    }
+
+    .nwsletr-form form {
+        max-width: 100%;
+    }
 }
 
 /* ---- Custom SVG iconography (replaces icon-font glyphs everywhere) ------------------
@@ -3470,7 +4071,7 @@ footer.site-footer .copyright-sect {
 }
 
 /* Nav dropdown caret */
-.main-navigation ul.menu.nav-menu li.menu-item-has-children > a::after {
+.main-navigation ul.menu.nav-menu li.menu-item-has-children>a::after {
     content: '';
     display: inline-block;
     width: .62em;
@@ -3551,20 +4152,36 @@ footer.site-footer .copyright-sect {
     vertical-align: -0.14em;
 }
 
+/* `color: transparent` used to sit on these alongside `background-color:
+   currentColor`, which resolves the fill to transparent — the three social
+   icons rendered as empty boxes. The <i> carries no text (the glyph came from
+   a font file that is a 83-byte stub), so there is nothing to hide: dropping
+   the transparent colour lets the mask take the anchor's colour and follow its
+   hover state for free. */
 .ftr-social i.fa-instagram,
 .ftr-social i.fa-linkedin,
 .ftr-social i.fa-facebook {
     display: inline-block;
     width: 1em;
     height: 1em;
-    color: transparent;
     background-color: currentColor;
     vertical-align: -0.14em;
 }
 
-.ftr-social i.fa-instagram { -webkit-mask: var(--icon-instagram) center / contain no-repeat; mask: var(--icon-instagram) center / contain no-repeat; }
-.ftr-social i.fa-linkedin  { -webkit-mask: var(--icon-linkedin) center / contain no-repeat; mask: var(--icon-linkedin) center / contain no-repeat; }
-.ftr-social i.fa-facebook  { -webkit-mask: var(--icon-facebook) center / contain no-repeat; mask: var(--icon-facebook) center / contain no-repeat; }
+.ftr-social i.fa-instagram {
+    -webkit-mask: var(--icon-instagram) center / contain no-repeat;
+    mask: var(--icon-instagram) center / contain no-repeat;
+}
+
+.ftr-social i.fa-linkedin {
+    -webkit-mask: var(--icon-linkedin) center / contain no-repeat;
+    mask: var(--icon-linkedin) center / contain no-repeat;
+}
+
+.ftr-social i.fa-facebook {
+    -webkit-mask: var(--icon-facebook) center / contain no-repeat;
+    mask: var(--icon-facebook) center / contain no-repeat;
+}
 
 /* ---- Popup form polish (uses existing markup/classes from custom.css) --------------- */
 
@@ -3592,4 +4209,87 @@ footer.site-footer .copyright-sect {
 
 .cz-magnet {
     will-change: transform;
+}
+/* ==========================================================================
+   SYSTEM CONSISTENCY PASS
+   ==========================================================================
+   Final audit. Everything below exists because a component was drawing from
+   outside the shared scales — mostly leftovers from the original theme, whose
+   entire vocabulary was "8px radius, no shadow". They are mapped onto the
+   --r-* and --elev-* tokens rather than being given fresh one-off values, so
+   the next change to a token moves all of them together.
+
+   Roles, for reference:
+     --r-control  buttons, inputs, small pressable things
+     --r-chip     tiles, badges, icon wells, filter controls
+     --r-card     media cards, list items
+     --r-panel    the largest surfaces: cards with their own internal layout
+   ========================================================================== */
+
+/* Panels ------------------------------------------------------------------- */
+.cz-ticket,
+.counter-section,
+footer.site-footer>.container {
+    border-radius: var(--r-panel);
+}
+
+/* Cards -------------------------------------------------------------------- */
+/* Advanced Programs, testimonials and articles were all still on the theme's
+   flat 8px-and-no-shadow treatment while every card above them had moved to
+   28px on the elevation scale — the single largest remaining inconsistency on
+   the page, and the reason the lower half read as a different site. */
+.program-col,
+.testimonial-sect .owl-item li,
+.articl-col,
+.hire-talent {
+    border-radius: var(--r-panel);
+}
+
+.program-col,
+.articl-col {
+    box-shadow: var(--elev-2);
+    transition: transform .35s var(--ease-premium), box-shadow .35s var(--ease-premium);
+}
+
+.program-col:hover,
+.articl-col:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--elev-3);
+}
+
+.hire-talent {
+    box-shadow: var(--elev-3);
+}
+
+/* Media inside a card inherits the card's corner, minus the padding, so the
+   image never squares off inside a rounded frame. */
+.articl-col>img,
+.articl-col .articl-img img,
+.testimonial-sect .studnt-img {
+    border-radius: var(--r-card);
+}
+
+/* Chips and controls -------------------------------------------------------- */
+.tab-wrapper ul.nav-pills li a {
+    border-radius: var(--r-chip);
+}
+
+.ftr-btm-sect ul li {
+    border-radius: var(--r-control);
+}
+
+/* Focus ---------------------------------------------------------------------
+   One visible ring for every interactive element on the page. The theme
+   shipped none, which on a page this long makes keyboard navigation
+   impossible to follow. Offset so the ring reads outside the element's own
+   border on both light and dark fields. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--cz-lilac);
+    outline-offset: 3px;
+    border-radius: var(--r-control);
 }
