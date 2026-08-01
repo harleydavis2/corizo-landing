@@ -7,7 +7,14 @@
       "Bash(awk 'NR==31' index.html)",
       "Bash(xxd)",
       "WebSearch",
-      "Bash(awk '/<div class=\"tab-pane/{name=$0; count=0; capture=1} capture && /<li>/{count++} /<\\\\/ul>/{if\\(capture\\){print name\" => \"count; capture=0}}' index.html)"
+      "Bash(awk '/<div class=\"tab-pane/{name=$0; count=0; capture=1} capture && /<li>/{count++} /<\\\\/ul>/{if\\(capture\\){print name\" => \"count; capture=0}}' index.html)",
+      "Bash(grep -n \"^/\\\\* \\\\|^/\\\\*=\\\\|^  ==\\\\|^\\\\/\\\\* =\" assets/premium/premium.css)",
+      "Bash(awk '/^\\\\.tab-img-sect|^\\\\.tab-prodcts|^\\\\.prog-admin|^\\\\.tab-more-btn|^\\\\.select-tabs|^\\\\.pro-pack|^\\\\.bg-discover|^\\\\.bg-colord|^\\\\.bg-image/{p=1} p{print NR\": \"$0} /^}/{if\\(p\\)p=0}' assets/wp-content/themes/techglobiz/style.css)",
+      "Bash(python -)",
+      "Bash(grep -n \"Hero + brand strip: one continuous canvas\\\\|^\\\\.hero-section\\\\|^\\\\.brands-sect\\\\|^\\\\.bnr_caption\\\\|^/\\\\* ---- Brand-logo marquee\" assets/premium/premium.css)",
+      "Bash(grep -n \"^\\\\.brands-sect\\\\|^/\\\\* ---- Animated aurora\" assets/premium/premium.css)",
+      "Bash(grep -n \"^/\\\\* ---- Explore Programs\\\\|^/\\\\* ---- Explore Programs tabs\\\\|^/\\\\* ---- Pro Packs ticker\\\\|^/\\\\* ---- Gold Pass section\" assets/premium/premium.css)",
+      "Bash(python -c ' *)"
     ]
   }
 }
