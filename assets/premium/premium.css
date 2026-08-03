@@ -54,8 +54,34 @@
     --stop-gold: #05030C;
     /* gold pass → light zone */
     --stop-light: #F2F2FE;
+    /* the shelf the footer sits on. The light zone deepens into this over its
+       last 300px; the footer's rounded top corners are cut against it. It is a
+       tinted step off --stop-light, not a new hue, so the deepening reads as
+       the light zone settling rather than as another band. */
+    --stop-shelf: #DCD8F2;
     /* light zone → footer */
     --stop-footer: #241A44;
+
+    /* ---- Section overlay edge fade ----------------------------------------
+       The base gradients already hand off on matching colours, but every
+       section also carries overlay layers — drifting aurora blobs, the
+       topographic wave grid, film grain, ambient washes — and each of those
+       lives inside a section with `overflow: hidden`. Unmasked, they are cut
+       flat at the section edge: the surface colour flows through the boundary
+       while the *texture on top of it* switches off in one pixel row. That
+       edge is the line you still see after the colours already match.
+
+       This fades every such layer in at the top of its section and out at the
+       bottom, so the texture arrives and leaves instead of starting and
+       stopping. Length is min()-based on purpose: a fixed 170px would swallow
+       a short band like the Pro Packs strip whole, and a bare percentage would
+       give a 2200px section an absurd 600px ramp. */
+    --edge-fade-len: min(170px, 28%);
+    --edge-fade: linear-gradient(180deg,
+            transparent 0,
+            #000 var(--edge-fade-len),
+            #000 calc(100% - var(--edge-fade-len)),
+            transparent 100%);
 
     /* ---- Radius scale ------------------------------------------------------
        Four steps, applied by role rather than by section: controls, chips,
@@ -151,8 +177,22 @@
    are fixed individually below; this is the backstop so no future breakpoint
    can reintroduce a horizontal scrollbar.
    `clip` rather than `hidden` on purpose: `hidden` would turn <html> into a
-   scroll container and break the sticky header. */
+   scroll container and break the sticky header.
+
+   The guard has to be on <body> as well, and this is not belt-and-braces. The
+   root element's overflow is *propagated to the viewport*, and the viewport
+   applies it per the used values of both axes — so `overflow-x: clip` sitting
+   next to an untouched `overflow-y: visible` on <html> alone did not actually
+   clip: the page stayed horizontally scrollable by 173px at 768px, dragged out
+   by the off-canvas cart drawer and the legacy menu wrapper. Because <body>'s
+   overflow is not propagated, declaring it here is what does the clipping.
+   Verified: no element on the page uses `position: sticky`, so neither
+   declaration can strand one. */
 html {
+    overflow-x: clip;
+}
+
+body {
     overflow-x: clip;
 }
 
@@ -836,6 +876,30 @@ body {
     background-color: var(--stop-hero);
 }
 
+/* Every section-level overlay layer, faded at both ends by one shared token.
+   These are grouped rather than declared per component so a new section cannot
+   be added with a hard-terminating texture: the layer classes are the contract.
+
+   Blobs are included even though most of them sit mid-section and never reach
+   an edge. It costs them nothing — they are radial gradients that already run
+   to `transparent 72%` well inside their own box, so fading the outer band
+   removes the clipped ones' straight edge without visibly dimming the rest.
+
+   The washes and blobs drift on transforms, so their mask drifts with them by
+   a few percent. On a ramp this soft that is not perceivable, and it is
+   strictly better than the hard cut it replaces. */
+.cz-dark-texture::before,
+.cz-dark-texture::after,
+.cz-aurora-layer,
+.cz-gp-layer,
+.cz-aurora-waves,
+.cz-gp-waves,
+.cz-gp-grain,
+.cz-hero-bridge+.bg-colord::before {
+    -webkit-mask-image: var(--edge-fade);
+    mask-image: var(--edge-fade);
+}
+
 /* ---- Movement 1: the dark field -------------------------------------------
    hero → brand strip → proof → programs → packs → gold pass */
 
@@ -1431,10 +1495,11 @@ a.login-btn:hover {
     background-image:
         repeating-linear-gradient(78deg, transparent 0 38px, rgba(255, 255, 255, .035) 38px 39px, transparent 39px 92px),
         repeating-linear-gradient(102deg, transparent 0 54px, rgba(179, 91, 243, .05) 54px 55px, transparent 55px 128px);
-    /* Fades out at both ends so the wave texture never terminates on an edge
-       — the same trick the hero grid uses at the bridge. */
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 84%, transparent 100%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 84%, transparent 100%);
+    /* Fades out at both ends so the wave texture never terminates on an edge.
+       Was a bespoke 12%/84% ramp; now the shared --edge-fade, so this section
+       and every other one soften by the same amount. */
+    -webkit-mask-image: var(--edge-fade);
+    mask-image: var(--edge-fade);
     animation: cz-wave-drift 90s linear infinite;
 }
 
@@ -2133,16 +2198,26 @@ a.login-btn:hover {
 }
 
 /* ---- Pro Packs ticker ------------------------------------------------------
-   Restores the original design: a full-bleed black band hairlined top and
-   bottom, carrying centred white labels separated by a small diamond. The
-   separator is a custom SVG (was a raster txt-subtract.png) so it stays
-   crisp at any density and can be tinted from the palette. */
+   A full-bleed ticker carrying centred white labels separated by a small
+   diamond. The separator is a custom SVG (was a raster txt-subtract.png) so
+   it stays crisp at any density and can be tinted from the palette.
+
+   It used to be painted #000 and hairlined top and bottom in rgba(221,227,227,.35)
+   — two light rules running the full width of a dark page, which were the most
+   literal section-separator lines on the site. The band now *deepens* the field
+   instead of replacing it: a translucent darkening that fades to nothing at both
+   its own edges, so the ticker reads as a denser passage of the same surface and
+   owns no edge of its own. Vertical fade is the background gradient; horizontal
+   fade stays on the mask. */
 
 #marquee-slider {
-    background: #000;
-    border-top: 1px solid rgba(221, 227, 227, .35);
-    border-bottom: 1px solid rgba(221, 227, 227, .35);
-    padding: 16px 0;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(0, 0, 0, .34) 24%,
+            rgba(0, 0, 0, .34) 76%,
+            transparent 100%);
+    border: 0;
+    padding: 22px 0;
     /* the band itself is edge-to-edge; only the labels fade at the edges */
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
@@ -2325,6 +2400,15 @@ a.login-btn:hover {
     padding-bottom: 260px;
 }
 
+/* The lower page used to ramp all the way down to --stop-footer, which was
+   correct while the footer was a flush dark slab: both sides of the boundary
+   were the same pixel value, so there was nothing to see.
+
+   The footer now has rounded top corners, and a rounded corner is only a
+   corner if something different shows through it. So the ramp stops at
+   --stop-shelf — a soft lavender a single step off the light zone. The footer
+   is cut against that: the corners read clearly, while the approach to them
+   stays a slow deepening of the light surface rather than a hard edge. */
 .bg-discover+.bg-colord::after {
     content: '';
     position: absolute;
@@ -2336,10 +2420,9 @@ a.login-btn:hover {
     pointer-events: none;
     background: linear-gradient(180deg,
             transparent 0%,
-            rgba(196, 190, 232, .38) 30%,
-            rgba(108, 92, 168, .6) 58%,
-            rgba(48, 36, 96, .9) 82%,
-            var(--stop-footer) 100%);
+            rgba(232, 229, 248, .55) 34%,
+            rgba(224, 220, 245, .8) 64%,
+            var(--stop-shelf) 100%);
 }
 
 
@@ -3447,10 +3530,13 @@ a.login-btn:hover {
    2. It runs the same aurora system as the hero and Explore Programs, on the
       same co-prime drift periods, held in the blue/indigo end of the palette
       so it settles rather than restates.
-   3. Its content sits inside one softly-bordered panel with a single vertical
-      rule separating the brand column from the link columns. The panel edge —
-      not a change of background — is what marks the footer as a distinct
-      region, which is a much quieter signal than a hard band of colour.
+   3. The footer surface *is* the container. It was previously a flush slab
+      holding a floating glass card — a bordered, 30px-radius panel inset on
+      all four sides, which read as a component parked at the bottom of the
+      page rather than as the page's own ending. The rounding now belongs to
+      the surface: rounded at the top, square at the bottom, running to the
+      last pixel of the document. A footer closed on all four sides floats; one
+      that is open at the bottom is anchored.
 
    Type scale: 15px headings (was 24px, which competed with page headings),
    14.5px links at 62% white, 13.5px addresses. The hierarchy is carried by
@@ -3465,7 +3551,20 @@ footer.site-footer {
             #251B46 34%,
             #1F1740 68%,
             #241A48 100%);
-    padding: 96px 0 0;
+    /* Top only. The bottom stays square so the surface runs off the end of the
+       document instead of closing back on itself. */
+    border-radius: 44px 44px 0 0;
+    /* Load-bearing, and equal to the radius by construction. Outside a rounded
+       corner you see whatever is *behind* the element — which for a normal-flow
+       block is the body, i.e. --stop-hero, near-black. Un-offset, the corners
+       would cut two dark notches into the lavender shelf. Pulling the footer up
+       by exactly its own radius puts the corner cut over the tail of the light
+       zone instead, so what shows through is --stop-shelf. Change the radius at
+       any breakpoint and this must move with it. */
+    margin-top: -44px;
+    /* Lifts the corner cut off the shelf without drawing a line along it. */
+    box-shadow: 0 -24px 60px -30px rgba(36, 26, 68, .45);
+    padding: 92px 0 0;
 }
 
 /* The gradient hairline that used to sit across the very top edge is gone —
@@ -3523,12 +3622,14 @@ footer.site-footer .cz-aurora-waves {
     animation: cz-wave-drift 90s linear infinite;
 }
 
-/* The aurora is faded in over the first 200px so the drifting light does not
-   suddenly switch on at the boundary — it arrives with the surface. */
+/* The aurora arrives with the surface rather than switching on at the
+   boundary. This was a top-only 200px fade-in; it now uses the shared
+   --edge-fade, which also lets the drift settle out across the last screen of
+   the page instead of running at full strength into the final pixel row. */
 footer.site-footer .cz-aurora-layer,
 footer.site-footer .cz-aurora-waves {
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 200px);
-    mask-image: linear-gradient(180deg, transparent 0, #000 200px);
+    -webkit-mask-image: var(--edge-fade);
+    mask-image: var(--edge-fade);
 }
 
 footer.site-footer .container,
@@ -3545,14 +3646,19 @@ footer.site-footer .copyright-sect {
     }
 }
 
-/* ---- Panel ---------------------------------------------------------------- */
+/* ---- Content well ----------------------------------------------------------
+   No border, no fill, no radius, no backdrop-filter: with the surface itself
+   now shaped, a second shaped box inside it was the "floating card" reading
+   twice over. What remains is pure layout, aligned to the same container
+   width as every other section so the footer's left edge lines up with the
+   page above it. */
 footer.site-footer>.container {
-    border: 1px solid rgba(255, 255, 255, .07);
-    border-radius: 30px;
-    background: rgba(255, 255, 255, .022);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    padding: 56px 56px 48px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    padding: 0 15px 52px;
 }
 
 /* ---- Columns --------------------------------------------------------------
@@ -3562,7 +3668,7 @@ footer.site-footer>.container {
 .ftr-wrapper {
     display: grid;
     grid-template-columns: 1.55fr repeat(4, 1fr);
-    gap: 0 44px;
+    gap: 0 48px;
     align-items: start;
 }
 
@@ -3572,20 +3678,24 @@ footer.site-footer>.container {
 }
 
 .ftr-wrapper .ftr-logo {
-    padding-right: 44px;
+    padding-right: 48px;
 }
 
+/* Sits at the midpoint of the 48px gutter so the rule is optically centred
+   between the two columns rather than crowding the link column. Softened to
+   .10 and faded at both ends over a longer run — it should register as a
+   change of register, not as a drawn line. */
 .ftr-wrapper .ftr-logo::after {
     content: '';
     position: absolute;
-    top: 4px;
+    top: 6px;
     bottom: 0;
-    right: 0;
+    right: 24px;
     width: 1px;
     background: linear-gradient(180deg,
             transparent 0%,
-            rgba(255, 255, 255, .13) 12%,
-            rgba(255, 255, 255, .13) 76%,
+            rgba(255, 255, 255, .10) 18%,
+            rgba(255, 255, 255, .10) 72%,
             transparent 100%);
 }
 
@@ -3795,15 +3905,35 @@ footer.site-footer>.container {
 }
 
 /* ---- Social + app row ------------------------------------------------------ */
+/* The rule above this row was a hard border-top running the full container
+   width. It is now a gradient pseudo-element that fades out at both ends, so
+   it reads as a soft division inside the footer rather than another full-width
+   line drawn across the page. Same treatment as the brand-column divider, so
+   the two dividers in the footer speak with one voice. */
 .ftr-info {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
-    margin: 48px 0 0;
-    padding: 28px 0 0;
-    border-top: 1px solid rgba(255, 255, 255, .07);
+    margin: 52px 0 0;
+    padding: 32px 0 0;
+    border-top: 0;
+}
+
+.ftr-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, .10) 14%,
+            rgba(255, 255, 255, .10) 86%,
+            transparent 100%);
 }
 
 .ftr-apps {
@@ -3869,11 +3999,16 @@ footer.site-footer>.container {
    The partner marks are supplied as dark-on-white raster logos, so they get
    light chips rather than being inverted — a mangled logo reads as a bug, and
    these are other companies' marks. */
+/* The strip used to be marked off by a full-width hairline over a flat
+   rgba(0,0,0,.18) band — a hard-edged rectangle inside a surface that is
+   otherwise all soft gradient. Both are gone. The separation now comes from a
+   gradient that darkens downward from nothing, so the page's last few hundred
+   pixels simply settle, and from the space above it. */
 .copyright-sect {
-    border-top: 1px solid rgba(255, 255, 255, .07);
-    padding: 26px 0 30px;
-    margin: 56px 0 0;
-    background: rgba(0, 0, 0, .18);
+    border-top: 0;
+    padding: 30px 0 34px;
+    margin: 8px 0 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .16) 62%, rgba(0, 0, 0, .22) 100%);
 }
 
 .ftr-btm-sect {
@@ -3950,26 +4085,33 @@ footer.site-footer>.container {
 /* ---- Footer responsive ------------------------------------------------------ */
 @media (max-width: 1199px) {
     footer.site-footer>.container {
-        padding: 44px 40px 40px;
+        padding: 0 15px 46px;
     }
 
     .ftr-wrapper {
-        gap: 0 32px;
+        gap: 0 36px;
     }
 
     .ftr-wrapper .ftr-logo {
-        padding-right: 32px;
+        padding-right: 36px;
+    }
+
+    .ftr-wrapper .ftr-logo::after {
+        right: 18px;
     }
 }
 
 @media (max-width: 991px) {
     footer.site-footer {
         padding-top: 72px;
+        /* Radius scales with the viewport — a 44px corner that is right at
+           1440 reads as a bulge at 768. Offset tracks it. */
+        border-radius: 34px 34px 0 0;
+        margin-top: -34px;
     }
 
     footer.site-footer>.container {
-        padding: 40px 32px 36px;
-        border-radius: 24px;
+        padding: 0 15px 40px;
     }
 
     .ftr-wrapper {
@@ -3981,7 +4123,24 @@ footer.site-footer>.container {
         grid-column: span 2;
         padding-right: 0;
         padding-bottom: 36px;
-        border-bottom: 1px solid rgba(255, 255, 255, .09);
+        position: relative;
+        border-bottom: 0;
+    }
+
+    /* Stacked, the identity/navigation split becomes a horizontal division —
+       same faded-gradient treatment as everywhere else in the footer. */
+    .ftr-wrapper .ftr-logo::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 255, 255, .11) 14%,
+                rgba(255, 255, 255, .11) 86%,
+                transparent 100%);
     }
 
     /* The vertical rule only means "identity | navigation" while the two sit
@@ -3994,11 +4153,12 @@ footer.site-footer>.container {
 @media (max-width: 600px) {
     footer.site-footer {
         padding-top: 56px;
+        border-radius: 26px 26px 0 0;
+        margin-top: -26px;
     }
 
     footer.site-footer>.container {
-        padding: 32px 22px 30px;
-        border-radius: 20px;
+        padding: 0 15px 32px;
     }
 
     .ftr-wrapper {
@@ -4227,9 +4387,12 @@ footer.site-footer>.container {
    ========================================================================== */
 
 /* Panels ------------------------------------------------------------------- */
+/* The footer container is deliberately absent from this group. It is no longer
+   a panel — the footer *surface* carries the shape now (rounded top, square
+   bottom), and re-radiusing the inner container here would quietly rebuild the
+   floating card that shaping was meant to remove. */
 .cz-ticket,
-.counter-section,
-footer.site-footer>.container {
+.counter-section {
     border-radius: var(--r-panel);
 }
 
