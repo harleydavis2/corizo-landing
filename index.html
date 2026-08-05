@@ -1446,12 +1446,53 @@
             font-family: 'Inter', system-ui, sans-serif;
         }
 
-        #cz-grid-canvas {
+        /* ─── DATA-GRID HERO ─────────────────────────────────── */
+        /* Purple gradient palette: 552586 → 6A359C → 804FB3 → 9969C7 → B589D6 */
+        :root {
+            --dgh-c1: #552586;
+            --dgh-c2: #6A359C;
+            --dgh-c3: #804FB3;
+            --dgh-c4: #9969C7;
+            --dgh-c5: #B589D6;
+        }
+
+        @keyframes cell-pulse {
+            from { opacity: var(--opacity-min, 0.05); }
+            to   { opacity: var(--opacity-max, 0.60); }
+        }
+
+        #cz-grid-container {
             position: absolute;
             inset: 0;
             z-index: 0;
             width: 100%;
             height: 100%;
+            display: grid;
+            overflow: hidden;
+            /* Mouse glow: radial highlight that follows cursor */
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+            --mouse-glow-opacity: 1;
+        }
+
+        #cz-grid-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(181, 137, 214, 0.12),
+                transparent 50%
+            );
+            pointer-events: none;
+            z-index: 1;
+            opacity: var(--mouse-glow-opacity);
+            transition: opacity 0.3s ease;
+        }
+
+        .grid-cell {
+            border-radius: 2px;
+            will-change: opacity;
         }
 
         .cz-hero-glow {
@@ -2374,7 +2415,7 @@
 
     <!-- ══ NEW HERO SECTION ═════════════════════════════════════ -->
     <section class="cz-hero" aria-label="Hero section">
-        <canvas id="cz-grid-canvas" aria-hidden="true"></canvas>
+        <div id="cz-grid-container" class="grid-container" aria-hidden="true"></div>
         <div class="cz-hero-glow" aria-hidden="true"></div>
         <div class="cz-hero-glow-br" aria-hidden="true"></div>
         <div class="cz-dot-grid" aria-hidden="true"></div>
@@ -2420,79 +2461,114 @@
 
     <!-- ══ HERO SCRIPTS ══════════════════════════════════════════ -->
     <script>
-        /* ── Canvas wireframe grid ───────────────────────────────── */
+        /* ══ DataGridHero — vanilla JS port ══════════════════════════
+           Palette:  552586 → 6A359C → 804FB3 → 9969C7 → B589D6
+           Settings: rows=18, cols=28, spacing=6px, duration=3s,
+                     animationType="pulse", pulseEffect=true,
+                     mouseGlow=true, opacityMin=0.05, opacityMax=0.60
+        ══════════════════════════════════════════════════════════════ */
         (() => {
-            const canvas = document.getElementById('cz-grid-canvas');
-            const ctx = canvas.getContext('2d');
-            const COLS = 30, ROWS = 22, SPACING = 100, FOCAL = 500, AMPLITUDE = 10;
-            const DPR = Math.min(window.devicePixelRatio || 1, 2);
-            const ROT_X = (62 * Math.PI) / 180;
-            const ROT_Y = (8 * Math.PI) / 180;
-            let W = 0, H = 0, animId = null, startTime = null, pts = [];
+            const container = document.getElementById('cz-grid-container');
+            if (!container) return;
 
-            function initGrid() {
-                pts = [];
-                const offX = ((COLS - 1) * SPACING) / 2, offZ = ((ROWS - 1) * SPACING) / 2;
-                for (let r = 0; r < ROWS; r++)
-                    for (let c = 0; c < COLS; c++)
-                        pts.push({ bx: c * SPACING - offX, by: 0, bz: r * SPACING - offZ });
+            /* ── Config ──────────────────────────────────────────── */
+            const ROWS       = 18;
+            const COLS       = 28;
+            const SPACING    = 6;       /* px gap between cells */
+            const DURATION   = 3;       /* animation duration in seconds */
+            const OPACITY_MIN = 0.05;
+            const OPACITY_MAX = 0.60;
+
+            /* Purple gradient stops: dark plum → bright lilac */
+            const GRADIENT = [
+                '#552586', /* stop 0 – deep plum      */
+                '#6A359C', /* stop 1                  */
+                '#804FB3', /* stop 2 – mid purple     */
+                '#9969C7', /* stop 3                  */
+                '#B589D6'  /* stop 4 – bright lilac   */
+            ];
+
+            /* ── Color interpolation ─────────────────────────────── */
+            function hexToRgb(h) {
+                const v = parseInt(h.replace('#',''), 16);
+                return [(v>>16)&255, (v>>8)&255, v&255];
             }
-            function resize() {
-                W = window.innerWidth; H = window.innerHeight;
-                canvas.width = W * DPR; canvas.height = H * DPR;
-                canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
-                ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+            function lerpColor(t) {
+                /* t in [0,1] — maps across the 5-stop gradient */
+                const idx  = Math.min(Math.floor(t * (GRADIENT.length - 1)), GRADIENT.length - 2);
+                const frac = (t * (GRADIENT.length - 1)) - idx;
+                const a = hexToRgb(GRADIENT[idx]);
+                const b = hexToRgb(GRADIENT[idx + 1]);
+                return [
+                    Math.round(a[0] + (b[0]-a[0]) * frac),
+                    Math.round(a[1] + (b[1]-a[1]) * frac),
+                    Math.round(a[2] + (b[2]-a[2]) * frac)
+                ];
             }
-            function project(pt, t) {
-                const dy = Math.sin(pt.bx * 0.052 + t * 0.48) * AMPLITUDE + Math.sin(pt.bz * 0.078 - t * 0.31) * (AMPLITUDE * 0.52);
-                let x = pt.bx, y = pt.by + dy, z = pt.bz;
-                const cX = Math.cos(ROT_X), sX = Math.sin(ROT_X);
-                let y1 = y * cX - z * sX, z1 = y * sX + z * cX;
-                const cY = Math.cos(ROT_Y), sY = Math.sin(ROT_Y);
-                let x2 = x * cY + z1 * sY, z2 = -x * sY + z1 * cY;
-                const cx = W * 0.5, cy = H * 0.72, depth = FOCAL + z2;
-                if (depth <= 0) return null;
-                const sc = FOCAL / depth;
-                return { sx: cx + x2 * sc, sy: cy + y1 * sc, depth: z2 };
-            }
-            function depthOpacity(z) {
-                const t = (z - (-400)) / (800 - (-400));
-                return 0.55 - Math.max(0, Math.min(1, t)) * 0.51;
-            }
-            function draw(ts) {
-                if (!startTime) startTime = ts;
-                const t = (ts - startTime) / 1000;
-                ctx.clearRect(0, 0, W, H);
-                const proj = pts.map(p => project(p, t));
-                for (let r = 0; r < ROWS; r++) {
-                    for (let c = 0; c < COLS - 1; c++) {
-                        const a = proj[r * COLS + c], b = proj[r * COLS + c + 1];
-                        if (!a || !b) continue;
-                        const op = (depthOpacity(a.depth) + depthOpacity(b.depth)) * 0.5;
-                        if (op < 0.012) continue;
-                        ctx.beginPath(); ctx.moveTo(a.sx, a.sy); ctx.lineTo(b.sx, b.sy);
-                        ctx.strokeStyle = `rgba(139,92,246,${op.toFixed(3)})`; ctx.lineWidth = 1; ctx.stroke();
-                    }
+
+            /* ── Build grid ──────────────────────────────────────── */
+            function buildGrid() {
+                container.innerHTML = '';
+                container.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
+                container.style.gridTemplateRows    = `repeat(${ROWS}, 1fr)`;
+                container.style.gap = `${SPACING}px`;
+
+                const total     = ROWS * COLS;
+                const centerRow = Math.floor(ROWS / 2);
+                const centerCol = Math.floor(COLS / 2);
+                /* max diagonal distance from center — used for color mapping */
+                const maxDist = Math.sqrt(centerRow*centerRow + centerCol*centerCol);
+
+                for (let i = 0; i < total; i++) {
+                    const r  = Math.floor(i / COLS);
+                    const c  = i % COLS;
+                    const dr = r - centerRow;
+                    const dc = c - centerCol;
+
+                    /* Distance from center: cells near center get the bright
+                       lilac end; cells at the edges get the deep plum end. */
+                    const dist = Math.sqrt(dr*dr + dc*dc);
+                    const t    = Math.min(dist / maxDist, 1); /* 0 = center, 1 = edge */
+                    const [rr, gg, bb] = lerpColor(1 - t);   /* invert: center = bright */
+                    const color = `rgb(${rr},${gg},${bb})`;
+
+                    /* Pulse delay — concentric rings from center */
+                    const delay = Math.sqrt(dr*dr + dc*dc) * 0.2;
+
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.style.backgroundColor = color;
+                    cell.style.setProperty('--opacity-min', OPACITY_MIN);
+                    cell.style.setProperty('--opacity-max', OPACITY_MAX);
+                    cell.style.animation      = `cell-pulse ${DURATION}s infinite alternate`;
+                    cell.style.animationDelay = `${delay.toFixed(3)}s`;
+                    container.appendChild(cell);
                 }
-                for (let c = 0; c < COLS; c++) {
-                    for (let r = 0; r < ROWS - 1; r++) {
-                        const a = proj[r * COLS + c], b = proj[(r + 1) * COLS + c];
-                        if (!a || !b) continue;
-                        const op = (depthOpacity(a.depth) + depthOpacity(b.depth)) * 0.5;
-                        if (op < 0.012) continue;
-                        ctx.beginPath(); ctx.moveTo(a.sx, a.sy); ctx.lineTo(b.sx, b.sy);
-                        ctx.strokeStyle = `rgba(139,92,246,${op.toFixed(3)})`; ctx.lineWidth = 1; ctx.stroke();
-                    }
-                }
-                animId = requestAnimationFrame(draw);
             }
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) { cancelAnimationFrame(animId); animId = null; }
-                else { startTime = null; animId = requestAnimationFrame(draw); }
+
+            buildGrid();
+
+            /* ── Mouse-follow glow ───────────────────────────────── */
+            window.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                container.style.setProperty('--mouse-x', `${x}px`);
+                container.style.setProperty('--mouse-y', `${y}px`);
             });
-            resize(); initGrid();
-            window.addEventListener('resize', resize);
-            animId = requestAnimationFrame(draw);
+
+            /* ── Grid scroll parallax ────────────────────────────── */
+            const hero = document.querySelector('.cz-hero');
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (ticking) return;
+                requestAnimationFrame(() => {
+                    const progress = Math.min(window.scrollY / (hero ? hero.offsetHeight : window.innerHeight), 1);
+                    container.style.transform = `translateY(${-(progress * 60).toFixed(1)}px)`;
+                    ticking = false;
+                });
+                ticking = true;
+            }, { passive: true });
         })();
 
         /* ── Navbar scroll ───────────────────────────────────────── */
@@ -2509,27 +2585,6 @@
             requestAnimationFrame(() => requestAnimationFrame(() =>
                 els.forEach(el => el.classList.add('is-visible'))
             ));
-        })();
-
-        /* ── Canvas scroll parallax ─────────────────────────────────────
-           As user scrolls out of the hero, canvas drifts up slightly
-           (up to 60px), giving the 3-D wireframe a sense of receding depth */
-        (() => {
-            const canvas = document.getElementById('cz-grid-canvas');
-            const hero = document.querySelector('.cz-hero');
-            if (!canvas || !hero) return;
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (ticking) return;
-                requestAnimationFrame(() => {
-                    const scrollY = window.scrollY;
-                    const heroH = hero.offsetHeight || window.innerHeight;
-                    const progress = Math.min(scrollY / heroH, 1);
-                    canvas.style.transform = `translateY(${-(progress * 60).toFixed(1)}px)`;
-                    ticking = false;
-                });
-                ticking = true;
-            }, { passive: true });
         })();
     </script>
     <!-- ══ END HERO SCRIPTS ══════════════════════════════════════ -->
